@@ -1,4 +1,4 @@
-package com.example.flymefy
+package com.saedyo45.flymefy
 
 import io.flutter.embedding.android.FlutterActivity
 

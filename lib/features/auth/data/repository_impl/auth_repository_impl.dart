@@ -13,7 +13,6 @@ import 'package:flymefy/features/auth/data/requests/request.dart';
 import 'package:flymefy/features/auth/domain/entity/forget_password.dart';
 import 'package:flymefy/features/auth/domain/entity/register.dart';
 import 'package:flymefy/features/auth/domain/repository/auth_repository.dart';
-
 import '../../../../../core/error/error_handler.dart';
 import '../../../../../core/error/permission.dart';
 import '../../../../../core/service/app_preferance.dart';
