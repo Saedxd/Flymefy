@@ -1,0 +1,126 @@
+name: flymefy
+description: "A Reservations Application"
+
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.3
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.8
+  get: ^4.7.2
+  flutter_svg:
+  pinput: ^1.2.2
+  table_calendar: ^3.0.8
+  audioplayers: ^6.1.0
+  bloc: ^9.0.0
+  bloc_concurrency: ^0.3.0
+  cached_network_image: ^3.3.1
+  calendar_date_picker2: ^1.1.5
+  file_picker: ^8.1.7
+  flutter_pdfview: ^1.4.0
+  carousel_slider: ^5.0.0
+  country_flags: ^3.0.0
+  dartz: ^0.10.1
+  device_info_plus: ^11.2.1
+  device_preview: ^1.2.0
+  dio: ^5.4.3+1
+  envied: ^1.0.1
+  equatable: ^2.0.7
+  expandable: ^5.0.1
+  expandable_text: ^2.3.0
+  firebase_auth: null
+  firebase_core: ^3.10.0
+  firebase_messaging: ^15.1.6
+  fl_chart: ^0.69.2
+  flutter_bloc: ^9.0.0
+  flutter_carousel_slider: ^1.1.0
+  flutter_html: null
+  flutter_local_notifications: ^18.0.1
+  flutter_localizations:
+    sdk: flutter
+  flutter_native_splash: ^2.4.1
+  flutter_otp_text_field: ^1.1.3+2
+  flutter_rating_bar: ^4.0.1
+  flutter_secure_storage: ^10.0.0-beta.4
+  flutter_staggered_grid_view: ^0.7.0
+  formz: ^0.8.0
+  geocoding: ^3.0.0
+  geolocator: ^13.0.2
+  get_it: ^8.0.3
+  google_maps_flutter: ^2.6.1
+  google_sign_in: ^6.2.1
+  google_static_maps_controller: ^1.1.0
+  hyperpay_plugin: ^3.0.0
+  image_picker: ^1.1.0
+  internet_connection_checker_plus: ^2.3.0
+  intl: ^0.19.0
+  intl_mobile_field: ^1.0.2
+  like_button: ^2.0.5
+  lottie: ^3.1.0
+  overlapped_carousel: ^1.0.2
+  percent_indicator: ^4.2.3
+  permission_handler: ^11.3.1
+  photo_view: ^0.15.0
+  pretty_dio_logger: ^1.3.1
+  pusher_channels_flutter: ^2.2.1
+  record: ^5.1.2
+  retrofit: ^4.1.0
+  share_plus: ^10.1.4
+  shared_preferences: ^2.2.3
+  shimmer: ^3.0.0
+  sign_in_with_apple: ^6.1.1
+  skeletonizer: ^1.4.2
+  smooth_page_indicator: ^1.2.0+3
+  syncfusion_flutter_calendar: ^27.2.5
+  timeago: ^3.7.0
+  url_launcher: ^6.2.6
+
+
+  flutter_toggle_tab:
+    git:
+      url: https://github.com/Saedxd/flutter_toggle_tab
+dev_dependencies:
+  flutter_lints: ^4.0.0
+  build_runner: ^2.4.9
+  change_app_package_name: ^1.3.0
+  envied_generator: ^1.0.1
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  mockito: ^5.4.4
+  retrofit_generator: ^9.1.5
+
+flutter:
+
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/images/SelectCountryScreenImages/
+
+  fonts:
+  - family: PoppinsBold
+    fonts:
+        - asset: assets/fonts/Poppins-Bold.ttf
+  - family: PoppinsLight
+    fonts:
+      - asset: assets/fonts/Poppins-Light.ttf
+  - family: PoppinsMedium
+    fonts:
+      - asset: assets/fonts/Poppins-Medium.ttf
+  - family: PoppinsRegular
+    fonts:
+      - asset: assets/fonts/Poppins-Regular.ttf
+  - family: PoppinsSemiBold
+    fonts:
+      - asset: assets/fonts/Poppins-SemiBold.ttf

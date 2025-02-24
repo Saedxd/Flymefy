@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCORAbSpPqlDSH6-JngFA-ZL_72M3NhiNU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1052362919808</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.saedyo45.Flymefy</string>
+	<key>PROJECT_ID</key>
+	<string>flymefy-7501f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>flymefy-7501f.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1052362919808:ios:4bf902e65bf17c8ee2bb65</string>
+</dict>
+</plist>

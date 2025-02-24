@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1052362919808",
+    "project_id": "flymefy-7501f",
+    "storage_bucket": "flymefy-7501f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052362919808:android:9c73fd8f234bd611e2bb65",
+        "android_client_info": {
+          "package_name": "com.saedyo45.flymefy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhJRgf3DJd21Jloq3ndS6YRf4adwyq2pw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
