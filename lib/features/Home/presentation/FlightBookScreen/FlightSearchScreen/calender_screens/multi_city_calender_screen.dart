@@ -9,8 +9,10 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MultiCityCalender extends StatelessWidget {
-  const MultiCityCalender({Key? key, required this.cubit}) : super(key: key);
+  const MultiCityCalender({Key? key, required this.cubit, required this.index})
+      : super(key: key);
   final FlightBookCubit cubit;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +20,7 @@ class MultiCityCalender extends StatelessWidget {
       value: cubit,
       child: MultiCityCalenderScreen(
         cubit: cubit,
+        index: index,
       ),
     );
   }
@@ -27,8 +30,10 @@ class MultiCityCalenderScreen extends StatefulWidget {
   const MultiCityCalenderScreen({
     Key? key,
     required this.cubit,
+    required this.index,
   }) : super(key: key);
   final FlightBookCubit cubit;
+  final int index;
 
   @override
   State<MultiCityCalenderScreen> createState() => _CalenderScreenState();
@@ -84,13 +89,15 @@ class _CalenderScreenState extends State<MultiCityCalenderScreen> {
                 },
                 selectedDayPredicate: (day) {
                   return isSameDay(
-                      state.oneWayData.dateWhen.isNotEmpty
-                          ? DateTime.parse(state.oneWayData.dateWhen)
+                      state.multiCityBoxes.cities[widget.index].date.isNotEmpty
+                          ? DateTime.parse(
+                              state.multiCityBoxes.cities[widget.index].date)
                           : DateTime.now(),
                       day);
                 },
                 onDaySelected: (selectedDay, focusedDay) {
-                 // widget.cubit.updateSelectedDay(selectedDay);
+                  widget.cubit
+                      .updateMultiCitySelectedDay(selectedDay, widget.index);
                 },
                 onPageChanged: (focusedDay) {
                   widget.cubit.updateFocusedDay(focusedDay);

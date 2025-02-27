@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flymefy/core/app_export.dart';
@@ -11,6 +12,7 @@ import 'package:flymefy/Screens/Utills/common_button_widget.dart';
 import 'package:flymefy/Screens/Utills/common_text_widget.dart';
 import 'package:flymefy/Screens/Utills/lists_widget.dart';
 import 'package:flymefy/main.dart';
+import 'package:intl/intl.dart';
 
 class MultiCityS extends StatelessWidget {
   MultiCityS({Key? key, required this.cubit}) : super(key: key);
@@ -48,11 +50,11 @@ class MultiCityScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 24),
-                              child: Image.asset(multicityImage),
-                            ),
-                            SizedBox(height: 8),
+                            // Padding(
+                            //   padding: EdgeInsets.symmetric(horizontal: 24),
+                            //   child: Image.asset(multicityImage),
+                            // ),
+                            // SizedBox(height: 8),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 24),
                               child: SizedBox(
@@ -92,7 +94,6 @@ class MultiCityScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 11),
                             ListView.builder(
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
@@ -109,7 +110,23 @@ class MultiCityScreen extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       TravelDetailsSmallBox(
-                                        onTap: () {},
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, Routes.flightFromScreen,
+                                              arguments: {
+                                                'cubit': cubit,
+                                                'type': "MultiCity",
+                                                'index': index,
+                                                'onIataClicked': (FlightDetails
+                                                    selectedFlight) {
+                                                  context
+                                                      .read<FlightBookCubit>()
+                                                      .updateCityEntryFrom(
+                                                          index,
+                                                          selectedFlight);
+                                                }
+                                              });
+                                        },
                                         cityName: cityEntry.from.city,
                                         iataName: cityEntry.from.iataCode,
                                         type: 'FROM',
@@ -120,7 +137,22 @@ class MultiCityScreen extends StatelessWidget {
                                         width: 15,
                                       ),
                                       TravelDetailsSmallBox(
-                                        onTap: () {},
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, Routes.flightToScreen,
+                                              arguments: {
+                                                'cubit': cubit,
+                                                'type': "MultiCity",
+                                                'index': index,
+                                                'onIataClicked': (FlightDetails
+                                                    selectedFlight) {
+                                                  context
+                                                      .read<FlightBookCubit>()
+                                                      .updateCityEntryTo(index,
+                                                          selectedFlight);
+                                                }
+                                              });
+                                        },
                                         cityName: cityEntry.to.city,
                                         iataName: cityEntry.to.iataCode,
                                         type: 'TO',
@@ -133,64 +165,76 @@ class MultiCityScreen extends StatelessWidget {
                                       cityEntry.date.isEmpty
                                           ? TravelDetailsSmallerBox(
                                               onTap: () {
-                                                Navigator.pushNamed(
-                                                  context,
-                                                  Routes.multiCityCalender,
-                                                );
+                                                Navigator.pushNamed(context,
+                                                    Routes.multiCityCalender,
+                                                    arguments: {
+                                                      'cubit': cubit,
+                                                      'index': index
+                                                    });
                                               },
-                                              cityName:
-                                                  cityEntry.date.toString(),
-                                              iataName: '',
-                                              type: 'DATE',
-                                              chosenDate: '',
                                               isEmpty: cityEntry.date.isEmpty,
                                             )
                                           : TravelDetailsSmallBox(
                                               onTap: () {
-                                                Navigator.pushNamed(
-                                                  context,
-                                                  Routes.multiCityCalender,
-                                                );
+                                                Navigator.pushNamed(context,
+                                                    Routes.multiCityCalender,
+                                                    arguments: {
+                                                      'cubit': cubit,
+                                                      'index': index
+                                                    });
                                               },
                                               cityName:
                                                   cityEntry.date.toString(),
                                               iataName: '',
                                               type: 'DATE',
-                                              chosenDate: '',
+                                              chosenDate: cityEntry.date,
                                               isEmpty: cityEntry.date.isEmpty,
                                             ),
-                                      const Icon(
-                                        Icons.close,
-                                        size: 27,
-                                        color: Colors.black,
-                                      ).toButton(() {
-                                        context
-                                            .read<FlightBookCubit>()
-                                            .removeCityEntry(index);
-                                      }),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      cityEntry.date.isEmpty
+                                          ? const Icon(
+                                              Icons.close,
+                                              size: 25,
+                                              color: Colors.black,
+                                            ).toButton(() {
+                                              context
+                                                  .read<FlightBookCubit>()
+                                                  .removeCityEntry(index);
+                                            })
+                                          : SizedBox()
                                     ],
                                   ),
                                 );
                               },
                             ),
                             SizedBox(height: 15),
-                            GestureDetector(
-                              onTap: () => context
-                                  .read<FlightBookCubit>()
-                                  .addCityEntry(),
+                            DottedBorder(
+                              borderType: BorderType.RRect, // Rounded Rectangle
+                              radius: Radius.circular(6), // Border radius
+                              dashPattern: [
+                                5,
+                                4
+                              ], // Dotted pattern (length of dash, space)
+                              color: const Color.fromARGB(
+                                  255, 242, 82, 71), // Border color
+                              strokeWidth: 1.5, // Border width
                               child: Container(
-                                padding: EdgeInsets.all(12),
-                                margin: EdgeInsets.symmetric(horizontal: 24),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.red),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
+                                padding: EdgeInsets.all(16),
+                                width: context.width,
+                                height: 70,
                                 child: Center(
                                   child: Text("+ ADD CITY",
-                                      style: TextStyle(color: Colors.red)),
+                                      style: TextStyle(
+                                          color: const Color.fromARGB(
+                                              255, 246, 16, 0),
+                                          fontSize: 18)),
                                 ),
                               ),
-                            ),
+                            ).paddingSymmetric(horizontal: 24).toButton(() {
+                              context.read<FlightBookCubit>().addCityEntry();
+                            }),
                             SizedBox(height: 15),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 24),
@@ -415,6 +459,18 @@ class TravelDetailsSmallBox extends StatelessWidget {
   final String chosenDate;
   final bool isEmpty;
 
+  String formatDatePart1(DateTime date) {
+    // Format for "22 Sep"
+    final DateFormat formatterPart1 = DateFormat('dd MMM');
+    return formatterPart1.format(date);
+  }
+
+  String formatDatePart2(DateTime date) {
+    // Format for "Thursday, 2022"
+    final DateFormat formatterPart2 = DateFormat('EEEE, yyyy');
+    return formatterPart2.format(date);
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -430,23 +486,39 @@ class TravelDetailsSmallBox extends StatelessWidget {
               color: isEmpty ? Colors.red : black2E2),
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              isEmpty
-                  ? [
-                      SizedBox(
-                        width: 75,
-                        child: Center(
-                            child: Text(
-                          type,
-                          style: TextStyle(
-                              color: const Color.fromARGB(255, 194, 44, 33),
-                              fontSize: 17),
-                        )),
-                      )
-                    ].toRow(mainAxisAlignment: MainAxisAlignment.center)
+          padding: EdgeInsets.symmetric(horizontal: 7, vertical: 7),
+          child: isEmpty
+              ? [
+                  SizedBox(
+                      width: 90,
+                      height: 20,
+                      child: Text(
+                        type,
+                        style: TextStyle(
+                            color: const Color.fromARGB(255, 194, 44, 33),
+                            fontSize: 17),
+                      ))
+                ].toRow(mainAxisAlignment: MainAxisAlignment.start)
+              : type == "DATE"
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CommonTextWidget.PoppinsSemiBold(
+                          text: formatDatePart1(DateTime.parse(chosenDate)),
+                          color: black2E2,
+                          fontSize: cityName.isEmpty ? 16 : 18,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        CommonTextWidget.PoppinsMedium(
+                          text: formatDatePart2(DateTime.parse(chosenDate)),
+                          color: grey888,
+                          fontSize: 11,
+                        ),
+                      ],
+                    )
                   : Center(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -460,16 +532,17 @@ class TravelDetailsSmallBox extends StatelessWidget {
                           SizedBox(
                             height: 5,
                           ),
-                          CommonTextWidget.PoppinsSemiBold(
-                            text: cityName,
-                            color: const Color.fromARGB(255, 174, 165, 165),
-                            fontSize: 13,
-                          ),
+                          SizedBox(
+                              width: 90,
+                              child: Text(cityName,
+                                  style: TextStyle(
+                                      color: const Color.fromARGB(
+                                          255, 174, 165, 165),
+                                      fontSize: 11,
+                                      overflow: TextOverflow.ellipsis)))
                         ],
                       ),
                     ),
-            ],
-          ),
         ),
       ),
     );
@@ -480,17 +553,10 @@ class TravelDetailsSmallerBox extends StatelessWidget {
   const TravelDetailsSmallerBox({
     Key? key,
     this.onTap,
-    required this.cityName,
-    required this.iataName,
-    required this.type,
-    required this.chosenDate,
     required this.isEmpty,
   }) : super(key: key);
   final VoidCallback? onTap;
-  final String cityName;
-  final String iataName;
-  final String type;
-  final String chosenDate;
+
   final bool isEmpty;
 
   @override
@@ -498,7 +564,7 @@ class TravelDetailsSmallerBox extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: 80,
+        width: 67,
         height: 60,
         decoration: BoxDecoration(
           color: isEmpty ? const Color(0xfff5c6cb) : grey9B9.withOpacity(0.15),
@@ -510,42 +576,17 @@ class TravelDetailsSmallerBox extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            isEmpty
-                ? [
-                    SizedBox(
-                      width: 75,
-                      child: Center(
-                          child: Text(
-                        type,
-                        style: TextStyle(
-                            color: const Color.fromARGB(255, 194, 44, 33),
-                            fontSize: 17),
-                      )),
-                    )
-                  ].toRow(mainAxisAlignment: MainAxisAlignment.center)
-                : Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CommonTextWidget.PoppinsMedium(
-                          text: iataName,
-                          color: black2E2,
-                          fontSize: 16,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        CommonTextWidget.PoppinsSemiBold(
-                          text: cityName,
-                          color: const Color.fromARGB(255, 174, 165, 165),
-                          fontSize: 13,
-                        ),
-                      ],
-                    ),
-                  ),
+            [
+              SizedBox(
+                  child: Text(
+                "Date",
+                style: TextStyle(
+                    color: const Color.fromARGB(255, 194, 44, 33),
+                    fontSize: 18),
+              ))
+            ].toRow(mainAxisAlignment: MainAxisAlignment.start)
           ],
-        ),
+        ).marginSymmetric(horizontal: 10),
       ),
     );
   }

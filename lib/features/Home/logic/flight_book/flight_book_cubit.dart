@@ -106,4 +106,43 @@ class FlightBookCubit extends Cubit<FlightBookState> {
               state.multiCityBoxes.copyWith(cities: updatedCities)));
     }
   }
+
+  void updateCityEntryFrom(int index, FlightDetails newFrom) {
+  final updatedCities = List<CityEntry>.from(state.multiCityBoxes.cities);
+  if (index >= 0 && index < updatedCities.length) {
+    updatedCities[index] = updatedCities[index].copyWith(from: newFrom);
+    emit(state.copyWith(
+        multiCityBoxes: state.multiCityBoxes.copyWith(cities: updatedCities)));
+  }
+}
+
+void updateCityEntryTo(int index, FlightDetails newTo) {
+  final updatedCities = List<CityEntry>.from(state.multiCityBoxes.cities);
+  if (index >= 0 && index < updatedCities.length) {
+    updatedCities[index] = updatedCities[index].copyWith(to: newTo);
+    emit(state.copyWith(
+        multiCityBoxes: state.multiCityBoxes.copyWith(cities: updatedCities)));
+  }
+}
+
+void updateCityEntryDate(int index, String newDate) {
+  final updatedCities = List<CityEntry>.from(state.multiCityBoxes.cities);
+  if (index >= 0 && index < updatedCities.length) {
+    updatedCities[index] = updatedCities[index].copyWith(date: newDate);
+    emit(state.copyWith(
+        multiCityBoxes: state.multiCityBoxes.copyWith(cities: updatedCities)));
+  }
+}
+
+
+void updateMultiCitySelectedDay(DateTime selectedDay, int index) {
+  final updatedCities = List<CityEntry>.from(state.multiCityBoxes.cities);
+
+  if (index >= 0 && index < updatedCities.length) {
+    updatedCities[index] = updatedCities[index].copyWith(date: selectedDay.toString());
+
+    emit(state.copyWith(
+        multiCityBoxes: state.multiCityBoxes.copyWith(cities: updatedCities)));
+  }
+}
 }

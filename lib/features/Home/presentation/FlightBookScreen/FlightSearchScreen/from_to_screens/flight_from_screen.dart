@@ -14,11 +14,13 @@ class FlightsFrom extends StatelessWidget {
       {Key? key,
       required this.cubit,
       required this.onIataClicked,
-      required this.type})
+      required this.type,
+      required this.index})
       : super(key: key);
   final FlightBookCubit cubit;
   final Function(FlightDetails) onIataClicked;
   final String type;
+  final int index;
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -27,6 +29,7 @@ class FlightsFrom extends StatelessWidget {
           cubit: cubit,
           onIataClicked: onIataClicked,
           type: type,
+          index: index,
         ));
   }
 }
@@ -36,21 +39,21 @@ class FlightFromScreen extends StatefulWidget {
       {Key? key,
       required this.cubit,
       required this.onIataClicked,
-      required this.type})
+      required this.type,
+      required this.index})
       : super(key: key);
   final FlightBookCubit cubit;
   final Function(FlightDetails) onIataClicked;
   final String type;
+  final int index;
 
   @override
   State<FlightFromScreen> createState() => _FlightFromScreenState();
 }
 
 class _FlightFromScreenState extends State<FlightFromScreen> {
-  String getCityName({required bool isRoundTrip, required bool isFrom}) {
-    if (isRoundTrip) {
-      print(
-          'isRoundTrip ${isFrom ? widget.cubit.state.roundTrip.flightDetailsFrom.city.isNotEmpty ? widget.cubit.state.roundTrip.flightDetailsFrom.city : "Enter any City/Airport Name" : widget.cubit.state.roundTrip.flightDetailsTo.city.isNotEmpty ? widget.cubit.state.roundTrip.flightDetailsTo.city : "Enter any City/Airport Name"}');
+  String getCityName({required String type, required bool isFrom, int? index}) {
+    if (type == "FROMRoundTrip") {
       return isFrom
           ? widget.cubit.state.roundTrip.flightDetailsFrom.city.isNotEmpty
               ? widget.cubit.state.roundTrip.flightDetailsFrom.city
@@ -58,9 +61,7 @@ class _FlightFromScreenState extends State<FlightFromScreen> {
           : widget.cubit.state.roundTrip.flightDetailsTo.city.isNotEmpty
               ? widget.cubit.state.roundTrip.flightDetailsTo.city
               : "Enter any City/Airport Name";
-    } else {
-      print(
-          'isRoundTrip  no ${isFrom ? widget.cubit.state.oneWayData.flightDetailsFrom.city.isNotEmpty ? widget.cubit.state.oneWayData.flightDetailsFrom.city : "Enter any City/Airport Name" : widget.cubit.state.oneWayData.flightDetailsTo.city.isNotEmpty ? widget.cubit.state.oneWayData.flightDetailsTo.city : "Enter any City/Airport Name"}');
+    } else if (type == "FROMOneWay") {
       return isFrom
           ? widget.cubit.state.oneWayData.flightDetailsFrom.city.isNotEmpty
               ? widget.cubit.state.oneWayData.flightDetailsFrom.city
@@ -68,10 +69,26 @@ class _FlightFromScreenState extends State<FlightFromScreen> {
           : widget.cubit.state.oneWayData.flightDetailsTo.city.isNotEmpty
               ? widget.cubit.state.oneWayData.flightDetailsTo.city
               : "Enter any City/Airport Name";
-    }
-  }
+    } else if (type == "MultiCity") {
+      // Ensure index is provided and valid
+      if (index == null ||
+          index < 0 ||
+          index >= widget.cubit.state.multiCityBoxes.cities.length) {
+        return "Enter any City/Airport Name";
+      }
 
-  
+      final cityEntry = widget.cubit.state.multiCityBoxes.cities[index];
+      return isFrom
+          ? cityEntry.from.city.isNotEmpty
+              ? cityEntry.from.city
+              : "Enter any City/Airport Name"
+          : cityEntry.to.city.isNotEmpty
+              ? cityEntry.to.city
+              : "Enter any City/Airport Name";
+    }
+
+    return "Enter any City/Airport Name"; // Default case
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,14 +98,13 @@ class _FlightFromScreenState extends State<FlightFromScreen> {
             bloc: widget.cubit,
             builder: (context, state) {
               final bool isRoundTrip = widget.type.contains("RoundTrip");
-              final bool isFrom = widget.type.contains("FROM");
+              final bool isOneWay = widget.type.contains("OneWay");
+              final bool isMultiCity = widget.type.contains("MultiCity");
 
-              final String fromText =
-                  getCityName(isRoundTrip: isRoundTrip, isFrom: true);
-              final String toText =
-                  getCityName(isRoundTrip: isRoundTrip, isFrom: false);
-
-              getCityName(isRoundTrip: isRoundTrip, isFrom: true);
+              final String fromText = getCityName(
+                  type: widget.type, isFrom: true, index: widget.index);
+              final String toText = getCityName(
+                  type: widget.type, isFrom: false, index: widget.index);
               return state.flowStateApp == FlowStateApp.loading
                   ? const LoadinContent()
                   : state.flowStateApp == FlowStateApp.error

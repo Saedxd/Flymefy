@@ -279,10 +279,12 @@ class AppRouter {
       case Routes.multiCityCalender:
         final args = settings.arguments as Map<String, dynamic>;
         final cubit = args['cubit'] as FlightBookCubit;
+        final index = args['index'] as int;
 
         return MaterialPageRoute(
           builder: (_) => MultiCityCalender(
             cubit: cubit,
+            index: index,
           ),
           settings: settings,
         );
@@ -627,12 +629,13 @@ class AppRouter {
         final cubit = args['cubit'] as FlightBookCubit;
         final onIataClicked = args['onIataClicked'] as Function(FlightDetails);
         final type = args['type'] as String;
-
+        final index = args['index'] ?? 0;
         return MaterialPageRoute(
-          builder: (_) => FlightFromScreen(
+          builder: (_) => FlightsFrom(
             cubit: cubit,
             onIataClicked: onIataClicked,
             type: type,
+            index: index,
           ),
           settings: settings,
         );
@@ -642,11 +645,13 @@ class AppRouter {
         final cubit = args['cubit'] as FlightBookCubit;
         final onIataClicked = args['onIataClicked'] as Function(FlightDetails);
         final type = args['type'] as String;
+        final index = args['index'] ?? 0;
         return MaterialPageRoute(
-          builder: (_) => FlightToScreen(
+          builder: (_) => FlightsTo(
             cubit: cubit,
             onIataClicked: onIataClicked,
             type: type,
+            index: index,
           ),
           settings: settings,
         );

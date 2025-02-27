@@ -417,6 +417,7 @@ class TravelBoxes extends StatelessWidget {
                 Navigator.pushNamed(context, Routes.flightToScreen, arguments: {
                   'cubit': cubit,
                   'type': "TOOneWay",
+                  
                   'onIataClicked': (FlightDetails selectedFlight) {
                     context
                         .read<FlightBookCubit>()

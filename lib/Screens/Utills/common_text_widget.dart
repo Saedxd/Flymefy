@@ -12,11 +12,11 @@ class CommonTextWidget {
       text!,
       textAlign: textAlign,
       style: TextStyle(
-        color: color,
-        fontSize: fontSize,
-        fontFamily: FontFamily.PoppinsBold,
-        decoration: textDecoration,
-      ),
+          color: color,
+          fontSize: fontSize,
+          fontFamily: FontFamily.PoppinsBold,
+          decoration: textDecoration,
+          overflow: TextOverflow.ellipsis),
     );
   }
 
