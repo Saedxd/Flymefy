@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/VisaServicesScreen/price_breakup_screen.dart';
 import 'package:flymefy/features/Home/presentation/VisaServicesScreen/see_visa_process_screen.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,7 @@ class SelectVisaTypeScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -46,7 +47,7 @@ class SelectVisaTypeScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24),
                     child: Container(
-                      width: Get.width,
+                      width: context.width,
                       decoration: BoxDecoration(
                         color: yellowF7C.withOpacity(0.35),
                         borderRadius: BorderRadius.circular(5),
@@ -223,7 +224,7 @@ class SelectVisaTypeScreen extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: 60,
-                width: Get.width,
+                width: context.width,
                 color: black2E2,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
@@ -261,7 +262,9 @@ class SelectVisaTypeScreen extends StatelessWidget {
                       ),
                       MaterialButton(
                         onPressed: () {
-                          Get.to(() => SeeVisaProcessScreen());
+                          //  Get.to(() => SeeVisaProcessScreen());
+                          Navigator.pushNamed(
+                              context, Routes.seeVisaProcessScreen);
                         },
                         height: 40,
                         minWidth: 140,

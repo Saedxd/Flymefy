@@ -47,8 +47,9 @@ class _SuccessScreenState extends State<SuccessScreen> {
               height: 55,
               context,
               () {
-                if (widget.route == Routes.profile) {
-                  Navigator.popUntil(context, ModalRoute.withName(Routes.home));
+                if (widget.route == Routes.porfileScreen) {
+                  Navigator.popUntil(
+                      context, ModalRoute.withName(Routes.porfileScreen));
                 } else {
                   while (Navigator.canPop(context)) {
                     Navigator.pop(context);

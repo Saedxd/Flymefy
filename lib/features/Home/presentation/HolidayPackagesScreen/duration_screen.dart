@@ -19,7 +19,7 @@ class DurationScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.close, color: white, size: 20),
         ),
@@ -90,7 +90,7 @@ class DurationScreen extends StatelessWidget {
           Spacer(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
-            child: CommonButtonWidget.button(
+            child: CommonButtonWidget(
               buttonColor: redCA0,
               onTap: () {},
               text: "APPLY",

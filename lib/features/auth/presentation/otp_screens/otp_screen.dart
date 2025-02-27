@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/auth/presentation/full_name_screens/full_name_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -34,7 +35,7 @@ class OtpScreen extends StatelessWidget {
             SizedBox(height: 50),
             InkWell(
               onTap: () {
-                Get.back();
+                Navigator.pop(context);
               },
               child: Icon(Icons.arrow_back, color: black2E2, size: 20),
             ),
@@ -114,9 +115,10 @@ class OtpScreen extends StatelessWidget {
               ),
             ),
             Spacer(),
-            CommonButtonWidget.button(
+            CommonButtonWidget(
               onTap: () {
-                Get.to(() => FullNameScreen());
+                //  Get.to(() => FullNameScreen());
+                Navigator.pushNamed(context, Routes.fullNameScreen);
               },
               buttonColor: otpController.isTextEmpty.isFalse ? greyD8D : redCA0,
               text: "SUBMIT",

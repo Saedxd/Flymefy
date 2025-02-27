@@ -100,36 +100,7 @@ class _ScaffoldWithNestedNavigationState
                   });
                 },
                 child: Scaffold(
-                  appBar: (context
-                              .read<AuthenticationCubit>()
-                              .state
-                              .user
-                              .isTenant &&
-                          currentIndex == 0)
-                      ? null
-                      : currentIndex == 4 ||
-                              (context
-                                      .read<AuthenticationCubit>()
-                                      .state
-                                      .user
-                                      .isTenant &&
-                                  currentIndex != 2)
-                          ? CustomAppBarLeased(
-                              title: getTitle(),
-                              isTenant: isTenant,
-                              index: currentIndex,
-                              showNotification: showNotification,
-                              showMusic: showMusic,
-                              showLogo: currentIndex == 4 ? false : true,
-                              showChat: showChat,
-                              onLogoTapped: () {
-                                changeIndexAsIWant(4);
-                              },
-                              onTap: (value) {
-                                changeIndexAsIWant(value);
-                              },
-                            )
-                          : null,
+                  appBar:  null,
                   backgroundColor: const Color(0xFFFFFFFF),
                   body: Container(
                     padding: EdgeInsets.zero, // Remove any default padding

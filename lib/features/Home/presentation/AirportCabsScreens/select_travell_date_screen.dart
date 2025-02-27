@@ -32,7 +32,7 @@ class _SelectTravelDateScreenState extends State<SelectTravelDateScreen> {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -185,7 +185,7 @@ class _SelectTravelDateScreenState extends State<SelectTravelDateScreen> {
                 SizedBox(height: 30),
                 Image.asset(selectTravelDateImage3),
                 SizedBox(height: 135),
-                CommonButtonWidget.button(
+                CommonButtonWidget(
                   buttonColor: redCA0,
                   onTap: () {},
                   text: "DONE",

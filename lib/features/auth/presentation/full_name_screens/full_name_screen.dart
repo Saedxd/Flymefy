@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
 import 'package:flymefy/Constants/font_family.dart';
@@ -25,7 +26,7 @@ class FullNameScreen extends StatelessWidget {
             SizedBox(height: 50),
             InkWell(
               onTap: () {
-                Get.back();
+                Navigator.pop(context);
               },
               child: Icon(Icons.arrow_back, color: black2E2, size: 20),
             ),
@@ -86,9 +87,10 @@ class FullNameScreen extends StatelessWidget {
             ),
             Spacer(),
             Obx(
-              () => CommonButtonWidget.button(
+              () => CommonButtonWidget(
                 onTap: () {
-                  Get.to(() => NavigationScreen());
+                  Navigator.pushNamed(context, Routes.navigationScreen);
+                  //  Get.to(() => NavigationScreen());
                 },
                 buttonColor:
                     fullNameController.isTextEmpty.isFalse ? greyD8D : redCA0,

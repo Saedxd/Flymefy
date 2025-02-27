@@ -30,7 +30,7 @@ class NotificationRepositoryImpls implements NotificationRepository {
       GetNotificationsRequest paginationRequest) async {
     Response? response;
     try {
-      response = await _apiClient.getApi(AppConstants.apiGetNotification,
+      response = await _apiClient.getApi(AppConstants.addDeleteFavCar,
           queryParameters: paginationRequest.toQueryParamter());
 
       if (response.isOperationSucceededApi()) {
@@ -51,7 +51,7 @@ class NotificationRepositoryImpls implements NotificationRepository {
       RequestWithId input) async {
     Response? response;
     try {
-      response = await _apiClient.postApi(AppConstants.apiReadNotification,
+      response = await _apiClient.postApi(AppConstants.androidAppUrlLauncher,
           queryParameters: input.toQueryParamter());
 
       if (response.isOperationSucceededApi()) {

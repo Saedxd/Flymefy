@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/AirportCabsScreens/cab_search_screen.dart';
 import 'package:flymefy/features/Home/presentation/DrawerScreen/drawer_screen.dart';
-import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/flight_search_screen.dart';
+import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/main_screen/flight_search_screen.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/holiday_packages_screen.dart';
 import 'package:flymefy/features/Home/presentation/HomeStayScreen/home_stay_screen.dart';
 import 'package:flymefy/features/Home/presentation/HotelAndHomeStayScreens/hotel_and_home_stay_tab_screen.dart';
@@ -40,7 +41,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               Container(
                 height: 250,
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(homeTopBgImage),
@@ -78,7 +79,9 @@ class HomeScreen extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.to(() => NotificationScreen());
+                              //   Get.to(() => NotificationScreen());
+                              Navigator.pushNamed(
+                                  context, Routes.notificationScreen);
                             },
                             child: Image.asset(notificationIcon,
                                 height: 42, width: 42),
@@ -88,11 +91,12 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(height: 20),
                       InkWell(
                         onTap: () {
-                          Get.to(() => HomeSearchSCreen());
+                          //     Get.to(() => HomeSearchSCreen());
+                          Navigator.pushNamed(context, Routes.homeSearchSCreen);
                         },
                         child: Container(
                           height: 44,
-                          width: Get.width,
+                          width: context.width,
                           decoration: BoxDecoration(
                             color: white,
                             borderRadius: BorderRadius.circular(15),
@@ -121,7 +125,7 @@ class HomeScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 250),
                 child: Container(
-                  width: Get.width,
+                  width: context.width,
                   color: white,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,7 +138,9 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
-                                Get.to(() => CabSearchScreen());
+                                //  Get.to(() => CabSearchScreen());
+                                Navigator.pushNamed(
+                                    context, Routes.cabSearchScreen);
                               },
                               child: Column(
                                 children: [
@@ -153,7 +159,9 @@ class HomeScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.to(() => HomeStayScreen());
+                                //  Get.to(() => HomeStayScreen());
+                                Navigator.pushNamed(
+                                    context, Routes.homeStayScreen);
                               },
                               child: Column(
                                 children: [
@@ -171,7 +179,9 @@ class HomeScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.to(() => OutStationCabScreen());
+                                //   Get.to(() => OutStationCabScreen());
+                                Navigator.pushNamed(
+                                    context, Routes.outStationCabScreen);
                               },
                               child: Column(
                                 children: [
@@ -190,7 +200,9 @@ class HomeScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.to(() => OutStationCabScreen());
+                                //     Get.to(() => OutStationCabScreen());
+                                Navigator.pushNamed(
+                                    context, Routes.outStationCabScreen);
                               },
                               child: Column(
                                 children: [
@@ -213,7 +225,7 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(height: 15),
                       Container(
                         height: 50,
-                        width: Get.width,
+                        width: context.width,
                         decoration: BoxDecoration(
                           color: white,
                           boxShadow: [
@@ -233,7 +245,9 @@ class HomeScreen extends StatelessWidget {
                             itemBuilder: (context, index) => Padding(
                               padding: EdgeInsets.only(right: 9),
                               child: InkWell(
-                                onTap: Lists.homeList1[index]["onTap"],
+                                onTap: () {
+                                  Lists.homeList1[index]["onTap"](context);
+                                },
                                 child: Row(
                                   children: [
                                     SvgPicture.asset(
@@ -275,7 +289,7 @@ class HomeScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 24),
                         child: Container(
                           height: 170,
-                          width: Get.width,
+                          width: context.width,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                             image: DecorationImage(
@@ -307,7 +321,7 @@ class HomeScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 24),
                         child: Container(
                           height: 140,
-                          width: Get.width,
+                          width: context.width,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: white,
@@ -404,7 +418,7 @@ class HomeScreen extends StatelessWidget {
                           padding: EdgeInsets.only(bottom: 15),
                           child: Container(
                             height: 120,
-                            width: Get.width,
+                            width: context.width,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               color: white,
@@ -500,7 +514,7 @@ class HomeScreen extends StatelessWidget {
                     padding: EdgeInsets.only(left: 24, right: 24, top: 215),
                     child: Container(
                       height: 88,
-                      width: Get.width,
+                      width: context.width,
                       decoration: BoxDecoration(
                         color: white,
                         borderRadius: BorderRadius.circular(15),
@@ -522,7 +536,9 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            Get.to(() => FlightSearchScreen());
+                            //   Get.to(() => FlightSearchScreen());
+                            Navigator.pushNamed(
+                                context, Routes.flightSearchScreen);
                           },
                           child: Column(
                             children: [
@@ -539,7 +555,9 @@ class HomeScreen extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            Get.to(() => TrainAndBusScreen());
+                            // Get.to(() => TrainAndBusScreen());
+                            Navigator.pushNamed(
+                                context, Routes.trainAndBusScreen);
                           },
                           child: Column(
                             children: [
@@ -556,7 +574,9 @@ class HomeScreen extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            Get.to(() => HotelAndHomeStayTabScreen());
+                            // Get.to(() => HotelAndHomeStayTabScreen());
+                            Navigator.pushNamed(
+                                context, Routes.hotelAndHomeStayTabScreen);
                           },
                           child: Column(
                             children: [
@@ -573,7 +593,9 @@ class HomeScreen extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            Get.to(() => HolidayPackagesScreen());
+                            // Get.to(() => HolidayPackagesScreen());
+                            Navigator.pushNamed(
+                                context, Routes.holidayPackagesScreen);
                           },
                           child: Column(
                             children: [

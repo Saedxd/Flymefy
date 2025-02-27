@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/VisaServicesScreen/enter_destination_screen.dart';
 import 'package:flymefy/features/Home/presentation/VisaServicesScreen/get_visa_online_screen.dart';
 import 'package:get/get.dart';
@@ -29,7 +30,7 @@ class ApplyTouristVisaScreen extends StatelessWidget {
                 children: [
                   Container(
                     height: 130,
-                    width: Get.width,
+                    width: context.width,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(holidayPackagesImage),
@@ -43,7 +44,7 @@ class ApplyTouristVisaScreen extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.back();
+                              Navigator.pop(context);
                             },
                             child:
                                 Icon(Icons.arrow_back, color: white, size: 20),
@@ -55,7 +56,9 @@ class ApplyTouristVisaScreen extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.to(() => EnterDestinationScreen());
+                              //       Get.to(() => EnterDestinationScreen());
+                              Navigator.pushNamed(
+                                  context, Routes.enterDestinationScreen);
                             },
                             child: CommonTextWidget.PoppinsMedium(
                               text: "City",

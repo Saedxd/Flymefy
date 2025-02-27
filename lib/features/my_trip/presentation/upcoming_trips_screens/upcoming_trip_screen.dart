@@ -20,7 +20,7 @@ class UpComingTripScreen extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 15),
           child: Container(
             height: 100,
-            width: Get.width,
+            width: context.width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: white,

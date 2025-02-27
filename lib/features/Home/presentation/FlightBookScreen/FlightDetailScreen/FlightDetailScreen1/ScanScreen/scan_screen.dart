@@ -55,7 +55,7 @@ class ScanScreen extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                     child: CommonTextWidget.PoppinsMedium(
                       text: "NO, NOT NOW",

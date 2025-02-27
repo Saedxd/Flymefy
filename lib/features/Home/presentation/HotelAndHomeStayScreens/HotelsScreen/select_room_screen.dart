@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/HotelAndHomeStayScreens/HotelsScreen/hotel_review_booking_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -20,7 +21,7 @@ class SelectRoomScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -32,7 +33,7 @@ class SelectRoomScreen extends StatelessWidget {
         actions: [
           InkWell(
             onTap: () {
-              // Get.back();
+              // Navigator.pop(context);
             },
             child: Padding(
               padding: EdgeInsets.only(right: 24, top: 20),
@@ -52,7 +53,7 @@ class SelectRoomScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: Get.width,
+                width: context.width,
                 color: redF9E.withOpacity(0.75),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 15),
@@ -68,11 +69,11 @@ class SelectRoomScreen extends StatelessWidget {
                     Image.asset(selectRoomImage2, height: 110, width: 201),
                     SizedBox(height: 15),
                     Image.asset(selectRoomImage3,
-                        height: 178, width: Get.width),
+                        height: 178, width: context.width),
                     Image.asset(selectRoomImage4,
-                        height: 237, width: Get.width),
+                        height: 237, width: context.width),
                     Image.asset(selectRoomImage5,
-                        height: 199, width: Get.width),
+                        height: 199, width: context.width),
                   ],
                 ),
               ),
@@ -86,17 +87,17 @@ class SelectRoomScreen extends StatelessWidget {
                     Image.asset(selectRoomImage7, height: 110, width: 201),
                     SizedBox(height: 15),
                     Image.asset(selectRoomImage8,
-                        height: 178, width: Get.width),
+                        height: 178, width: context.width),
                     Image.asset(selectRoomImage9,
-                        height: 237, width: Get.width),
+                        height: 237, width: context.width),
                     Image.asset(selectRoomImage10,
-                        height: 199, width: Get.width),
+                        height: 199, width: context.width),
                   ],
                 ),
               ),
               SizedBox(height: 30),
               Container(
-                width: Get.width,
+                width: context.width,
                 color: black2E2,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
@@ -125,7 +126,9 @@ class SelectRoomScreen extends StatelessWidget {
                       ),
                       MaterialButton(
                         onPressed: () {
-                          Get.to(() => HotelReviewBookingScreen());
+                          //      Get.to(() => HotelReviewBookingScreen());
+                          Navigator.pushNamed(
+                              context, Routes.hotelReviewBookingScreen);
                         },
                         height: 40,
                         minWidth: 140,

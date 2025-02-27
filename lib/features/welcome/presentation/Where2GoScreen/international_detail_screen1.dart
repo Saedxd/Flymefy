@@ -24,7 +24,7 @@ class InterNationalDetailScreen1 extends StatelessWidget {
             children: [
               Container(
                 height: 220,
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(internationalDetail1Image1),
@@ -39,7 +39,7 @@ class InterNationalDetailScreen1 extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         child: SvgPicture.asset(internationalDetailBackImage),
                       ),
@@ -85,7 +85,7 @@ class InterNationalDetailScreen1 extends StatelessWidget {
                 },
               ),
               Image.asset(internationalDetail1Image6,
-                  width: Get.width, height: 324),
+                  width: context.width, height: 324),
             ],
           ),
         ),

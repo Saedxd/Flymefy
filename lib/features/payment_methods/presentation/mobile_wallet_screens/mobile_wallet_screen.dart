@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/payment_methods/presentation/fare_breakup_screens/fare_breakUp_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -28,7 +29,7 @@ class MobileWalletScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -46,7 +47,7 @@ class MobileWalletScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     color: redF9E.withOpacity(0.75),
                     child: ListTile(
                       title: CommonTextWidget.PoppinsSemiBold(
@@ -132,7 +133,7 @@ class MobileWalletScreen extends StatelessWidget {
                     SizedBox(height: 15),
                     Container(
                       height: 65,
-                      width: Get.width,
+                      width: context.width,
                       color: black2E2,
                       child: Padding(
                         padding:
@@ -197,6 +198,8 @@ class MobileWalletScreen extends StatelessWidget {
                                       MaterialButton(
                                         onPressed: () {
                                           // Get.to(() => SelectPaymentMethodScreen());
+                                          Navigator.pushNamed(context,
+                                              Routes.selectPaymentMethodScreen);
                                         },
                                         height: 40,
                                         minWidth: 140,

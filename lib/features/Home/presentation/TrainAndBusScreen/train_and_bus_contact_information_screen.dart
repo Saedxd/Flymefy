@@ -34,7 +34,7 @@ class TrainAndBusContactInformationScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 15),
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(3),
                       color: yellowF7C.withOpacity(0.3),
@@ -53,7 +53,7 @@ class TrainAndBusContactInformationScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     decoration: BoxDecoration(
                       color: greyE2E,
                       borderRadius: BorderRadius.circular(5),
@@ -74,10 +74,10 @@ class TrainAndBusContactInformationScreen extends StatelessWidget {
                   SizedBox(height: 25),
                   MaterialButton(
                     onPressed: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                     height: 50,
-                    minWidth: Get.width,
+                    minWidth: context.width,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40),
                     ),

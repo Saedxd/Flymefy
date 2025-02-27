@@ -21,7 +21,7 @@ class ReferralScreen extends StatelessWidget {
             SizedBox(height: 60),
             InkWell(
               onTap: () {
-                Get.back();
+                Navigator.pop(context);
               },
               child: Icon(Icons.arrow_back, color: black2E2, size: 20),
             ),

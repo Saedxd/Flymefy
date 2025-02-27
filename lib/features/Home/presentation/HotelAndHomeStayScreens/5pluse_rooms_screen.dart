@@ -19,7 +19,7 @@ class FivePlusRoomsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: Get.width,
+              width: context.width,
               color: redF9E.withOpacity(0.75),
               child: ListTile(
                 contentPadding:
@@ -47,9 +47,11 @@ class FivePlusRoomsScreen extends StatelessWidget {
               itemBuilder: (context, index) => Padding(
                 padding: EdgeInsets.only(bottom: 15),
                 child: InkWell(
-                  onTap: Lists.fivePlusRoomsList[index]["onTap"],
+                     onTap: () {
+                 Lists.fivePlusRoomsList[index]["onTap"](context);
+                  },
                   child: Container(
-                    width: Get.width,
+                    width: context.width,
                     decoration: BoxDecoration(
                       color: grey9B9.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(5),
@@ -97,7 +99,7 @@ class FivePlusRoomsScreen extends StatelessWidget {
             SizedBox(height: 10),
             SizedBox(
               height: 70,
-              width: Get.width,
+              width: context.width,
               child: ScrollConfiguration(
                 behavior: MyBehavior(),
                 child: ListView.builder(

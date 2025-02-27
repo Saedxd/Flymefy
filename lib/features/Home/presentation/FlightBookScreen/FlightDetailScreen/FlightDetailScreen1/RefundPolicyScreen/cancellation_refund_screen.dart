@@ -147,7 +147,7 @@ class CancellationRefundScreen extends StatelessWidget {
             children: [
               Container(
                 height: 250,
-                width: Get.width / 2.4,
+                width: context.width / 2.4,
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   border: Border.all(color: greyAFA, width: 0.5),
@@ -162,7 +162,7 @@ class CancellationRefundScreen extends StatelessWidget {
                       alignment: Alignment.topCenter,
                       child: Container(
                         height: 67,
-                        width: Get.width,
+                        width: context.width,
                         decoration: BoxDecoration(
                           color: whiteF2F,
                           borderRadius: BorderRadius.only(
@@ -223,7 +223,7 @@ class CancellationRefundScreen extends StatelessWidget {
               ),
               Container(
                 height: 250,
-                width: Get.width / 2.4,
+                width: context.width / 2.4,
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   border: Border.all(color: greyAFA, width: 0.5),
@@ -238,7 +238,7 @@ class CancellationRefundScreen extends StatelessWidget {
                       alignment: Alignment.topCenter,
                       child: Container(
                         height: 67,
-                        width: Get.width,
+                        width: context.width,
                         decoration: BoxDecoration(
                           color: whiteF2F,
                           borderRadius: BorderRadius.only(
@@ -316,7 +316,7 @@ class CancellationRefundScreen extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Container(
-            width: Get.width,
+            width: context.width,
             decoration: BoxDecoration(
               color: orangeEB9.withOpacity(0.2),
               borderRadius: BorderRadius.circular(3),

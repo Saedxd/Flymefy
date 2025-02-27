@@ -20,7 +20,7 @@ class EditYourSearchScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.close, color: white, size: 20),
         ),
@@ -43,7 +43,7 @@ class EditYourSearchScreen extends StatelessWidget {
               itemBuilder: (context, index) => Padding(
                 padding: EdgeInsets.only(bottom: 15),
                 child: Container(
-                  width: Get.width,
+                  width: context.width,
                   decoration: BoxDecoration(
                     color: grey9B9.withOpacity(0.15),
                     border: Border.all(color: greyE2E, width: 1),
@@ -68,7 +68,7 @@ class EditYourSearchScreen extends StatelessWidget {
               ),
             ),
             Spacer(),
-            CommonButtonWidget.button(
+            CommonButtonWidget(
               text: "SEARCH",
               onTap: () {},
               buttonColor: redCA0,

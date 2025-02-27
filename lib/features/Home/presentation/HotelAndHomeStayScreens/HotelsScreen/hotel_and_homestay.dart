@@ -19,7 +19,7 @@ class HotelAndHomeStay extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.close, color: white, size: 20),
         ),
@@ -41,9 +41,11 @@ class HotelAndHomeStay extends StatelessWidget {
             itemBuilder: (context, index) => Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: InkWell(
-                onTap: Lists.upTo5RoomsList[index]["onTap"],
+                 onTap: () {
+           Lists.upTo5RoomsList[index]["onTap"](context);
+                  },
                 child: Container(
-                  width: Get.width,
+                  width: context.width,
                   decoration: BoxDecoration(
                     color: grey9B9.withOpacity(0.15),
                     borderRadius: BorderRadius.circular(5),
@@ -89,7 +91,7 @@ class HotelAndHomeStay extends StatelessWidget {
           Spacer(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
-            child: CommonButtonWidget.button(
+            child: CommonButtonWidget(
               buttonColor: redCA0,
               onTap: () {},
               text: "SEARCH HOTELS",

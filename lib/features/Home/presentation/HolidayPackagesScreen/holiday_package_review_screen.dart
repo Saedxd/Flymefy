@@ -21,7 +21,7 @@ class HolidayPackageReviewScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -52,7 +52,7 @@ class HolidayPackageReviewScreen extends StatelessWidget {
                     itemBuilder: (context, index) => Padding(
                       padding: EdgeInsets.only(bottom: 12),
                       child: Container(
-                        width: Get.width,
+                        width: context.width,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: white,
@@ -99,7 +99,7 @@ class HolidayPackageReviewScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     color: black2E2,
                     child: Padding(
                       padding:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/welcome/presentation/Where2GoScreen/booking_option_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -23,7 +24,7 @@ class InterNationalDetailScreen2 extends StatelessWidget {
             children: [
               Container(
                 height: 220,
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(internationalDetail2Image1),
@@ -38,7 +39,7 @@ class InterNationalDetailScreen2 extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         child: SvgPicture.asset(internationalDetailBackImage),
                       ),
@@ -107,7 +108,7 @@ class InterNationalDetailScreen2 extends StatelessWidget {
               SizedBox(height: 30),
               Container(
                 height: 60,
-                width: Get.width,
+                width: context.width,
                 color: black2E2,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
@@ -131,7 +132,9 @@ class InterNationalDetailScreen2 extends StatelessWidget {
                       SizedBox(width: 15),
                       MaterialButton(
                         onPressed: () {
-                          Get.to(() => BookingOptionScreen());
+                          //     Get.to(() => BookingOptionScreen());
+                          Navigator.pushNamed(
+                              context, Routes.bookingOptionScreen);
                         },
                         height: 40,
                         minWidth: 140,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flymefy/Screens/Utills/common_text_widget.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/edit_your_search_screen.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/package_screen.dart';
 import 'package:get/get.dart';
@@ -24,7 +25,7 @@ class HolidayPackageDetailScreen extends StatelessWidget {
             children: [
               Container(
                 height: 130,
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(holidayPackageDetailImage),
@@ -38,7 +39,7 @@ class HolidayPackageDetailScreen extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         child: Icon(Icons.arrow_back, color: white, size: 20),
                       ),
@@ -55,7 +56,7 @@ class HolidayPackageDetailScreen extends StatelessWidget {
               SizedBox(height: 10),
               SizedBox(
                 height: 70,
-                width: Get.width,
+                width: context.width,
                 child: ScrollConfiguration(
                   behavior: MyBehavior(),
                   child: ListView.builder(
@@ -67,7 +68,9 @@ class HolidayPackageDetailScreen extends StatelessWidget {
                     itemBuilder: (context, index) => Padding(
                       padding: EdgeInsets.only(right: 12),
                       child: InkWell(
-                        onTap: Lists.holidayPackagesDetailList1[index]["onTap"],
+                            onTap: () {
+                  Lists.holidayPackagesDetailList1[index]["onTap"](context);
+                  },
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
@@ -94,7 +97,7 @@ class HolidayPackageDetailScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Container(
-                  width: Get.width,
+                  width: context.width,
                   decoration: BoxDecoration(
                     color: grey9B9.withOpacity(0.15),
                     border: Border.all(color: greyE2E, width: 1),
@@ -126,7 +129,9 @@ class HolidayPackageDetailScreen extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            Get.to(() => EditYourSearchScreen());
+                            //  Get.to(() => EditYourSearchScreen());
+                            Navigator.pushNamed(
+                                context, Routes.editYourSearchScreen);
                           },
                           child: CommonTextWidget.PoppinsMedium(
                             text: "Edit",
@@ -150,7 +155,7 @@ class HolidayPackageDetailScreen extends StatelessWidget {
               ),
               SizedBox(
                 height: 255,
-                width: Get.width,
+                width: context.width,
                 child: ScrollConfiguration(
                   behavior: MyBehavior(),
                   child: ListView.builder(
@@ -163,7 +168,9 @@ class HolidayPackageDetailScreen extends StatelessWidget {
                       padding: EdgeInsets.only(right: 12),
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => PackageDetailScreen());
+                          //   Get.to(() => PackageDetailScreen());
+                          Navigator.pushNamed(
+                              context, Routes.packageDetailScreen);
                         },
                         child: Image.asset(
                           Lists.holidayPackagesDetailList2[index],
@@ -186,7 +193,7 @@ class HolidayPackageDetailScreen extends StatelessWidget {
               ),
               SizedBox(
                 height: 255,
-                width: Get.width,
+                width: context.width,
                 child: ScrollConfiguration(
                   behavior: MyBehavior(),
                   child: ListView.builder(

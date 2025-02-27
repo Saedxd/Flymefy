@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/DrawerScreen/language_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -20,7 +21,7 @@ class SettingScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -58,7 +59,8 @@ class SettingScreen extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(() => LanguageScreen());
+                    //  Get.to(() => LanguageScreen());
+                    Navigator.pushNamed(context, Routes.languageScreen);
                   },
                   child: Image.asset(settingImage2, height: 31, width: 109),
                 ),
@@ -81,7 +83,7 @@ class SettingScreen extends StatelessWidget {
               ],
             ),
             Spacer(),
-            CommonButtonWidget.button(
+            CommonButtonWidget(
               buttonColor: redCA0,
               onTap: () {},
               text: "APPLY CHANGES",

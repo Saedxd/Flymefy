@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightDetailScreen/FlightDetailScreen1/flight_detail_screen1.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -31,7 +32,7 @@ class FlightDetailScreen extends StatelessWidget {
             padding: EdgeInsets.only(right: 24),
             child: InkWell(
               onTap: () {
-                Get.back();
+                Navigator.pop(context);
               },
               child: Icon(Icons.close, color: white, size: 20),
             ),
@@ -48,7 +49,7 @@ class FlightDetailScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      width: Get.width,
+                      width: context.width,
                       decoration: BoxDecoration(
                         color: white,
                         borderRadius: BorderRadius.only(
@@ -59,7 +60,7 @@ class FlightDetailScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           Container(
-                            width: Get.width,
+                            width: context.width,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(10),
@@ -224,7 +225,7 @@ class FlightDetailScreen extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.only(bottom: 8),
                             child: Container(
-                              width: Get.width,
+                              width: context.width,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
                                 color: white,
@@ -452,7 +453,7 @@ class FlightDetailScreen extends StatelessWidget {
           Positioned(
             bottom: 40,
             child: Container(
-              width: Get.width,
+              width: context.width,
               color: black2E2,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
@@ -475,7 +476,9 @@ class FlightDetailScreen extends StatelessWidget {
                     ),
                     MaterialButton(
                       onPressed: () {
-                        Get.to(() => FlightDetailScreen1());
+                        //  Get.to(() => FlightDetailScreen1());
+                        Navigator.pushNamed(
+                            context, Routes.flightDetailScreen1);
                       },
                       height: 40,
                       minWidth: 140,

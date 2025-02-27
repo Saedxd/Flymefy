@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/TrainAndBusScreen/train_and_bus_detail_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -28,7 +29,7 @@ class _TrainAndBusSearchScreenState extends State<TrainAndBusSearchScreen> {
         children: [
           Container(
             height: 100,
-            width: Get.width,
+            width: context.width,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(busAndTrainImage),
@@ -42,7 +43,7 @@ class _TrainAndBusSearchScreenState extends State<TrainAndBusSearchScreen> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                     child: Icon(Icons.arrow_back, color: white, size: 20),
                   ),
@@ -65,9 +66,12 @@ class _TrainAndBusSearchScreenState extends State<TrainAndBusSearchScreen> {
             itemBuilder: (context, index) => Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: InkWell(
-                onTap: Lists.trainAndBusFromToList[index]["onTap"],
+                 onTap: () {
+        Lists.trainAndBusFromToList[index]["onTap"](context);
+                  },
+              
                 child: Container(
-                  width: Get.width,
+                  width: context.width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     color: grey9B9.withOpacity(0.15),
@@ -117,7 +121,7 @@ class _TrainAndBusSearchScreenState extends State<TrainAndBusSearchScreen> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
             child: Container(
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: grey9B9.withOpacity(0.15),
@@ -162,7 +166,7 @@ class _TrainAndBusSearchScreenState extends State<TrainAndBusSearchScreen> {
                           Expanded(
                             child: Container(
                               height: 30,
-                              width: Get.width,
+                              width: context.width,
                               decoration: BoxDecoration(
                                 color: redFAE.withOpacity(0.8),
                                 border: Border.all(color: redCA0, width: 1),
@@ -181,7 +185,7 @@ class _TrainAndBusSearchScreenState extends State<TrainAndBusSearchScreen> {
                           Expanded(
                             child: Container(
                               height: 30,
-                              width: Get.width,
+                              width: context.width,
                               decoration: BoxDecoration(
                                 color: white,
                                 boxShadow: [
@@ -263,11 +267,12 @@ class _TrainAndBusSearchScreenState extends State<TrainAndBusSearchScreen> {
           Spacer(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
-            child: CommonButtonWidget.button(
+            child: CommonButtonWidget(
               text: "SEARCH",
               buttonColor: redCA0,
               onTap: () {
-                Get.to(() => TrainAndBusDetailScreen());
+                //     Get.to(() => TrainAndBusDetailScreen());
+                Navigator.pushNamed(context, Routes.trainAndBusDetailScreen);
               },
             ),
           ),

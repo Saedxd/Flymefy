@@ -27,7 +27,7 @@ class EditProfileScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -39,7 +39,7 @@ class EditProfileScreen extends StatelessWidget {
         actions: [
           InkWell(
             onTap: () {
-              Get.back();
+              Navigator.pop(context);
             },
             child: Padding(
               padding: EdgeInsets.only(right: 24, top: 20),

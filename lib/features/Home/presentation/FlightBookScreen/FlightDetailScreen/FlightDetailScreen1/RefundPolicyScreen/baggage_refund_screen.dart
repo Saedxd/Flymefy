@@ -86,7 +86,7 @@ class BaggageRefundSCreen extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Container(
-            width: Get.width,
+            width: context.width,
             decoration: BoxDecoration(
               color: orangeEB9.withOpacity(0.2),
               borderRadius: BorderRadius.circular(3),

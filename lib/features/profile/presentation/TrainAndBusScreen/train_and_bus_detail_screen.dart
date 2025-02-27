@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flymefy/Constants/font_family.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/TrainAndBusScreen/station_change_screen.dart';
 import 'package:flymefy/features/Home/presentation/TrainAndBusScreen/train_and_bus_modify_search_screen.dart';
 import 'package:flymefy/features/general/presernatation/screen/filter/sort_and_filter_screens/sort_and_filter_screen.dart';
@@ -27,7 +28,7 @@ class TrainAndBusDetailScreen extends StatelessWidget {
             children: [
               Container(
                 height: 135,
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(busAndTrainImage),
@@ -38,7 +39,7 @@ class TrainAndBusDetailScreen extends StatelessWidget {
                   padding:
                       EdgeInsets.only(left: 24, right: 24, top: 60, bottom: 10),
                   child: Container(
-                    width: Get.width,
+                    width: context.width,
                     decoration: BoxDecoration(
                       color: white,
                       borderRadius: BorderRadius.circular(5),
@@ -47,7 +48,7 @@ class TrainAndBusDetailScreen extends StatelessWidget {
                       horizontalTitleGap: -5,
                       leading: InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         child: Icon(Icons.arrow_back, color: grey888, size: 20),
                       ),
@@ -63,7 +64,9 @@ class TrainAndBusDetailScreen extends StatelessWidget {
                       ),
                       trailing: InkWell(
                         onTap: () {
-                          Get.to(() => TrainAndBusModifySearchScreen());
+                          //          Get.to(() => TrainAndBusModifySearchScreen());
+                          Navigator.pushNamed(
+                              context, Routes.trainAndBusModifySearchScreen);
                         },
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -83,7 +86,7 @@ class TrainAndBusDetailScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                width: Get.width,
+                width: context.width,
                 color: white,
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
@@ -116,7 +119,7 @@ class TrainAndBusDetailScreen extends StatelessWidget {
                       Expanded(
                         child: SizedBox(
                           height: 40,
-                          width: Get.width,
+                          width: context.width,
                           child: GetBuilder<TrainAndBusDetailController>(
                             init: TrainAndBusDetailController(),
                             builder: (controller) => ListView.builder(
@@ -180,7 +183,7 @@ class TrainAndBusDetailScreen extends StatelessWidget {
                     itemBuilder: (context, index) => Padding(
                       padding: EdgeInsets.only(bottom: 15),
                       child: Container(
-                        width: Get.width,
+                        width: context.width,
                         color: white,
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -274,7 +277,7 @@ class TrainAndBusDetailScreen extends StatelessWidget {
                                         );
                                       },
                                       child: Container(
-                                        width: Get.width,
+                                        width: context.width,
                                         decoration: BoxDecoration(
                                           color: white,
                                           boxShadow: [
@@ -356,7 +359,7 @@ class TrainAndBusDetailScreen extends StatelessWidget {
                                   SizedBox(width: 15),
                                   Expanded(
                                     child: Container(
-                                      width: Get.width,
+                                      width: context.width,
                                       decoration: BoxDecoration(
                                         color: white,
                                         boxShadow: [
@@ -450,7 +453,7 @@ class TrainAndBusDetailScreen extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 45, left: 24, right: 24),
               child: Container(
                 height: 64,
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   color: redCA0,
                   borderRadius: BorderRadius.circular(4),
@@ -502,7 +505,9 @@ class TrainAndBusDetailScreen extends StatelessWidget {
                         children: [
                           InkWell(
                               onTap: () {
-                                Get.to(() => SortAndFilterScreen());
+                                //   Get.to(() => SortAndFilterScreen());
+                                Navigator.pushNamed(
+                                    context, Routes.sortAndFilterScreen);
                               },
                               child: SvgPicture.asset(slidersHorizontal)),
                           SizedBox(height: 2),

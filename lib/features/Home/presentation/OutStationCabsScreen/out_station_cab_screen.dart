@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/HotelAndHomeStayScreens/select_checkin_date_screen.dart';
 import 'package:flymefy/features/Home/presentation/OutStationCabsScreen/out_station_cab_from_to_screen.dart';
 import 'package:get/get.dart';
@@ -24,7 +25,7 @@ class OutStationCabScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -40,7 +41,7 @@ class OutStationCabScreen extends StatelessWidget {
           children: [
             SizedBox(height: 20),
             Container(
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 color: yellowF7C.withOpacity(0.35),
                 borderRadius: BorderRadius.circular(5),
@@ -62,7 +63,7 @@ class OutStationCabScreen extends StatelessWidget {
             ),
             SizedBox(height: 15),
             Container(
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 color: grey9B9.withOpacity(0.15),
                 borderRadius: BorderRadius.circular(5),
@@ -143,10 +144,12 @@ class OutStationCabScreen extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: 15),
                 child: InkWell(
                   onTap: () {
-                    Get.to(() => OutStationCabFromToScreen());
+                    //    Get.to(() => OutStationCabFromToScreen());
+                    Navigator.pushNamed(
+                        context, Routes.outStationCabFromToScreen);
                   },
                   child: Container(
-                    width: Get.width,
+                    width: context.width,
                     decoration: BoxDecoration(
                       color: grey9B9.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(5),
@@ -173,10 +176,11 @@ class OutStationCabScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.to(() => SelectCheckInDateScreen());
+                //  Get.to(() => SelectCheckInDateScreen());
+                Navigator.pushNamed(context, Routes.selectCheckInDateScreen);
               },
               child: Container(
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   color: grey9B9.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(5),
@@ -211,10 +215,11 @@ class OutStationCabScreen extends StatelessWidget {
             SizedBox(height: 15),
             InkWell(
               onTap: () {
-                Get.to(() => SelectCheckInDateScreen());
+                //    Get.to(() => SelectCheckInDateScreen());
+                Navigator.pushNamed(context, Routes.selectCheckInDateScreen);
               },
               child: Container(
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   color: grey9B9.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(5),
@@ -247,11 +252,12 @@ class OutStationCabScreen extends StatelessWidget {
               ),
             ),
             Spacer(),
-            CommonButtonWidget.button(
+            CommonButtonWidget(
               text: "SEARCH",
               buttonColor: redCA0,
               onTap: () {
                 // Get.to(() => CabTerminalScreen1());
+                Navigator.pushNamed(context, Routes.cabTerminalScreen1);
               },
             ),
             SizedBox(height: 60),

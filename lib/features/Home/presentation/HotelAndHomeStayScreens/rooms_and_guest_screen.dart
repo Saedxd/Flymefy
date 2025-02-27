@@ -26,7 +26,7 @@ class RoomsAndGuestScreen extends StatelessWidget {
           children: [
             Container(
               height: 65,
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 color: redCA0,
                 borderRadius: BorderRadius.only(
@@ -41,7 +41,7 @@ class RoomsAndGuestScreen extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.back();
+                        Navigator.pop(context);
                       },
                       child: Icon(Icons.close, color: white, size: 20),
                     ),
@@ -57,7 +57,7 @@ class RoomsAndGuestScreen extends StatelessWidget {
             ),
             Container(
               height: 89,
-              width: Get.width,
+              width: context.width,
               color: redF9E.withOpacity(0.75),
               child: ListTile(
                 contentPadding:
@@ -142,7 +142,7 @@ class RoomsAndGuestScreen extends StatelessWidget {
                   SizedBox(height: 28),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24),
-                    child: CommonButtonWidget.button(
+                    child: CommonButtonWidget(
                       text: "DONE",
                       onTap: () {},
                       buttonColor: redCA0,

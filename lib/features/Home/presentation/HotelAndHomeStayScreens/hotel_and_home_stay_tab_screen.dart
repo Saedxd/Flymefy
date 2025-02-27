@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/HotelAndHomeStayScreens/5pluse_rooms_screen.dart';
 import 'package:flymefy/features/Home/presentation/HotelAndHomeStayScreens/HotelsScreen/hotel_screen.dart';
 import 'package:flymefy/features/Home/presentation/HotelAndHomeStayScreens/upto5_rooms_screen.dart';
@@ -26,7 +27,7 @@ class HotelAndHomeStayTabScreen extends StatelessWidget {
             children: [
               Container(
                 height: 155,
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(hotelAndHomeStayTopImage),
@@ -40,7 +41,7 @@ class HotelAndHomeStayTabScreen extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         child: Icon(Icons.arrow_back, color: white, size: 20),
                       ),
@@ -69,7 +70,7 @@ class HotelAndHomeStayTabScreen extends StatelessWidget {
             padding: EdgeInsets.only(top: 130, left: 24, right: 24),
             child: Container(
               height: 45,
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 color: white,
                 borderRadius: BorderRadius.circular(5),
@@ -101,10 +102,11 @@ class HotelAndHomeStayTabScreen extends StatelessWidget {
             bottom: 40,
             left: 24,
             right: 24,
-            child: CommonButtonWidget.button(
+            child: CommonButtonWidget(
               text: "SEARCH HOTELS",
               onTap: () {
-                Get.to(() => HotelScreen());
+                //   Get.to(() => HotelScreen());
+                Navigator.pushNamed(context, Routes.hotelScreen);
               },
               buttonColor: redCA0,
             ),

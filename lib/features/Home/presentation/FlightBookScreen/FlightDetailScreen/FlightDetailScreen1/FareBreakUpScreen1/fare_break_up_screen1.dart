@@ -18,7 +18,7 @@ class FareBreakUpScreen1 extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.close, color: white, size: 20),
         ),
@@ -31,8 +31,8 @@ class FareBreakUpScreen1 extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.only(top: 15, left: 24, right: 24, bottom: 30),
         child: Container(
-          height: Get.height,
-          width: Get.width,
+          height: context.width,
+          width: context.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             color: white,
@@ -71,7 +71,7 @@ class FareBreakUpScreen1 extends StatelessWidget {
               ),
               Spacer(),
               Container(
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   border: Border.all(color: greyE8E, width: 1),
                   color: white,

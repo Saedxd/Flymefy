@@ -24,7 +24,7 @@ class OutStationCabFromToScreen extends StatelessWidget {
           padding: EdgeInsets.only(left: 30),
           child: InkWell(
             onTap: () {
-              Get.back();
+              Navigator.pop(context);
             },
             child: Icon(Icons.arrow_back, color: black2E2, size: 20),
           ),

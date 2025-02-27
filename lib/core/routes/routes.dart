@@ -1,202 +1,210 @@
-//class of all routes
+// class of all routes
 sealed class Routes {
-  //initial
+  // initial
   static const String splash = '/';
-  //auth
-  static const String login = '/loginPersionalUsing';
-  //bussiness or user
-  static const String register = '/registerPersionalUsing';
+  // auth
+  static const String navigationScreen = '/navigationScreen';
+  // business or user
+  static const String register = '/register';
+  static const String selectCountryScreen = '/selectCountryScreen';
+  static const String editProfileScreen = '/editProfileScreen';
+  static const String otpScreen = '/otpScreen';
+  static const String homeSearchSCreen = '/HomeSearchSCreen';
+  static const String holidayPackageTravellerDetailScreen = '/HolidayPackageTravellerDetailScreen';
+  // ReferralScreen
+  static const String referralScreen = '/referralScreen';
+  static const String fullNameScreen = '/fullNameScreen';
+  static const String cabTerminalScreen2 = '/cabTerminalScreen2';
+  static const String welcomeScreen1 = '/welcomeScreen1';
 
-  static const String forgotPasswordPhoneNumber = '/forgotPasswordPhoneNumber';
-  //addComplaintsAndSuggestions
-  static const String addComplaintsAndSuggestions =
-      '/addComplaintsAndSuggestions';
-  //confirmCode
-  static const String forgetPasswordOTPScreen = '/forgetPasswordOTP';
-  static const String validateRegisterOTP = '/validateRegisterOTP';
-  static const String forgetPasswordReset = '/ForgetPasswordReset';
-  //showAllImages
-  static const String showAllImages = '/showAllImages';
-  static const String validatePhoneOTP = '/validatePhoneOTP';
-  //changepassword
-  static const String changePassword = '/changePassword';
-  static const String changePhone = '/changePhone';
-  static const String resetPassword = '/resetPassword';
-  static const String helpCenter = '/helpCenter';
+  static const String notificationScreen = '/notificationScreen';
 
-  //searchLocation
-  static const String searchLocation = '/searchLocation';
-  //home
-  static const String home = '/home';
-  static const String music = '/music';
-  //galleries
-  static const String galleries = '/galleries';
-  static const String galleriesDetails = '/galleriesDetails';
-  //sell car
-  static const String sellCar = '/sellCar';
-  //favorites
-  static const String favorites = '/favorites';
-  //menu
-  static const String menu = '/menu';
-  //profile
-  static const String profile = '/profile';
-  static const String editProfile = '/editProfile';
+  static const String cabSearchScreen = '/cabSearchScreen';
 
-  static const String changeEmail = '/changeEmail';
+  static const String homeStayScreen = '/homeStayScreen';
 
-  //notification
-  static const String notification = '/notification';
-  static const String notificationDetails = '/notificationDetails';
-  static const String successScreen = '/successScreen';
-  static const String successScreenRegister = '/successScreenRegister';
-  //setting
+  static const String outStationCabScreen = '/outStationCabScreen';
 
-  //lang
-  static const String lang = '/lang';
+  static const String flightSearchScreen = '/flightSearchScreen';
 
-  //home
-  //carDetails
-  static const String carDetails = '/carDetails';
+  static const String trainAndBusScreen = '/trainAndBusScreen';
 
-  //oldCars
-  static const String oldCarsDetails = '/oldCarsDetails';
-  static const String newCarsDetails = '/newCarsDetails';
-  //browse car and search
-  static const String browseAndSearchCar = '/browseAndSearchCar';
-  //fliterBrowseAndSearchCar
-  static const String fliterBrowseAndSearchCar = '/fliterBrowseAndSearchCar';
-  //AllFilterScreen
-  static const String allFilter = '/allFilter';
-  //model and brand
-  static const String modelAndBrandFilter = '/modelAndBrandFilter';
+  static const String hotelAndHomeStayTabScreen = '/hotelAndHomeStayTabScreen';
 
-  // chat
-  static const String chat = '/chat';
-  static const String messages = '/messages';
-  //mycars
-  static const String myCars = '/myCars';
-  //newCar
-  static const String newCars = '/newCars';
-  //usedCar
-  static const String usedCars = '/usedCars';
-  //السيارات المُباعة
-  static const String soldCars = '/soldCars';
-  //wallet
-  static const String wallet = '/wallet';
-  // static const String rechargeWallet = '/rechargeWallet';
-  // static const String qrCodeWallet = '/qrCodeWallet';
-  //offersAndPackages
-  static const String offersAndPackages = '/offersAndPackages';
-  // faq
-  static const String faq = '/faq';
-  //Complaints and suggestions
-  static const String complaintsAndSuggestions = '/complaintsAndSuggestions';
-  static const String complaintDetails = '/complaintDetails';
-  static const String enterComplaint = '/enterComplaint';
+  static const String holidayPackagesScreen = '/holidayPackagesScreen';
 
-  //about
-  static const String aboutUs = '/aboutUs';
+  static const String airportCabsScreen = '/airportCabsScreen';
 
-  ///view photo
-  static const String photoView = '/photoView';
+  static const String selectTravelDateScreen = '/selectTravelDateScreen';
 
-  // successPage;
+  static const String sortAndFilterScreen = '/sortAndFilterScreen';
 
-  // chat
-  static const String upgradeAds = '/upgradeAds';
+  static const String cabTerminalScreen1 = '/cabTerminalScreen1';
 
-  static const String editCar = '/editCar';
+  static const String languageScreen = '/languageScreen';
+
+  static const String flightDetailScreen = '/flightDetailScreen';
+
+  static const String flightModifySearch = '/flightModifySearch';
+
+  static const String oneWaycalenderScreen = '/oneWaycalenderScreen';
+  
+  static const String roundTripCalender = "/RoundTripCalender";
+
+  static const String multiCityCalender = '/MultiCityCalender';
+
+  static const String flightDetailScreen1 = '/flightDetailScreen1';
+
+  static const String seatsMealsAddOneTabScreen = '/seatsMealsAddOneTabScreen';
+
+  static const String refundPolicyTabScreen = '/refundPolicyTabScreen';
+
+  static const String checkInBaggageScreen = '/checkInBaggageScreen';
+
+  static const String applyPromoCodeScreen = '/applyPromoCodeScreen';
+
+  static const String addTravellerScreen = '/addTravellerScreen';
+
+  static const String fareBreakUpScreen1 = '/fareBreakUpScreen1';
+
+  static const String flightBookScreen = '/flightBookScreen';
+
+  static const String offerMakeYourTripScreen = '/offerMakeYourTripScreen';
+
+  static const String contactInformationScreen = '/contactInformationScreen';
+
+  static const String holidayPackageDetailScreen = '/holidayPackageDetailScreen';
+
+  static const String packageDetailScreen = '/packageDetailScreen';
+
+  static const String selectRoomAndGuestScreen = '/selectRoomAndGuestScreen';
+
+  static const String startFromScreen = '/startFromScreen';
+
+  static const String searchDestinationScreen = '/searchDestinationScreen';
+
+  static const String holidayPackageReviewScreen = '/holidayPackageReviewScreen';
+
+  static const String hotelScreen = '/hotelScreen';
+
+  static const String hotelDetailSearchScreen = '/hotelDetailSearchScreen';
+
+  static const String selectCheckInDateScreen = '/selectCheckInDateScreen';
+
+  static const String ratePlanDetailScreen = '/ratePlanDetailScreen';
+
+  static const String couponCodeScreen = '/couponCodeScreen';
+
+  static const String selectGuestScreen = '/selectGuestScreen';
+
+  static const String selectPaymentMethodScreen = '/selectPaymentMethodScreen';
+
+  static const String hotelAndHomeStay = '/hotelAndHomeStay';
+
+  static const String hotelDetailScreen = '/hotelDetailScreen';
+
+  static const String selectRoomScreen = '/selectRoomScreen';
+
+  static const String hotelReviewBookingScreen = '/hotelReviewBookingScreen';
+
+  static const String offerDetailScreen = '/offerDetailScreen';
+
+  static const String outStationCabFromToScreen = '/outStationCabFromToScreen';
+
+  static const String searchPickUpAreaScreen = '/searchPickUpAreaScreen';
+
+  static const String selfDriveCarsSelectTravelDateScreen = '/selfDriveCarsSelectTravelDateScreen';
+
+  static const String reviewBookingScreen = '/reviewBookingScreen';
+
+  static const String trainAndBusSearchScreen2 = '/trainAndBusSearchScreen2';
+
+  static const String trainAndBusModifySearchScreen = '/trainAndBusModifySearchScreen';
+
+  static const String trainAndBusSearchScreen = '/trainAndBusSearchScreen';
+
+  static const String trainAndBusDetailScreen = '/trainAndBusDetailScreen';
+
+  static const String travellerDetailScreen = '/travellerDetailScreen';
+
+  static const String addDocumentScreen = '/addDocumentScreen';
+
+  static const String enterDestinationScreen = '/enterDestinationScreen';
+
+  static const String selectVisaTypeScreen = '/selectVisaTypeScreen';
+
+  static const String seeVisaProcessScreen = '/seeVisaProcessScreen';
+
+  static const String editYourSearchScreen = '/editYourSearchScreen';
+
+  static const String exploreScreen = '/exploreScreen';
+
+  static const String welcomeScreen2 = '/welcomeScreen2';
+
+  static const String logInScreen = '/logInScreen';
+
+  static const String bookingOptionScreen = '/bookingOptionScreen';
+
+  static const String internationalSelectCityScreenScreen = '/internationalSelectCityScreenScreen';
+
+  static const String internationalDetailScreen1 = '/internationalDetailScreen1';
+
+  static const String where2GoSearchScreen = '/where2GoSearchScreen';
+
+  static const String myTripScreen = '/myTripScreen';
+
+  static const String myAccountScreen = '/myAccountScreen';
+
+  static const String offerScreen = '/offerScreen';
+
+  static const String selfDriveCarsScreen = '/selfDriveCarsScreen';
+
+  static const String applyTouristVisaScreen = '/applyTouristVisaScreen';
+
+  static const String internationalScreen = '/internationalScreen';
+
+  static const String flightFromScreen = '/flightFromScreen';
+
+  static const String flightToScreen = '/flightToScreen';
+
+  static const String payByUpiScreen = '/payByUpiScreen';
+
+  static const String payByCardScreen = '/payByCardScreen';
+
+  static const String mobileWalletScreen = '/mobileWalletScreen';
+
+  static const String netBankingScreen = '/netBankingScreen';
+
+  static const String searchCityScreen = '/searchCityScreen';
+
+  static const String popularFilterScreen = '/popularFilterScreen';
+
+  static const String priceRangeScreen = '/priceRangeScreen';
+
+  static const String localityScreen = '/localityScreen';
+
+  static const String propertyTypeScreen = '/propertyTypeScreen';
+
+  static const String trainAndBusFromScreen = '/trainAndBusFromScreen';
+
+  static const String trainAndBusToScreen = '/trainAndBusToScreen';
+
+  static const String suitableScreen = '/suitableScreen';
+
+  static const String budgetScreen = '/budgetScreen';
+
+  static const String durationScreen = '/durationScreen';
+
+  static const String hotelChoiceScreen = '/hotelChoiceScreen';
+
+  static const String myWishListScreen = '/myWishListScreen';
+
+  static const String myGiftCardScreen = '/myGiftCardScreen';
+
+  // showAllImages
+  static const String settingScreen = '/settingScreen';
 
   static const String permssion = '/permssion';
 
-  //addPromoCode
-  //promoCode
-  static const String addPromoCode = '/addPromoCode';
-  static const String selectPropertyAddingPromoCode =
-      '/selectPropertyAddingPromoCode';
-  static const String promoCode = '/promoCode';
-  //editPromoCode
-  // static const String editPromoCode = '/editPromoCode';
-// ============================add Propertery routes =============================
-//firstpage choose location
-  static const String chooseLocationAddProperty = '/chooseLocationAddProperty';
-  static const String confrimLocationAddProperty =
-      '/confrimLocationAddProperty';
-  static const String updateMenuUnit = '/addPropertyAddDetails';
-  static const String addPropertyAddPhotos = '/addPropertyAddPhotos';
-  static const String addPropertyPrices = '/addPropertyPrices';
-  static const String addPropertyFacilities = '/addPropertyFacilities';
-  static const String detailsUnit = '/detailsUnit';
-  static const String reviewsUnit = '/reviewsUnit';
-  //UpdateUnitScreen
-  static const String updateUnit = '/updateUnit';
-
-  static const String updateChooseLocationAddProperty =
-      '/updateChooseLocationAddProperty';
-  static const String updateConfrimLocationAddProperty =
-      '/updateConfrimLocationAddProperty';
-  static const String updatePropertyAddDetails = '/updatePropertyAddDetails';
-  static const String updatePropertyAddPhotos = '/updatePropertyAddPhotos';
-  static const String updatePropertyPrices = '/updatePropertyPrices';
-  static const String updatePropertyFacilities = '/updatePropertyFacilities';
-
-  //showCalnder
-  static const String showCalander = '/showCalander';
-
-  //whereTo
-  static const String whereTo = '/whereTo';
-  static const String whereToResult = '/whereToResult';
-  //ShowUnitsDetailsScreen
-  static const String showUnitsDetails = '/showUnitsDetails';
-  // ReviewsScreen
-  static const String reviews = '/reviews';
-
-  //booking
-  static const String booking = '/booking';
-  static const String bookingDetails = '/bookingDetails';
-  //paymentCheckoutBooking
-  static const String paymentCheckoutBooking = '/paymentCheckoutBooking';
-  //successBooking
-  static const String successBooking = '/successBooking';
-  //reservationsDetails
-  static const String reservationsDetails = '/reservationsDetails';
-  static const String cancellationOfReservationPolicy =
-      '/cancellationOfReservationPolicy';
-  static const String PropertiesScreen = '/PropertiesScreen';
-
-  static const String termsAndConditions = '/terms';
-  static const String privacyPolicy = '/privacyPolicy';
-  static const String selfCheckIn = '/selfCheckIn';
-  static const String unitSetting = '/unitSetting';
-  static const String cancellationOfReservDetails = "/cancellationPolicy";
-  static const String insuranceDetails = "/insurancePolicy";
-  static const String pointsDetails = "/pointBenefit";
-
-  static const String pointsPage = '/pointsPage';
-
-  static const String calenderReservations = '/calenderReservations';
-  //
-  static const String chatMessagesScreen = '/ChatMessagesScreen';
-  static const String searchDestination = '/searchDestination';
-  static const String addUnitGeneralInfo = '/AddUnitGeneralInfo';
-  static const String addUpdateProperty = '/addUpdateProperty';
-  static const String bookingDetailsScreen = "/BookingDetailsScreen";
-
-  static const String unitChatMessagesScreen = "/UnitChatMessagesScreen";
-
-  static const String bothTypeChatsForRentedScreen =
-      "/BothTypeChatsForRentedScreen";
-  static const String addUnitScreen = "/addUnitScreen";
-  static const String FullScreenUnitImages = "/FullScreenUnitImages";
-  static const String OptionsAmentiesFeaturesScreen =
-      "/OptionsAmentiesFeaturesScreen";
-
-  static const String PointsSeeMore = "/PointsSeeMore";
-  static const String LastReviewsSeeMore = "/LastReviewsSeeMore";
-  static const String AllReviews = "/AllReviews";
-  static const String bestPlacesSeeMore = "/bestPlacesSeeMore";
-  static const String chooseYourDestinationSeeMore =
-      "/chooseYourDestinationSeeMore";
-      static const String FaqsScreen = "/FaqsScreen";
-  //addunt
+  static const String porfileScreen = '/porfileScreen';
 }

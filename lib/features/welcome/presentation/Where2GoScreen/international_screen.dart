@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/welcome/presentation/Where2GoScreen/international_detail_screen1.dart';
 import 'package:flymefy/features/welcome/presentation/Where2GoScreen/international_select_city_screen.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,7 @@ class InterNationalScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -35,7 +36,8 @@ class InterNationalScreen extends StatelessWidget {
         actions: [
           InkWell(
             onTap: () {
-              Get.to(() => InternationalSelectCityScreenScreen());
+              //  Get.to(() => InternationalSelectCityScreenScreen());
+              Navigator.pushNamed(context, Routes.selectPaymentMethodScreen);
             },
             child: Padding(
               padding: EdgeInsets.only(right: 24),
@@ -58,10 +60,12 @@ class InterNationalScreen extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 20),
                   child: InkWell(
                     onTap: () {
-                      Get.to(() => InterNationalDetailScreen1());
+                      //   Get.to(() => InterNationalDetailScreen1());
+                      Navigator.pushNamed(
+                          context, Routes.internationalDetailScreen1);
                     },
                     child: Image.asset(Lists.internationalList[index],
-                        height: 310, width: Get.width),
+                        height: 310, width: context.width),
                   ),
                 ),
               ),

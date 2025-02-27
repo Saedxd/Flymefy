@@ -1,57 +1,32 @@
+import 'package:flymefy/features/Home/data/repository_impl/home_repository_impl.dart';
+import 'package:flymefy/features/Home/domain/repository/home_repository.dart';
+import 'package:flymefy/features/Home/domain/usecase/flight_book_usecase.dart';
+import 'package:flymefy/features/Home/logic/flight_book/flight_book_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flymefy/core/service/permission.dart';
 import 'package:flymefy/core/service/picker_photos.dart';
 import 'locator.dart';
 
-// void whereToFactory() {
-//   if (!GetIt.I.isRegistered<HomeRespository>()) {
-//     instance.registerFactory<HomeRespository>(() => HomeRepositoryImpl(
-//           authApi: instance(),
-//           networkInfo: instance(),
-//         ));
-//   }
-//   if (!GetIt.I.isRegistered<AddPropertyRepository>()) {
-//     instance
-//         .registerFactory<AddPropertyRepository>(() => AddPropertyRepositoryImpl(
-//               clientApi: instance(),
-//               networkInfo: instance(),
-//             ));
-//   }
-//   //usecases
-//   if (!GetIt.I.isRegistered<GetCitiesUseCase>()) {
-//     instance.registerFactory<GetCitiesUseCase>(
-//         () => GetCitiesUseCase(repository: instance()));
-//   }
-//   if (!GetIt.I.isRegistered<GetCategoriesUseCase>()) {
-//     instance.registerFactory<GetCategoriesUseCase>(
-//         () => GetCategoriesUseCase(repository: instance()));
-//   }
+void flightsSearchRegistery() {
+  if (!GetIt.I.isRegistered<HomeRepository>()) {
+    instance.registerFactory<HomeRepository>(() => HomeRepositoryImpl(
+          clientApi: instance(),
+          networkInfo: instance(),
+          appPreferences: instance(),
+        ));
+  }
 
-//   if (!GetIt.I.isRegistered<HomeRespository>()) {
-//     instance.registerFactory<HomeRespository>(() => HomeRepositoryImpl(
-//           authApi: instance(),
-//           networkInfo: instance(),
-//         ));
-//   }
-//   if (!GetIt.I.isRegistered<GetWhereTo>()) {
-//     instance
-//         .registerFactory<GetWhereTo>(() => GetWhereTo(repository: instance()));
-//   }
+  if (!GetIt.I.isRegistered<GetFlightsFromSearch>()) {
+    instance.registerFactory<GetFlightsFromSearch>(
+        () => GetFlightsFromSearch(repository: instance()));
+  }
 
-//   if (!GetIt.I.isRegistered<AddToWishListUseCase>()) {
-//     instance.registerFactory<AddToWishListUseCase>(
-//         () => AddToWishListUseCase(repository: instance()));
-//   }
+  if (!GetIt.I.isRegistered<FlightBookCubit>()) {
+    instance.registerFactory<FlightBookCubit>(
+        () => FlightBookCubit(getFlightsFromSearch: instance()));
+  }
+}
 
-//   if (!GetIt.I.isRegistered<WhereToCubit>()) {
-//     instance.registerFactory<WhereToCubit>(() => WhereToCubit(
-//           getCategoriesUseCase: instance(),
-//           getCitiesUseCase: instance(),
-//           getWhereTo: instance(),
-//           addToWishListUseCase: instance(),
-//         ));
-//   }
-// }
 
 // void bookingRequestFactory() {
 //   if (!GetIt.I.isRegistered<HomeRespository>()) {

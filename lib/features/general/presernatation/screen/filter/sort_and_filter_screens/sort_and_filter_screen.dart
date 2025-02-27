@@ -25,7 +25,7 @@ class SortAndFilterScreen extends StatelessWidget {
             children: [
               Container(
                 height: 155,
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(sortAndFilterTopImage),
@@ -39,7 +39,7 @@ class SortAndFilterScreen extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         child: Icon(Icons.close, color: white, size: 20),
                       ),
@@ -84,7 +84,7 @@ class SortAndFilterScreen extends StatelessWidget {
             padding: EdgeInsets.only(top: 130, left: 24, right: 24),
             child: Container(
               height: 45,
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 color: white,
                 borderRadius: BorderRadius.circular(5),
@@ -116,7 +116,7 @@ class SortAndFilterScreen extends StatelessWidget {
             bottom: 60,
             left: 24,
             right: 24,
-            child: CommonButtonWidget.button(
+            child: CommonButtonWidget(
               text: "Apply",
               onTap: () {},
               buttonColor: redCA0,

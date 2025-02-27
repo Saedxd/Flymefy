@@ -21,7 +21,7 @@ class SearchCityScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
             child: Container(
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: redFAE.withOpacity(0.6),
@@ -31,7 +31,7 @@ class SearchCityScreen extends StatelessWidget {
                 horizontalTitleGap: -7,
                 leading: InkWell(
                   onTap: () {
-                    Get.back();
+                    Navigator.pop(context);
                   },
                   child: Icon(Icons.arrow_back, color: black2E2, size: 20),
                 ),
@@ -84,7 +84,7 @@ class SearchCityScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 24),
             child: InkWell(
               onTap: () {
-                Get.back();
+                Navigator.pop(context);
               },
               child: Container(
                 decoration: BoxDecoration(

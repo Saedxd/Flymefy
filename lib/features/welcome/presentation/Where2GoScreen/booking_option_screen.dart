@@ -27,7 +27,7 @@ class _BookingOptionScreenState extends State<BookingOptionScreen> {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),

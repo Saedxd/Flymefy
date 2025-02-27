@@ -18,7 +18,7 @@ class PopularFilterScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.close, color: white, size: 20),
         ),
@@ -106,7 +106,7 @@ class PopularFilterScreen extends StatelessWidget {
               ],
             ),
             Spacer(),
-            CommonButtonWidget.button(
+            CommonButtonWidget(
               text: "DONE",
               onTap: () {},
               buttonColor: redCA0,

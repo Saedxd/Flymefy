@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/explore_screen.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/holiday_package_detail_screen.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/search_destination_screen.dart';
@@ -34,7 +35,7 @@ class HolidayPackagesScreen extends StatelessWidget {
                 children: [
                   Container(
                     height: 130,
-                    width: Get.width,
+                    width: context.width,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(holidayPackagesImage),
@@ -48,7 +49,7 @@ class HolidayPackagesScreen extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.back();
+                              Navigator.pop(context);
                             },
                             child:
                                 Icon(Icons.arrow_back, color: white, size: 20),
@@ -60,7 +61,9 @@ class HolidayPackagesScreen extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.to(() => StartFromSCreen());
+                              //   Get.to(() => StartFromSCreen());
+                              Navigator.pushNamed(
+                                  context, Routes.startFromScreen);
                             },
                             child: CommonTextWidget.PoppinsMedium(
                               text: "City",
@@ -75,7 +78,7 @@ class HolidayPackagesScreen extends StatelessWidget {
                   SizedBox(height: 25),
                   SizedBox(
                     height: 70,
-                    width: Get.width,
+                    width: context.width,
                     child: ScrollConfiguration(
                       behavior: MyBehavior(),
                       child: ListView.builder(
@@ -152,7 +155,9 @@ class HolidayPackagesScreen extends StatelessWidget {
                         padding: EdgeInsets.only(right: 15),
                         child: InkWell(
                           onTap: () {
-                            Get.to(() => HolidayPackageDetailScreen());
+                            //Get.to(() => HolidayPackageDetailScreen());
+                            Navigator.pushNamed(
+                                context, Routes.holidayPackageDetailScreen);
                           },
                           child: Column(
                             children: [
@@ -181,7 +186,7 @@ class HolidayPackagesScreen extends StatelessWidget {
                         (BuildContext context, index, int pageViewIndex) =>
                             Container(
                       height: 200,
-                      width: Get.width,
+                      width: context.width,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage(
@@ -339,7 +344,9 @@ class HolidayPackagesScreen extends StatelessWidget {
                 padding: EdgeInsets.only(top: 105, left: 24, right: 24),
                 child: InkWell(
                   onTap: () {
-                    Get.to(() => SearchDestinationScreen());
+                    //   Get.to(() => SearchDestinationScreen());
+                    Navigator.pushNamed(
+                        context, Routes.searchDestinationScreen);
                   },
                   child: Container(
                     decoration: BoxDecoration(

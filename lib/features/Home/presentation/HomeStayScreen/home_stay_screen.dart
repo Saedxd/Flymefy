@@ -22,7 +22,7 @@ class HomeStayScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -47,9 +47,11 @@ class HomeStayScreen extends StatelessWidget {
                 itemBuilder: (context, index) => Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InkWell(
-                    onTap: Lists.homeStayList1[index]["onTap"],
+                      onTap: () {
+                  Lists.homeStayList1[index]["onTap"](context);
+                  },
                     child: Container(
-                      width: Get.width,
+                      width: context.width,
                       decoration: BoxDecoration(
                         color: grey9B9.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(5),
@@ -102,7 +104,7 @@ class HomeStayScreen extends StatelessWidget {
                 itemBuilder: (context, index) => Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: Container(
-                    width: Get.width,
+                    width: context.width,
                     decoration: BoxDecoration(
                       color: grey9B9.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(5),
@@ -165,7 +167,7 @@ class HomeStayScreen extends StatelessWidget {
               SizedBox(height: 85),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24),
-                child: CommonButtonWidget.button(
+                child: CommonButtonWidget(
                   buttonColor: redCA0,
                   onTap: () {},
                   text: "SEARCH",

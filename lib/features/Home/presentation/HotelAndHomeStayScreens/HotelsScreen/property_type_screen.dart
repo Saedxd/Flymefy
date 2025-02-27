@@ -22,7 +22,7 @@ class PropertyTypeScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.close, color: white, size: 20),
         ),
@@ -396,7 +396,7 @@ class PropertyTypeScreen extends StatelessWidget {
               SizedBox(height: 30),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24),
-                child: CommonButtonWidget.button(
+                child: CommonButtonWidget(
                   text: "DONE",
                   onTap: () {},
                   buttonColor: redCA0,

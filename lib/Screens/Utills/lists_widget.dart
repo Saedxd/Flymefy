@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/DrawerScreen/setting_screen.dart';
-import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/flight_from_screen.dart';
-import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/flight_to_screen.dart';
+import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/from_to_screens/flight_from_screen.dart';
+import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/from_to_screens/flight_to_screen.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/budget_screen.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/duration_screen.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/hotel_choice_screen.dart';
@@ -35,7 +36,6 @@ import 'package:flymefy/features/welcome/presentation/Where2GoScreen/internation
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
 import 'package:flymefy/Constants/images.dart';
-
 
 import 'package:flymefy/Screens/Utills/common_text_widget.dart';
 
@@ -125,28 +125,28 @@ class Lists {
     {
       "image": offerIcon,
       "text": "Offers",
-      "onTap": () {
-        Get.to(() => OfferScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.offerScreen);
       },
     },
     {
       "image": selfDrive,
       "text": "Self Drive",
-      "onTap": () {
-        Get.to(() => SelfDriveCarsScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.selfDriveCarsScreen);
       },
     },
     {
       "image": visaServices,
       "text": "Visa services",
-      "onTap": () {
-        Get.to(() => ApplyTouristVisaScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.applyTouristVisaScreen);
       },
     },
     {
       "image": flightStatus,
       "text": "Flight Status",
-      "onTap": () {},
+      "onTap": (BuildContext context) {},
     },
   ];
 
@@ -227,34 +227,34 @@ class Lists {
     {
       "image": international,
       "text": "International",
-      "onTap": () {
-        Get.to(() => InterNationalScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.internationalScreen);
       },
     },
     {
       "image": honyMoon,
       "text": "Honeymoon",
-      "onTap": () {},
+      "onTap": (BuildContext context) {},
     },
     {
       "image": weekend,
       "text": "Weekend",
-      "onTap": () {},
+      "onTap": (BuildContext context) {},
     },
     {
       "image": romantic,
       "text": "Romantic",
-      "onTap": () {},
+      "onTap": (BuildContext context) {},
     },
     {
       "image": beach,
       "text": "Beach",
-      "onTap": () {},
+      "onTap": (BuildContext context) {},
     },
     {
       "image": mountain,
       "text": "Mountain",
-      "onTap": () {},
+      "onTap": (BuildContext context) {},
     },
   ];
 
@@ -347,36 +347,7 @@ class Lists {
     },
   ];
 
-  static List<Map> flightSearchList1 = [
-    {
-      "image": fromFlightImage,
-      "text1": "FROM",
-      "text2": "New Delhi ",
-      "text3": "DEL",
-      "text4": "Indira Gandhi international Airport",
-      "onTap": () {
-        Get.to(() => FlightFromScreen());
-      },
-    },
-    {
-      "image": toFlightImage,
-      "text1": "TO",
-      "text2": "Mumbai ",
-      "text3": "BOM",
-      "text4": "Chhatrapati Shivaji international Airport",
-      "onTap": () {
-        Get.to(() => FlightToScreen());
-      },
-    },
-    {
-      "image": calendarPlus,
-      "text1": "DEPARTURE DATE",
-      "text2": "22 Sep ",
-      "text3": "Thu, 2022",
-      "text4": "",
-      "onTap": () {},
-    },
-  ];
+
 
   static List<Map> flightSearchRoundTripList1 = [
     {
@@ -385,8 +356,8 @@ class Lists {
       "text2": "New Delhi ",
       "text3": "DEL",
       "text4": "Indira Gandhi international Airport",
-      "onTap": () {
-        Get.to(() => FlightFromScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.flightFromScreen);
       },
     },
     {
@@ -395,8 +366,8 @@ class Lists {
       "text2": "Mumbai ",
       "text3": "BOM",
       "text4": "Chhatrapati Shivaji international Airport",
-      "onTap": () {
-        Get.to(() => FlightToScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.flightToScreen);
       },
     },
     {
@@ -405,7 +376,7 @@ class Lists {
       "text2": "22 Sep ",
       "text3": "Thu, 2022",
       "text4": "",
-      "onTap": () {},
+      "onTap": (BuildContext context) {},
     },
     {
       "image": calendarPlus,
@@ -413,7 +384,7 @@ class Lists {
       "text2": "23 Sep ",
       "text3": "Fri, 2022",
       "text4": "",
-      "onTap": () {},
+      "onTap": (BuildContext context) {},
     },
   ];
 
@@ -633,32 +604,32 @@ class Lists {
       "image": upi,
       "text1": "UPI",
       "text2": "Pay Directly From Your bank Account",
-      "onTap": () {
-        Get.to(() => PayByUpiScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.payByUpiScreen);
       },
     },
     {
       "image": creditCard,
       "text1": "Credit/Debit/ATM Card",
       "text2": "Visa, MasterCard, Amex, Rupay...",
-      "onTap": () {
-        Get.to(() => PayByCardScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.payByCardScreen);
       },
     },
     {
       "image": netBanking,
       "text1": "Net Banking",
       "text2": "All Major Banks Available",
-      "onTap": () {
-        Get.to(() => NetBankingScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.netBankingScreen);
       },
     },
     {
       "image": wallet1,
       "text1": "gift Cards, wallets & More",
       "text2": "Gift cards, Mobikwik, AmazonPay",
-      "onTap": () {
-        Get.to(() => MobileWalletScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.mobileWalletScreen);
       },
     },
   ];
@@ -763,8 +734,8 @@ class Lists {
       "text1": "City/Area/LandMark/Property",
       "text2": "Goa",
       "text3": "",
-      "onTap": () {
-        Get.to(() => SearchCityScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.searchCityScreen);
       },
     },
     {
@@ -772,8 +743,8 @@ class Lists {
       "text1": "Check-In-Date",
       "text2": "28 Sep",
       "text3": "’22, Wed",
-      "onTap": () {
-        Get.to(() => SelectCheckInDateScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.selectCheckInDateScreen);
       },
     },
     {
@@ -781,8 +752,8 @@ class Lists {
       "text1": "Check-Out-Date",
       "text2": "29 Sep",
       "text3": "’22, Thu",
-      "onTap": () {
-        Get.to(() => SelectCheckInDateScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.selectCheckInDateScreen);
       },
     },
     {
@@ -790,7 +761,7 @@ class Lists {
       "text1": "Rooms & Guests",
       "text2": "1 Rooms, 2 Adults",
       "text3": "",
-      "onTap": () {
+      "onTap": (BuildContext context) {
         Get.bottomSheet(
           RoomsAndGuestScreen(),
           backgroundColor: Colors.transparent,
@@ -811,31 +782,31 @@ class Lists {
       "image": mapPin,
       "text1": "Add City/Area/Landmark",
       "text2": "Eg. Goa",
-      "onTap": () {
-        Get.to(() => SearchCityScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.searchCityScreen);
       },
     },
     {
       "image": calendarPlus,
       "text1": "Add Check In Date",
       "text2": "Date & Month",
-      "onTap": () {
-        Get.to(() => SelectCheckInDateScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.selectCheckInDateScreen);
       },
     },
     {
       "image": calendarPlus,
       "text1": "Add Check Out Date",
       "text2": "Minimum 6 rooms",
-      "onTap": () {
-        Get.to(() => SelectCheckInDateScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.selectCheckInDateScreen);
       },
     },
     {
       "image": user,
       "text1": "Add Rooms & Guests",
       "text2": "Minimum 6 rooms",
-      "onTap": () {
+      "onTap": (BuildContext context) {
         Get.bottomSheet(
           RoomsAndGuestScreen(),
           backgroundColor: Colors.transparent,
@@ -877,26 +848,26 @@ class Lists {
   static List<Map> hotelList1 = [
     {
       "text": "Popular",
-      "onTap": () {
-        Get.to(() => PopularFilterScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.popularFilterScreen);
       },
     },
     {
       "text": "Price",
-      "onTap": () {
-        Get.to(() => PriceRangeScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.priceRangeScreen);
       },
     },
     {
       "text": "Locality",
-      "onTap": () {
-        Get.to(() => LocalityScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.localityScreen);
       },
     },
     {
       "text": "Star Rating",
-      "onTap": () {
-        Get.to(() => PropertyTypeScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.propertyTypeScreen);
       },
     },
   ];
@@ -1061,16 +1032,16 @@ class Lists {
       "text1": "From",
       "text2": "Delhi ",
       "text3": "NDLS",
-      "onTap": () {
-        Get.to(() => TrainAndBusFromScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.trainAndBusFromScreen);
       },
     },
     {
       "text1": "To",
       "text2": "Kolkata",
       "text3": "HWH",
-      "onTap": () {
-        Get.to(() => TrainAndBusToScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.trainAndBusToScreen);
       },
     },
   ];
@@ -1247,35 +1218,35 @@ class Lists {
   static List<Map> holidayPackagesDetailList1 = [
     {
       "text": "for All",
-      "onTap": () {
-        Get.to(() => SuitableScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.suitableScreen);
       },
     },
     {
       "text": "Budget (Per Person)",
-      "onTap": () {
-        Get.to(() => BudgetScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.budgetScreen);
       },
     },
     {
       "text": "Duration",
-      "onTap": () {
-        Get.to(() => DurationScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.durationScreen);
       },
     },
     {
       "text": "Hotel Choice",
-      "onTap": () {
-        Get.to(() => HotelChoiceScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.hotelChoiceScreen);
       },
     },
     {
       "text": "Flights",
-      "onTap": () {},
+      "onTap": (BuildContext context) {},
     },
     {
       "text": "Premium Packages",
-      "onTap": () {},
+      "onTap": (BuildContext context) {},
     },
   ];
 
@@ -1468,8 +1439,8 @@ class Lists {
       "text1": "City/Area/LandMark/Property",
       "text2": "Goa",
       "text3": "",
-      "onTap": () {
-        Get.to(() => SearchCityScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.searchCityScreen);
       },
     },
     {
@@ -1477,8 +1448,8 @@ class Lists {
       "text1": "Check-In-Date",
       "text2": "20 Oct ",
       "text3": "’22, Wed",
-      "onTap": () {
-        Get.to(() => SelectCheckInDateScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.selectCheckInDateScreen);
       },
     },
     {
@@ -1486,8 +1457,8 @@ class Lists {
       "text1": "Check-Out-Date",
       "text2": "22 Oct ",
       "text3": "’28, Fri",
-      "onTap": () {
-        Get.to(() => SelectCheckInDateScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.selectCheckInDateScreen);
       },
     },
   ];
@@ -1603,33 +1574,33 @@ class Lists {
     {
       "image": suitcaseIcon,
       "text": "My Trip",
-      "onTap": () {
-        Get.to(() => MyTripScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.myTripScreen);
       },
     },
     {
       "image": heartIcon,
       "text": "Wishlist",
-      "onTap": () {
-        Get.to(() => MyWishListScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.myWishListScreen);
       },
     },
     {
       "image": giftCardIcon,
       "text": "My Gift Cards",
-      "onTap": () {
-        Get.to(() => MyGiftCardScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.myGiftCardScreen);
       },
     },
     {
       "image": padlockIcon,
       "text": "Reset Password",
-      "onTap": () {},
+      "onTap": (BuildContext context) {},
     },
     {
       "image": powerOffIcon,
       "text": "Logout",
-      "onTap": () {
+      "onTap": (BuildContext context) {
         Get.defaultDialog(
           backgroundColor: white,
           contentPadding: EdgeInsets.zero,
@@ -1656,11 +1627,11 @@ class Lists {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         child: Container(
                           height: 40,
-                          width: Get.width,
+                          width: context.width,
                           decoration: BoxDecoration(
                             border: Border.all(color: black2E2, width: 1),
                             color: white,
@@ -1680,11 +1651,11 @@ class Lists {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         child: Container(
                           height: 40,
-                          width: Get.width,
+                          width: context.width,
                           decoration: BoxDecoration(
                             color: redCA0,
                             borderRadius: BorderRadius.circular(12),
@@ -1726,41 +1697,41 @@ class Lists {
     {
       "image": suitcaseIcon,
       "text": "View/Manage Trips",
-      "onTap": () {
-        Get.to(() => MyTripScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.myTripScreen);
       },
     },
     {
       "image": heartIcon,
       "text": "Wishlist",
-      "onTap": () {
-        Get.to(() => MyWishListScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.myWishListScreen);
       },
     },
     {
       "image": giftCardIcon,
       "text": "My Gift Cards",
-      "onTap": () {
-        Get.to(() => MyGiftCardScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.myGiftCardScreen);
       },
     },
     {
       "image": bellIcon,
       "text": "Notifactions",
-      "onTap": () {
-        Get.to(() => NotificationScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.notificationScreen);
       },
     },
     {
       "image": starIcon,
       "text": "Rate us",
-      "onTap": () {},
+      "onTap": (BuildContext context) {},
     },
     {
       "image": settingIcon,
       "text": "Settings",
-      "onTap": () {
-        Get.to(() => SettingScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.settingScreen);
       },
     },
   ];
@@ -1794,16 +1765,16 @@ class Lists {
       "image": calendarPlus,
       "text1": "Check-In & Check-Out",
       "text2": "28 Sep, Thu - 30 Sep, Fri",
-      "onTap": () {
-        Get.to(() => SelectCheckInDateScreen());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.selectCheckInDateScreen);
       },
     },
     {
       "image": user,
       "text1": "Rooms & Guests",
       "text2": "1 Rooms, 2 Adults",
-      "onTap": () {
-        Get.to(() => HotelAndHomeStay());
+      "onTap": (BuildContext context) {
+        Navigator.pushNamed(context, Routes.hotelAndHomeStay);
       },
     },
   ];

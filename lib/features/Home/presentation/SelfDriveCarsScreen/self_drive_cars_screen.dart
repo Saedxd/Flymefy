@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/SelfDriveCarsScreen/search_pickup_area_screen.dart';
 import 'package:flymefy/features/Home/presentation/SelfDriveCarsScreen/self_drive_cars_select_dates_screen.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,7 @@ class SelfDriveCarsScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -40,10 +41,11 @@ class SelfDriveCarsScreen extends StatelessWidget {
             SizedBox(height: 20),
             InkWell(
               onTap: () {
-                Get.to(() => SearchPickUpAreaScreen());
+                //  Get.to(() => SearchPickUpAreaScreen());
+                Navigator.pushNamed(context, Routes.searchPickUpAreaScreen);
               },
               child: Container(
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   color: grey9B9.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(5),
@@ -78,10 +80,12 @@ class SelfDriveCarsScreen extends StatelessWidget {
             SizedBox(height: 15),
             InkWell(
               onTap: () {
-                Get.to(() => SelfDriveCarsSelectTravelDateScreen());
+                //  Get.to(() => SelfDriveCarsSelectTravelDateScreen());
+                Navigator.pushNamed(
+                    context, Routes.selfDriveCarsSelectTravelDateScreen);
               },
               child: Container(
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   color: grey9B9.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(5),
@@ -116,10 +120,12 @@ class SelfDriveCarsScreen extends StatelessWidget {
             SizedBox(height: 15),
             InkWell(
               onTap: () {
-                Get.to(() => SelfDriveCarsSelectTravelDateScreen());
+                //    Get.to(() => SelfDriveCarsSelectTravelDateScreen());
+                Navigator.pushNamed(
+                    context, Routes.selfDriveCarsSelectTravelDateScreen);
               },
               child: Container(
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   color: grey9B9.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(5),
@@ -152,11 +158,12 @@ class SelfDriveCarsScreen extends StatelessWidget {
               ),
             ),
             Spacer(),
-            CommonButtonWidget.button(
+            CommonButtonWidget(
               text: "SEARCH",
               buttonColor: redCA0,
               onTap: () {
                 // Get.to(() => CabTerminalScreen1());
+                Navigator.pushNamed(context, Routes.cabTerminalScreen1);
               },
             ),
             SizedBox(height: 60),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/HotelAndHomeStayScreens/HotelsScreen/coupon_code_screen.dart';
 import 'package:flymefy/features/Home/presentation/HotelAndHomeStayScreens/HotelsScreen/select_gust_screen.dart';
 import 'package:flymefy/features/payment_methods/presentation/select_method_screens/select_payment_method_screen.dart';
@@ -33,7 +34,7 @@ class HotelReviewBookingScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -53,18 +54,19 @@ class HotelReviewBookingScreen extends StatelessWidget {
               children: [
                 SizedBox(height: 15),
                 Image.asset(hotelReviewBookingImage1,
-                    height: 438, width: Get.width),
+                    height: 438, width: context.width),
                 Image.asset(hotelReviewBookingImage2),
                 InkWell(
                   onTap: () {
-                    Get.to(() => CouponCodeScreen());
+                    //   Get.to(() => CouponCodeScreen());
+                    Navigator.pushNamed(context, Routes.couponCodeScreen);
                   },
                   child: Image.asset(hotelReviewBookingImage3),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5),
                   child: Container(
-                    width: Get.width,
+                    width: context.width,
                     decoration: BoxDecoration(
                       color: white,
                       boxShadow: [
@@ -242,7 +244,9 @@ class HotelReviewBookingScreen extends StatelessWidget {
                           SizedBox(height: 5),
                           InkWell(
                             onTap: () {
-                              Get.to(() => SelectGuestScreen());
+                              //    Get.to(() => SelectGuestScreen());
+                              Navigator.pushNamed(
+                                  context, Routes.selectGuestScreen);
                             },
                             child: CommonTextWidget.PoppinsSemiBold(
                               text: "+ Add Another Guest",
@@ -295,10 +299,12 @@ class HotelReviewBookingScreen extends StatelessWidget {
                 SizedBox(height: 18),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: CommonButtonWidget.button(
+                  child: CommonButtonWidget(
                     text: "CONTINUE",
                     onTap: () {
-                      Get.to(() => SelectPaymentMethodScreen());
+                      //  Get.to(() => SelectPaymentMethodScreen());
+                      Navigator.pushNamed(
+                          context, Routes.selectPaymentMethodScreen);
                     },
                     buttonColor: redCA0,
                   ),

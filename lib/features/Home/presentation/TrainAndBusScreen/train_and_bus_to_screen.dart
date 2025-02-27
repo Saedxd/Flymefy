@@ -21,7 +21,7 @@ class TrainAndBusToScreen extends StatelessWidget {
           children: [
             SizedBox(height: 60),
             Container(
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 color: white,
                 borderRadius: BorderRadius.circular(5),
@@ -33,7 +33,7 @@ class TrainAndBusToScreen extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.back();
+                        Navigator.pop(context);
                       },
                       child: Icon(Icons.arrow_back, color: black2E2, size: 20),
                     ),
@@ -59,7 +59,7 @@ class TrainAndBusToScreen extends StatelessWidget {
             ),
             SizedBox(height: 15),
             Container(
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 color: redF8E,
                 borderRadius: BorderRadius.circular(5),

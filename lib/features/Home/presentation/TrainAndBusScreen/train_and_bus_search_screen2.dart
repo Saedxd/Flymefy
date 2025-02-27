@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/TrainAndBusScreen/review_booking_screen.dart';
 import 'package:flymefy/features/Home/presentation/TrainAndBusScreen/train_and_bus_contact_information_screen.dart';
 import 'package:flymefy/features/Home/presentation/TrainAndBusScreen/traveller_detail_screen.dart';
@@ -28,7 +29,7 @@ class TrainAndBusSearchScreen2 extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -47,7 +48,7 @@ class TrainAndBusSearchScreen2 extends StatelessWidget {
                 children: [
                   SizedBox(height: 10),
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     color: white,
                     child: Padding(
                       padding:
@@ -148,7 +149,7 @@ class TrainAndBusSearchScreen2 extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     color: white,
                     child: Padding(
                       padding:
@@ -171,7 +172,7 @@ class TrainAndBusSearchScreen2 extends StatelessWidget {
                               );
                             },
                             child: Container(
-                              width: Get.width,
+                              width: context.width,
                               decoration: BoxDecoration(
                                 color: greyE2E,
                                 borderRadius: BorderRadius.circular(5),
@@ -208,7 +209,7 @@ class TrainAndBusSearchScreen2 extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     color: white,
                     child: Padding(
                       padding:
@@ -223,7 +224,7 @@ class TrainAndBusSearchScreen2 extends StatelessWidget {
                           ),
                           SizedBox(height: 15),
                           Container(
-                            width: Get.width,
+                            width: context.width,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(3),
                               color: yellowF7C.withOpacity(0.3),
@@ -241,7 +242,9 @@ class TrainAndBusSearchScreen2 extends StatelessWidget {
                           SizedBox(height: 15),
                           InkWell(
                             onTap: () {
-                              Get.to(() => TravellerDetailScreen());
+                              //  Get.to(() => TravellerDetailScreen());
+                              Navigator.pushNamed(
+                                  context, Routes.travellerDetailScreen);
                             },
                             child: CommonTextWidget.PoppinsMedium(
                               text: "+ TRAVELLER DETAILS",
@@ -255,7 +258,7 @@ class TrainAndBusSearchScreen2 extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     color: white,
                     child: Padding(
                       padding:
@@ -298,7 +301,7 @@ class TrainAndBusSearchScreen2 extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     color: white,
                     child: Padding(
                       padding:
@@ -400,7 +403,7 @@ class TrainAndBusSearchScreen2 extends StatelessWidget {
                 children: [
                   Container(
                     height: 60,
-                    width: Get.width,
+                    width: context.width,
                     color: black2E2,
                     child: Padding(
                       padding:
@@ -424,7 +427,9 @@ class TrainAndBusSearchScreen2 extends StatelessWidget {
                           ),
                           MaterialButton(
                             onPressed: () {
-                              Get.to(() => ReviewBookingScreen());
+                              //    Get.to(() => ReviewBookingScreen());
+                              Navigator.pushNamed(
+                                  context, Routes.reviewBookingScreen);
                             },
                             height: 40,
                             minWidth: 140,

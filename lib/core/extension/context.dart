@@ -46,10 +46,10 @@ extension BuildContextValue on BuildContext {
       ? MediaQuery.sizeOf(this).width
       : MediaQuery.sizeOf(this).height;
 
-  SizeProvider get sizeProvider => SizeProvider.of(this);
+ // SizeProvider get sizeProvider => SizeProvider.of(this);
 
-  double get scaledWidth => sizeProvider.width / sizeProvider.baseSize.width;
-  double get scaledHeight => sizeProvider.height / sizeProvider.baseSize.height;
+  // double get scaledWidth => sizeProvider.width / sizeProvider.baseSize.width;
+  // double get scaledHeight => sizeProvider.height / sizeProvider.baseSize.height;
 
   // platform
   bool get isAndroid => Platform.isAndroid;

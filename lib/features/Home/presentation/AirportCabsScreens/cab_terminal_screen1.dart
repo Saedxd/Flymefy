@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/AirportCabsScreens/cab_terminal_screen2.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -19,7 +20,7 @@ class CabTerminalScreen1 extends StatelessWidget {
         children: [
           Container(
             height: 100,
-            width: Get.width,
+            width: context.width,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(cabTerminalImage1),
@@ -33,7 +34,7 @@ class CabTerminalScreen1 extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                     child: Icon(Icons.arrow_back, color: white, size: 20),
                   ),
@@ -57,7 +58,7 @@ class CabTerminalScreen1 extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 24),
             child: Container(
               height: 25,
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: grey9B9.withOpacity(0.15),
@@ -85,7 +86,8 @@ class CabTerminalScreen1 extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) => InkWell(
                   onTap: () {
-                    Get.to(() => CabTerminalScreen2());
+                    // Get.to(() => CabTerminalScreen2());
+                    Navigator.pushNamed(context, Routes.cabTerminalScreen2);
                   },
                   child: Column(
                     children: [

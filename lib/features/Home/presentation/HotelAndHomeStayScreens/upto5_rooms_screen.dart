@@ -23,9 +23,11 @@ class UpTo5RoomsScreen extends StatelessWidget {
           itemBuilder: (context, index) => Padding(
             padding: EdgeInsets.only(bottom: 15),
             child: InkWell(
-              onTap: Lists.upTo5RoomsList[index]["onTap"],
+                onTap: () {
+           Lists.upTo5RoomsList[index]["onTap"](context);
+                  },
               child: Container(
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   color: grey9B9.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(5),
@@ -87,7 +89,7 @@ class UpTo5RoomsScreen extends StatelessWidget {
         SizedBox(height: 10),
         SizedBox(
           height: 70,
-          width: Get.width,
+          width: context.width,
           child: ScrollConfiguration(
             behavior: MyBehavior(),
             child: ListView.builder(

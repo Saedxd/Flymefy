@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/auth/presentation/otp_screens/otp_screen.dart';
 import 'package:flymefy/features/referral/presentation/referral_screens/refferal_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
 import 'package:flymefy/Constants/font_family.dart';
 import 'package:flymefy/Constants/images.dart';
-import 'package:flymefy/Controller/login_controller.dart';
 import 'package:flymefy/Screens/NavigationSCreen/navigation_screen.dart';
 import 'package:flymefy/features/select_country/presentation/select_country_screens/select_country_screen.dart';
 import 'package:flymefy/Screens/Utills/common_button_widget.dart';
@@ -16,7 +16,6 @@ import 'package:flymefy/main.dart';
 class LogInScreen extends StatelessWidget {
   LogInScreen({Key? key}) : super(key: key);
   final TextEditingController numberController = TextEditingController();
-  final LoginController loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,6 @@ class LogInScreen extends StatelessWidget {
         children: [
           Container(
             height: 280,
-            width: Get.width,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(logInImage),
@@ -36,7 +34,7 @@ class LogInScreen extends StatelessWidget {
             child: Stack(
               children: [
                 Image.asset(welcome2Canvas,
-                    width: Get.width, fit: BoxFit.cover),
+                    width: context.width, fit: BoxFit.cover),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24),
                   child: Column(
@@ -48,7 +46,10 @@ class LogInScreen extends StatelessWidget {
                           alignment: Alignment.topRight,
                           child: InkWell(
                             onTap: () {
-                              Get.to(() => NavigationScreen());
+                              Navigator.pushNamed(
+                                  context, Routes.navigationScreen);
+
+                              //   context.to(() => NavigationScreen());
                             },
                             child: CommonTextWidget.PoppinsSemiBold(
                               text: "SKIP",
@@ -79,8 +80,8 @@ class LogInScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 245),
             child: Container(
-              // height: Get.height,
-              width: Get.width,
+              // height: context.height,
+              width: context.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(30),
@@ -110,7 +111,9 @@ class LogInScreen extends StatelessWidget {
                             padding: EdgeInsets.only(left: 15),
                             child: InkWell(
                               onTap: () {
-                                Get.to(() => SelectCountryScreen());
+                                //   context.to(() => SelectCountryScreen());
+                                Navigator.pushNamed(
+                                    context, Routes.selectCountryScreen);
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -137,24 +140,24 @@ class LogInScreen extends StatelessWidget {
                             ),
                           ),
                           onChange: (value) {
-                            if (value.isNotEmpty) {
-                              loginController.isTextEmpty.value = true;
-                            } else {
-                              loginController.isTextEmpty.value = false;
-                            }
+                            // if (value.isNotEmpty) {
+                            //   loginController.isTextEmpty.value = true;
+                            // } else {
+                            //   loginController.isTextEmpty.value = false;
+                            // }
                           },
                         ),
                         SizedBox(height: 35),
-                        Obx(
-                          () => CommonButtonWidget.button(
-                            onTap: () {
-                              Get.to(() => OtpScreen());
-                            },
-                            buttonColor: loginController.isTextEmpty.isFalse
-                                ? greyD8D
-                                : redCA0,
-                            text: "CONTINUE",
-                          ),
+                        CommonButtonWidget(
+                          onTap: () {
+                            //    context.to(() => OtpScreen());
+
+                            Navigator.pushNamed(context, Routes.otpScreen);
+                          },
+                          // buttonColor: loginController.isTextEmpty.isFalse
+                          //     ? greyD8D
+                          //     : redCA0,
+                          text: "CONTINUE",
                         ),
                         SizedBox(height: 55),
                         Padding(
@@ -165,7 +168,7 @@ class LogInScreen extends StatelessWidget {
                               Expanded(
                                 child: Container(
                                   height: 1.5,
-                                  width: Get.width,
+                                  width: context.width,
                                   color: greyD8D,
                                 ),
                               ),
@@ -179,7 +182,7 @@ class LogInScreen extends StatelessWidget {
                               Expanded(
                                 child: Container(
                                   height: 1.5,
-                                  width: Get.width,
+                                  width: context.width,
                                   color: greyD8D,
                                 ),
                               ),
@@ -189,7 +192,7 @@ class LogInScreen extends StatelessWidget {
                         SizedBox(height: 55),
                         Container(
                           height: 50,
-                          width: Get.width,
+                          width: context.width,
                           decoration: BoxDecoration(
                             border: Border.all(color: greyD8D, width: 1),
                             color: white,
@@ -215,7 +218,8 @@ class LogInScreen extends StatelessWidget {
                         SizedBox(height: 25),
                         InkWell(
                           onTap: () {
-                            Get.to(() => ReferralScreen());
+                            // context.to(() => ReferralScreen());
+                            Navigator.pushNamed(context, Routes.referralScreen);
                           },
                           child: RichText(
                             textAlign: TextAlign.center,

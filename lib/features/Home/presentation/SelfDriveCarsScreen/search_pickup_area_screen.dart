@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
 import 'package:flymefy/Constants/font_family.dart';
@@ -19,7 +20,7 @@ class SearchPickUpAreaScreen extends StatelessWidget {
           children: [
             SizedBox(height: 65),
             Container(
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 color: white,
                 boxShadow: [
@@ -43,7 +44,7 @@ class SearchPickUpAreaScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   prefixIcon: InkWell(
                     onTap: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                     child: Icon(Icons.arrow_back, color: grey717),
                   ),
@@ -87,11 +88,12 @@ class SearchPickUpAreaScreen extends StatelessWidget {
               ],
             ),
             Spacer(),
-            CommonButtonWidget.button(
+            CommonButtonWidget(
               text: "SEARCH",
               buttonColor: redCA0,
               onTap: () {
                 // Get.to(() => CabTerminalScreen1());
+                Navigator.pushNamed(context, Routes.cabTerminalScreen1);
               },
             ),
             SizedBox(height: 60),

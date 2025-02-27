@@ -4,7 +4,6 @@ import 'package:flymefy/core/resources_manager/theme.dart';
 import 'package:flymefy/core/routes/pages.dart';
 import 'package:flymefy/core/service/localization/app_localizations_setup.dart';
 
-
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 NavigatorState get navigator => navigatorKey.currentState!;
 
@@ -24,7 +23,7 @@ class AppProductionStartPoint extends StatelessWidget {
         BlocProvider(
           create: (_) => instance<AuthenticationCubit>()..getAuthentication(),
         ),
-    
+
         //notification
         BlocProvider(
           create: (_) => instance<NotificationCubit>(),
@@ -50,8 +49,8 @@ class FlymefyAppMaterailProduction extends StatefulWidget {
       _FlymefyAppMaterailProductionState();
 }
 
-class _FlymefyAppMaterailProductionState extends State<FlymefyAppMaterailProduction>
-    with WidgetsBindingObserver {
+class _FlymefyAppMaterailProductionState
+    extends State<FlymefyAppMaterailProduction> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
@@ -85,26 +84,30 @@ class _FlymefyAppMaterailProductionState extends State<FlymefyAppMaterailProduct
                     while (navigator.canPop()) {
                       navigator.pop();
                     }
-                    navigator.pushNamedAndRemoveUntil(
-                        Routes.home, (Route<dynamic> route) => false);
+                    navigator.pushNamedAndRemoveUntil(Routes.navigationScreen,
+                        (Route<dynamic> route) => false);
                   } else if (state.appAuthenticationLevel ==
                       AppAuthenticationLevel.visitor) {
                     while (navigator.canPop()) {
                       navigator.pop();
                     }
                     navigator.pushNamedAndRemoveUntil(
-                      Routes.home,
+                      Routes.navigationScreen,
                       (Route<dynamic> route) => false,
                     );
                   } else if (state.appAuthenticationLevel ==
                           AppAuthenticationLevel.unAuthenticated ||
                       state.appAuthenticationLevel ==
-                          AppAuthenticationLevel.blocked) {
+                              AppAuthenticationLevel.blocked &&
+                          (state.appAuthenticationLevel !=
+                              AppAuthenticationLevel.initial)) {
                     while (navigator.canPop()) {
                       navigator.pop();
                     }
+                    print("got in appAuthenticationLevel");
+
                     navigator.pushNamedAndRemoveUntil(
-                      Routes.login,
+                      Routes.logInScreen,
                       (Route<dynamic> route) => false,
                     );
                   } else {

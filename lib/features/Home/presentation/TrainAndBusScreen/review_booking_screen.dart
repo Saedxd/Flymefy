@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
 import 'package:flymefy/Screens/Utills/common_text_widget.dart';
@@ -18,7 +19,7 @@ class ReviewBookingScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -36,7 +37,7 @@ class ReviewBookingScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     color: yellowF7C.withOpacity(0.3),
                     child: Padding(
                       padding:
@@ -82,7 +83,7 @@ class ReviewBookingScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 20),
                         Container(
-                          width: Get.width,
+                          width: context.width,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: white,
@@ -216,7 +217,7 @@ class ReviewBookingScreen extends StatelessWidget {
                 children: [
                   Container(
                     height: 60,
-                    width: Get.width,
+                    width: context.width,
                     color: black2E2,
                     child: Padding(
                       padding:
@@ -231,7 +232,9 @@ class ReviewBookingScreen extends StatelessWidget {
                           ),
                           MaterialButton(
                             onPressed: () {
-                              Get.to(() => ReviewBookingScreen());
+                              //      Get.to(() => ReviewBookingScreen());
+                              Navigator.pushNamed(
+                                  context, Routes.reviewBookingScreen);
                             },
                             height: 40,
                             minWidth: 140,

@@ -115,7 +115,7 @@ class SelectCountryScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 40),
-              CommonButtonWidget.button(
+              CommonButtonWidget(
                 text: "CONTINUE",
                 buttonColor: redCA0,
                 onTap: () {},

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/profile/presentation/edit_profile/edit_profile_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -18,7 +19,9 @@ class DrawerScreen extends StatelessWidget {
         SizedBox(height: 20),
         ListTile(
           onTap: () {
-            Get.to(() => EditProfileScreen());
+          //  Get.to(() => EditProfileScreen());
+             Navigator.pushNamed(
+                                  context, Routes.editProfileScreen);
           },
           leading: Image.asset(myAccountImage, height: 70, width: 70),
           title: CommonTextWidget.PoppinsMedium(
@@ -43,7 +46,9 @@ class DrawerScreen extends StatelessWidget {
           itemBuilder: (context, index) => Padding(
             padding: EdgeInsets.only(bottom: 20),
             child: InkWell(
-              onTap: Lists.homeDrawerList[index]["onTap"],
+              onTap: () {
+                    Lists.homeDrawerList[index]["onTap"](context);
+                  },
               child: Row(
                 children: [
                   Container(

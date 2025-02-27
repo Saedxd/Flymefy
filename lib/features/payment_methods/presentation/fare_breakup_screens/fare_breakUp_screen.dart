@@ -23,7 +23,7 @@ class FareBreakUpScreen extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 color: redCA0,
                 borderRadius: BorderRadius.only(
@@ -38,7 +38,7 @@ class FareBreakUpScreen extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.back();
+                        Navigator.pop(context);
                       },
                       child: Icon(Icons.close, color: white, size: 20),
                     ),

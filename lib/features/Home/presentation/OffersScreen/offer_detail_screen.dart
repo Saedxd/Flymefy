@@ -20,7 +20,7 @@ class OfferDetailScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -35,7 +35,7 @@ class OfferDetailScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Image.asset(offerDetailImage1, height: 175, width: Get.width),
+              Image.asset(offerDetailImage1, height: 175, width: context.width),
               SizedBox(height: 15),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 28),
@@ -52,12 +52,12 @@ class OfferDetailScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Image.asset(offerDetailImage2,
-                    height: 290, width: Get.width),
+                    height: 290, width: context.width),
               ),
               SizedBox(height: 40),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24),
-                child: CommonButtonWidget.button(
+                child: CommonButtonWidget(
                   buttonColor: redCA0,
                   onTap: () {},
                   text: "BOOK NOW",

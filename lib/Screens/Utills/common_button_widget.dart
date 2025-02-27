@@ -3,19 +3,39 @@ import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
 import 'package:flymefy/Screens/Utills/common_text_widget.dart';
 
-class CommonButtonWidget {
-  static button({onTap, text, buttonColor}) {
+class CommonButtonWidget extends StatefulWidget {
+
+  CommonButtonWidget({
+    required this.onTap,
+    required this.text,
+    this.buttonColor = redCA0,
+  
+  });
+
+  final VoidCallback onTap;
+  final String text;
+  final Color buttonColor;
+
+
+
+  @override
+  State<CommonButtonWidget> createState() => _CommonButtonWidgetState();
+}
+
+class _CommonButtonWidgetState extends State<CommonButtonWidget> {
+  @override
+  Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: onTap,
+      onPressed: widget.onTap,
       height: 50,
-      minWidth: Get.width,
+      minWidth: context.width,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40),
       ),
-      color: buttonColor,
+      color: widget.buttonColor,
       child: CommonTextWidget.PoppinsSemiBold(
         fontSize: 16,
-        text: text,
+        text: widget.text,
         color: white,
       ),
     );

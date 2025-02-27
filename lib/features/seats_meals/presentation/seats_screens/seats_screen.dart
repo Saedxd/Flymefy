@@ -34,6 +34,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[0],
                     image5: Lists.seatsList2[1],
                     image6: Lists.seatsList2[2],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -44,6 +45,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[3],
                     image5: Lists.seatsList2[4],
                     image6: Lists.seatsList2[5],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -54,6 +56,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[6],
                     image5: Lists.seatsList2[7],
                     image6: Lists.seatsList2[8],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -64,6 +67,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[9],
                     image5: Lists.seatsList2[10],
                     image6: Lists.seatsList2[11],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -74,10 +78,10 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[12],
                     image5: Lists.seatsList2[13],
                     image6: Lists.seatsList2[14],
+                    context: context,
                   ),
                   SizedBox(height: 8),
-                  Obx(() {
-                    return seatsRow(
+                  seatsRow(
                       index: "6",
                       image1: Lists.seatsList2[15],
                       image2: seatSelected.value == true
@@ -87,8 +91,9 @@ class SeatsScreen extends StatelessWidget {
                       image4: Lists.seatsList2[15],
                       image5: Lists.seatsList2[16],
                       image6: Lists.seatsList2[17],
-                    );
-                  }),
+                          context: context,
+                    ),
+                
                   // seatsRow(
                   //   index: "6",
                   //   image1: Lists.seatsList2[15],
@@ -107,6 +112,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[18],
                     image5: Lists.seatsList2[19],
                     image6: Lists.seatsList2[20],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -117,6 +123,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[21],
                     image5: Lists.seatsList2[22],
                     image6: Lists.seatsList2[23],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -127,6 +134,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[24],
                     image5: Lists.seatsList2[25],
                     image6: Lists.seatsList2[26],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -137,6 +145,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[27],
                     image5: Lists.seatsList2[28],
                     image6: Lists.seatsList2[29],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -147,6 +156,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[30],
                     image5: Lists.seatsList2[31],
                     image6: Lists.seatsList2[32],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -157,6 +167,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[33],
                     image5: Lists.seatsList2[34],
                     image6: Lists.seatsList2[35],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -167,6 +178,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[36],
                     image5: Lists.seatsList2[37],
                     image6: Lists.seatsList2[38],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -177,6 +189,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[39],
                     image5: Lists.seatsList2[40],
                     image6: Lists.seatsList2[41],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -187,6 +200,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[42],
                     image5: Lists.seatsList2[43],
                     image6: Lists.seatsList2[44],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -197,6 +211,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[45],
                     image5: Lists.seatsList2[46],
                     image6: Lists.seatsList2[47],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -207,6 +222,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[48],
                     image5: Lists.seatsList2[49],
                     image6: Lists.seatsList2[50],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -217,6 +233,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[51],
                     image5: Lists.seatsList2[52],
                     image6: Lists.seatsList2[53],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -227,6 +244,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[54],
                     image5: Lists.seatsList2[55],
                     image6: Lists.seatsList2[56],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -237,6 +255,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[57],
                     image5: Lists.seatsList2[58],
                     image6: Lists.seatsList2[59],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -247,6 +266,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[60],
                     image5: Lists.seatsList2[61],
                     image6: Lists.seatsList2[62],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -257,6 +277,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[63],
                     image5: Lists.seatsList2[64],
                     image6: Lists.seatsList2[65],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -267,6 +288,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[66],
                     image5: Lists.seatsList2[67],
                     image6: Lists.seatsList2[68],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -277,6 +299,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[69],
                     image5: Lists.seatsList2[70],
                     image6: Lists.seatsList2[71],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -287,6 +310,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[72],
                     image5: Lists.seatsList2[73],
                     image6: Lists.seatsList2[74],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                   seatsRow(
@@ -297,6 +321,7 @@ class SeatsScreen extends StatelessWidget {
                     image4: Lists.seatsList2[75],
                     image5: Lists.seatsList2[76],
                     image6: Lists.seatsList2[77],
+                        context: context,
                   ),
                   SizedBox(height: 8),
                 ],

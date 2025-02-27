@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/seats_meals/presentation/seats_meals_addone_tab_screens/seats_meals_addone_tab_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -51,7 +52,7 @@ class ReviewDetailScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: greyE2E, width: 1),
@@ -124,7 +125,7 @@ class ReviewDetailScreen extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         child: CommonTextWidget.PoppinsMedium(
                           text: "EDIT",
@@ -134,7 +135,9 @@ class ReviewDetailScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.to(() => SeatsMealsAddOneTabScreen());
+                          //   Get.to(() => SeatsMealsAddOneTabScreen());
+                          Navigator.pushNamed(
+                              context, Routes.seatsMealsAddOneTabScreen);
                         },
                         child: CommonTextWidget.PoppinsMedium(
                           text: "CONFIRM",

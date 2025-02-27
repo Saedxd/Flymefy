@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
 import 'package:flymefy/Constants/images.dart';
@@ -22,7 +23,7 @@ class CheckInBaggageScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.close, color: white, size: 20),
         ),
@@ -38,7 +39,7 @@ class CheckInBaggageScreen extends StatelessWidget {
             padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
             child: Container(
               height: 500,
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: white,
@@ -126,7 +127,7 @@ class CheckInBaggageScreen extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: 60,
-                width: Get.width,
+                width: context.width,
                 color: black2E2,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
@@ -152,7 +153,9 @@ class CheckInBaggageScreen extends StatelessWidget {
                           SizedBox(width: 10),
                           InkWell(
                             onTap: () {
-                              Get.to(() => FareBreakUpScreen1());
+                              // Get.to(() => FareBreakUpScreen1());
+                              Navigator.pushNamed(
+                                  context, Routes.fareBreakUpScreen1);
                             },
                             child: SvgPicture.asset(info),
                           ),

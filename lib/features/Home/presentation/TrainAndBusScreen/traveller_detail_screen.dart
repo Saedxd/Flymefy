@@ -24,7 +24,7 @@ class TravellerDetailScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -84,7 +84,7 @@ class TravellerDetailScreen extends StatelessWidget {
                       ),
                       Container(
                         height: 44,
-                        width: Get.width,
+                        width: context.width,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(color: grey717, width: 1),
@@ -173,7 +173,7 @@ class TravellerDetailScreen extends StatelessWidget {
               keyboardType: TextInputType.text,
             ),
             Spacer(),
-            CommonButtonWidget.button(
+            CommonButtonWidget(
               text: "SAVE",
               buttonColor: greyBEB,
               onTap: () {},

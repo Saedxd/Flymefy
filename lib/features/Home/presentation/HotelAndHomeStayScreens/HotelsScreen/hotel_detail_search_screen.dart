@@ -20,7 +20,7 @@ class HotelDetailSearchScreen extends StatelessWidget {
             children: [
               Container(
                 height: 155,
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(hotelAndHomeStayTopImage),
@@ -34,7 +34,7 @@ class HotelDetailSearchScreen extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         child: Icon(Icons.arrow_back, color: white, size: 20),
                       ),

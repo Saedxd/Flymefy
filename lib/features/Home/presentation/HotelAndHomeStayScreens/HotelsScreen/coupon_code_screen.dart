@@ -20,7 +20,7 @@ class CouponCodeScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.cancel, color: white, size: 20),
         ),
@@ -43,7 +43,7 @@ class CouponCodeScreen extends StatelessWidget {
             ),
             SizedBox(height: 15),
             Container(
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 color: white,
                 boxShadow: [
@@ -76,7 +76,7 @@ class CouponCodeScreen extends StatelessWidget {
               ),
             ),
             Spacer(),
-            CommonButtonWidget.button(
+            CommonButtonWidget(
               text: "APPLY",
               onTap: () {},
               buttonColor: redCA0,

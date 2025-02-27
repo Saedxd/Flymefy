@@ -50,9 +50,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
             flowStateApp: FlowStateApp.success,
             user: data.userAppInfo,
             appAuthenticationLevel:
-                data.authenticationLevel == AppAuthenticationLevel.initial
-                    ? AppAuthenticationLevel.unAuthenticated
-                    : data.authenticationLevel));
+                // data.authenticationLevel == AppAuthenticationLevel.initial
+                //     ? AppAuthenticationLevel.unAuthenticated
+                //     :
+                data.authenticationLevel));
       },
     );
   }

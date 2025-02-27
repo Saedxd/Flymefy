@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightDetailScreen/FlightDetailScreen1/AddTravellerScreen/add_traveller_screen.dart';
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightDetailScreen/FlightDetailScreen1/ApplyPromoCodeScreen/apply_promocode_screen.dart';
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightDetailScreen/FlightDetailScreen1/CheckInBaggageScreen/check_in_baggage_screen.dart';
@@ -33,7 +34,7 @@ class FlightDetailScreen1 extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(flightDetail1Image),
@@ -49,7 +50,7 @@ class FlightDetailScreen1 extends StatelessWidget {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  Get.back();
+                                  Navigator.pop(context);
                                 },
                                 child: Icon(Icons.arrow_back,
                                     color: white, size: 24),
@@ -115,7 +116,7 @@ class FlightDetailScreen1 extends StatelessWidget {
                           SizedBox(height: 25),
                           Container(
                             height: 43,
-                            width: Get.width,
+                            width: context.width,
                             decoration: BoxDecoration(
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(30),
@@ -138,7 +139,7 @@ class FlightDetailScreen1 extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24),
                     child: Container(
-                      width: Get.width,
+                      width: context.width,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: white,
@@ -149,7 +150,9 @@ class FlightDetailScreen1 extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
-                                Get.to(() => RefundPolicyTabScreen());
+                                // Get.to(() => RefundPolicyTabScreen());
+                                Navigator.pushNamed(
+                                    context, Routes.refundPolicyTabScreen);
                               },
                               child: Row(
                                 mainAxisAlignment:
@@ -215,10 +218,12 @@ class FlightDetailScreen1 extends StatelessWidget {
                             SizedBox(height: 20),
                             InkWell(
                               onTap: () {
-                                Get.to(() => CheckInBaggageScreen());
+                                //Get.to(() => CheckInBaggageScreen());
+                                Navigator.pushNamed(
+                                    context, Routes.checkInBaggageScreen);
                               },
                               child: Container(
-                                width: Get.width,
+                                width: context.width,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(3),
                                   color: redF9E.withOpacity(0.75),
@@ -259,7 +264,7 @@ class FlightDetailScreen1 extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24),
                     child: Container(
-                      width: Get.width,
+                      width: context.width,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: white,
@@ -326,7 +331,7 @@ class FlightDetailScreen1 extends StatelessWidget {
                             ),
                             SizedBox(height: 20),
                             Container(
-                              width: Get.width,
+                              width: context.width,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(3),
                                 color: redF9E.withOpacity(0.75),
@@ -365,7 +370,7 @@ class FlightDetailScreen1 extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24),
                     child: Container(
-                      width: Get.width,
+                      width: context.width,
                       decoration: BoxDecoration(
                         color: white,
                         borderRadius: BorderRadius.circular(5),
@@ -376,7 +381,9 @@ class FlightDetailScreen1 extends StatelessWidget {
                           children: [
                             ListTile(
                               onTap: () {
-                                Get.to(() => ApplyPromoCodeScreen());
+                                // Get.to(() => ApplyPromoCodeScreen());
+                                Navigator.pushNamed(
+                                    context, Routes.applyPromoCodeScreen);
                               },
                               contentPadding: EdgeInsets.zero,
                               title: CommonTextWidget.PoppinsSemiBold(
@@ -516,7 +523,7 @@ class FlightDetailScreen1 extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24),
                     child: Container(
-                      width: Get.width,
+                      width: context.width,
                       decoration: BoxDecoration(
                         color: white,
                         borderRadius: BorderRadius.circular(5),
@@ -545,7 +552,7 @@ class FlightDetailScreen1 extends StatelessWidget {
                             ),
                             SizedBox(height: 15),
                             Container(
-                              width: Get.width,
+                              width: context.width,
                               decoration: BoxDecoration(
                                 color: redFAE,
                                 borderRadius: BorderRadius.circular(3),
@@ -585,7 +592,7 @@ class FlightDetailScreen1 extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24),
                     child: Container(
-                      width: Get.width,
+                      width: context.width,
                       decoration: BoxDecoration(
                         color: white,
                         borderRadius: BorderRadius.circular(5),
@@ -633,11 +640,13 @@ class FlightDetailScreen1 extends StatelessWidget {
                             SizedBox(height: 10),
                             InkWell(
                               onTap: () {
-                                Get.to(() => AddTravellerScreen());
+                                //  Get.to(() => AddTravellerScreen());
+                                Navigator.pushNamed(
+                                    context, Routes.addTravellerScreen);
                               },
                               child: Container(
                                 height: 44,
-                                width: Get.width,
+                                width: context.width,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   color: white,
@@ -755,7 +764,7 @@ class FlightDetailScreen1 extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: 60,
-                width: Get.width,
+                width: context.width,
                 color: black2E2,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
@@ -781,7 +790,9 @@ class FlightDetailScreen1 extends StatelessWidget {
                           SizedBox(width: 15),
                           InkWell(
                             onTap: () {
-                              Get.to(() => FareBreakUpScreen1());
+                              // Get.to(() => FareBreakUpScreen1());
+                              Navigator.pushNamed(
+                                  context, Routes.fareBreakUpScreen1);
                             },
                             child: SvgPicture.asset(info),
                           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/HotelAndHomeStayScreens/HotelsScreen/hotel_and_homestay.dart';
 import 'package:flymefy/features/Home/presentation/HotelAndHomeStayScreens/HotelsScreen/hotel_detail_screen.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,7 @@ class HotelScreen extends StatelessWidget {
         children: [
           Container(
             height: 155,
-            width: Get.width,
+            width: context.width,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(hotelAndHomeStayTopImage),
@@ -37,7 +38,7 @@ class HotelScreen extends StatelessWidget {
                   Expanded(
                     flex: 5,
                     child: Container(
-                      width: Get.width,
+                      width: context.width,
                       decoration: BoxDecoration(
                         color: white,
                         borderRadius: BorderRadius.circular(5),
@@ -46,7 +47,7 @@ class HotelScreen extends StatelessWidget {
                         horizontalTitleGap: -5,
                         leading: InkWell(
                           onTap: () {
-                            Get.back();
+                            Navigator.pop(context);
                           },
                           child:
                               Icon(Icons.arrow_back, color: grey888, size: 20),
@@ -63,7 +64,9 @@ class HotelScreen extends StatelessWidget {
                         ),
                         trailing: InkWell(
                           onTap: () {
-                            Get.to(() => HotelAndHomeStay());
+                            // Get.to(() => HotelAndHomeStay());
+                            Navigator.pushNamed(
+                                context, Routes.hotelAndHomeStay);
                           },
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -86,7 +89,7 @@ class HotelScreen extends StatelessWidget {
                     child: InkWell(
                       onTap: () {},
                       child: Container(
-                        width: Get.width,
+                        width: context.width,
                         decoration: BoxDecoration(
                           color: white,
                           borderRadius: BorderRadius.circular(5),
@@ -115,7 +118,7 @@ class HotelScreen extends StatelessWidget {
           ),
           Container(
             height: 50,
-            width: Get.width,
+            width: context.width,
             color: white,
             child: ListView.builder(
               padding: EdgeInsets.only(left: 24, right: 19, top: 1, bottom: 10),
@@ -125,7 +128,10 @@ class HotelScreen extends StatelessWidget {
               itemBuilder: (context, index) => Padding(
                 padding: EdgeInsets.only(right: 5),
                 child: InkWell(
-                  onTap: Lists.hotelList1[index]["onTap"],
+                     onTap: () {
+          Lists.hotelList1[index]["onTap"](context);
+                  },
+            
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
@@ -164,7 +170,8 @@ class HotelScreen extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 12),
                   child: InkWell(
                     onTap: () {
-                      Get.to(() => HotelDetailScreen());
+                      //        Get.to(() => HotelDetailScreen());
+                      Navigator.pushNamed(context, Routes.hotelDetailScreen);
                     },
                     child: Image.asset(
                       Lists.hotelList2[index],

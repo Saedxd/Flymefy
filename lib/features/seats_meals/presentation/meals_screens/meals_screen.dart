@@ -18,7 +18,7 @@ class MealsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: Get.width,
+              width: context.width,
               color: redF9E.withOpacity(0.75),
               child: Padding(
                 padding: EdgeInsets.only(top: 38, left: 24, right: 24),

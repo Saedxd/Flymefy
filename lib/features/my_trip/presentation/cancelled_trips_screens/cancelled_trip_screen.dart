@@ -4,6 +4,7 @@ import 'package:flymefy/Constants/colors.dart';
 import 'package:flymefy/Constants/images.dart';
 import 'package:flymefy/Screens/Utills/common_button_widget.dart';
 import 'package:flymefy/Screens/Utills/common_text_widget.dart';
+
 class CancelledTripScreen extends StatelessWidget {
   CancelledTripScreen({Key? key}) : super(key: key);
 
@@ -28,7 +29,7 @@ class CancelledTripScreen extends StatelessWidget {
         SizedBox(height: 30),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 70),
-          child: CommonButtonWidget.button(
+          child: CommonButtonWidget(
             onTap: () {},
             buttonColor: redCA0,
             text: "Start Booking Now",

@@ -23,7 +23,7 @@ class SelectPaymentMethodScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -42,7 +42,7 @@ class SelectPaymentMethodScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     color: white,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 24),
@@ -106,7 +106,7 @@ class SelectPaymentMethodScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 12),
                         Container(
-                          width: Get.width,
+                          width: context.width,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: white,
@@ -222,7 +222,7 @@ class SelectPaymentMethodScreen extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: 65,
-                width: Get.width,
+                width: context.width,
                 color: black2E2,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),

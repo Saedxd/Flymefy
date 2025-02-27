@@ -18,7 +18,7 @@ class AddOneScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: Get.width,
+              width: context.width,
               color: redF9E.withOpacity(0.75),
               child: Padding(
                 padding:

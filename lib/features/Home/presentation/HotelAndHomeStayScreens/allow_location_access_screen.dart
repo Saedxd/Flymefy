@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/HotelAndHomeStayScreens/hotel_and_home_stay_tab_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -57,7 +58,7 @@ class AllowLocationAccessScreen extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                     child: CommonTextWidget.PoppinsMedium(
                       text: "EDIT",
@@ -67,7 +68,9 @@ class AllowLocationAccessScreen extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.to(() => HotelAndHomeStayTabScreen());
+                      //   Get.to(() => HotelAndHomeStayTabScreen());
+                      Navigator.pushNamed(
+                          context, Routes.hotelAndHomeStayTabScreen);
                     },
                     child: CommonTextWidget.PoppinsMedium(
                       text: "CONFIRM",

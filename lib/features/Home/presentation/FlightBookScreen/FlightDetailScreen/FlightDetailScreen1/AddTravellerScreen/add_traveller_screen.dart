@@ -25,7 +25,7 @@ class AddTravellerScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.close, color: white, size: 20),
         ),
@@ -39,7 +39,7 @@ class AddTravellerScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: Get.width,
+            width: context.width,
             color: orangeEB9.withOpacity(0.2),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
@@ -59,7 +59,7 @@ class AddTravellerScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: greyE2E, width: 1),
@@ -104,7 +104,7 @@ class AddTravellerScreen extends StatelessWidget {
                       Expanded(
                         child: Container(
                           height: 50,
-                          width: Get.width,
+                          width: context.width,
                           decoration: BoxDecoration(
                             border: Border.all(color: greyE2E, width: 1),
                             borderRadius: BorderRadius.circular(5),
@@ -122,7 +122,7 @@ class AddTravellerScreen extends StatelessWidget {
                       Expanded(
                         child: Container(
                           height: 50,
-                          width: Get.width,
+                          width: context.width,
                           decoration: BoxDecoration(
                             border: Border.all(color: greyE2E, width: 1),
                             borderRadius: BorderRadius.circular(5),
@@ -151,11 +151,11 @@ class AddTravellerScreen extends StatelessWidget {
                     keyboardType: TextInputType.text,
                   ),
                   Spacer(),
-                  CommonButtonWidget.button(
+                  CommonButtonWidget(
                     text: "CONFIRM",
                     buttonColor: redCA0,
                     onTap: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                   ),
                   SizedBox(height: 50),

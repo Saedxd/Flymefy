@@ -26,7 +26,7 @@ class MyTripScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: black2E2, size: 20),
         ),
@@ -47,7 +47,7 @@ class MyTripScreen extends StatelessWidget {
           SizedBox(height: 10),
           Container(
             height: 45,
-            width: Get.width,
+            width: context.width,
             decoration: BoxDecoration(
               color: white,
               boxShadow: [

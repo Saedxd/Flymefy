@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flymefy/features/Home/domain/entity/flight_search.dart';
 import 'package:flymefy/features/auth/domain/entity/forget_password.dart';
 import 'package:flymefy/features/auth/domain/entity/register.dart';
 import 'package:flymefy/features/auth/domain/entity/user.dart';
@@ -8,8 +9,9 @@ import '../../../../../core/error/failure.dart';
 import '../../../../../core/service/either.dart';
 import '../../data/requests/request.dart';
 
-abstract interface class AuthRepository {
-  // Future<Either<Failure, UserAppInfo>> login(LoginRequest loginRequest);
+abstract interface class HomeRepository {
+  Future<Either<Failure, DynamicResponse>> getFlightsFromSearch(
+   FlightSearchRequest flightSearchRequest);
   // Future<Either<Failure, UserAppInfo>> getUserData();
 
   // Future<Either<Failure, RegisterData>> register(

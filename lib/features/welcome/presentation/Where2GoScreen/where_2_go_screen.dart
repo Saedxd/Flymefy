@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/welcome/presentation/Where2GoScreen/where2go_search_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -23,18 +24,19 @@ class Where2GoScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: Get.width,
+                width: context.width,
                 color: redCA0,
                 child: Padding(
                   padding:
                       EdgeInsets.only(bottom: 10, left: 24, right: 24, top: 60),
                   child: InkWell(
                     onTap: () {
-                      Get.to(() => Where2GoSearchScreen());
+                      //      Get.to(() => Where2GoSearchScreen());
+                      Navigator.pushNamed(context, Routes.where2GoSearchScreen);
                     },
                     child: Container(
                       height: 44,
-                      width: Get.width,
+                      width: context.width,
                       decoration: BoxDecoration(
                         color: white,
                         borderRadius: BorderRadius.circular(15),
@@ -60,7 +62,7 @@ class Where2GoScreen extends StatelessWidget {
               ),
               Container(
                 height: 100,
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(where2GoImage),
@@ -89,7 +91,7 @@ class Where2GoScreen extends StatelessWidget {
                 itemBuilder: (context, index) => Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: Container(
-                    width: Get.width,
+                    width: context.width,
                     decoration: BoxDecoration(
                       color: white,
                       borderRadius: BorderRadius.circular(30),
@@ -128,33 +130,36 @@ class Where2GoScreen extends StatelessWidget {
               SizedBox(height: 15),
               SizedBox(
                 height: 110,
-                width: Get.width,
+                width: context.width,
                 child: ScrollConfiguration(
                   behavior: MyBehavior(),
                   child: ListView.builder(
-                    itemCount: Lists.where2GoList2.length,
-                    padding: EdgeInsets.only(left: 24),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => Padding(
-                      padding: EdgeInsets.only(right: 32),
-                      child: InkWell(
-                        onTap: Lists.where2GoList2[index]["onTap"],
-                        child: Column(
-                          children: [
-                            Image.asset(Lists.where2GoList2[index]["image"],
-                                height: 75, width: 75),
-                            SizedBox(height: 6),
-                            CommonTextWidget.PoppinsRegular(
-                              text: Lists.where2GoList2[index]["text"],
-                              color: black2E2,
-                              fontSize: 14,
+                      itemCount: 3,
+                      padding: EdgeInsets.only(left: 24),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.only(right: 32),
+                          child: InkWell(
+                            onTap: () {
+                              Lists.where2GoList2[index]["onTap"](context);
+                            },
+                            child: Column(
+                              children: [
+                                Image.asset(Lists.where2GoList2[index]["image"],
+                                    height: 75, width: 75),
+                                SizedBox(height: 6),
+                                CommonTextWidget.PoppinsRegular(
+                                  text: Lists.where2GoList2[index]["text"],
+                                  color: black2E2,
+                                  fontSize: 14,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                          ),
+                        );
+                      }),
                 ),
               ),
               Divider(color: greyE9E, thickness: 1),
@@ -186,7 +191,7 @@ class Where2GoScreen extends StatelessWidget {
               SizedBox(height: 15),
               SizedBox(
                 height: 145,
-                width: Get.width,
+                width: context.width,
                 child: ScrollConfiguration(
                   behavior: MyBehavior(),
                   child: ListView.builder(
@@ -237,7 +242,7 @@ class Where2GoScreen extends StatelessWidget {
               SizedBox(height: 15),
               SizedBox(
                 height: 175,
-                width: Get.width,
+                width: context.width,
                 child: ScrollConfiguration(
                   behavior: MyBehavior(),
                   child: ListView.builder(

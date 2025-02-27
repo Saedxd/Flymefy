@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/payment_methods/presentation/fare_breakup_screens/fare_breakUp_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -29,7 +30,7 @@ class NetBankingScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -53,7 +54,7 @@ class NetBankingScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     color: redF9E.withOpacity(0.75),
                     child: ListTile(
                       title: CommonTextWidget.PoppinsSemiBold(
@@ -130,7 +131,7 @@ class NetBankingScreen extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: 60,
-                width: Get.width,
+                width: context.width,
                 color: black2E2,
                 child: Center(
                   child: Padding(
@@ -169,8 +170,7 @@ class NetBankingScreen extends StatelessWidget {
                           ],
                         ),
                         // SizedBox(width: 17.75),
-                        Obx(() {
-                          return netBankingController.isClick.value == true
+                      netBankingController.isClick.value == true
                               ? Row(
                                   children: [
                                     InkWell(
@@ -187,6 +187,8 @@ class NetBankingScreen extends StatelessWidget {
                                     MaterialButton(
                                       onPressed: () {
                                         // Get.to(() => SelectPaymentMethodScreen());
+                                        Navigator.pushNamed(context,
+                                            Routes.selectPaymentMethodScreen);
                                       },
                                       height: 40,
                                       minWidth: 130,
@@ -211,8 +213,8 @@ class NetBankingScreen extends StatelessWidget {
                                     );
                                   },
                                   child: SvgPicture.asset(info),
-                                );
-                        }),
+                                )
+                   
                       ],
                     ),
                   ),

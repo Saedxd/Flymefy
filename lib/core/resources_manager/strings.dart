@@ -3,7 +3,7 @@
 class AppStrings {
   AppStrings._();
   //app Setting
-  static const String appName = 'Rest Fort';
+  static const String appName = 'Flymefy';
   static const String english = 'english';
   static const String arabic = 'arabic';
   static const String pricePlan = 'pricePlan';

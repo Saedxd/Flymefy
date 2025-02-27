@@ -12,5 +12,6 @@ void main() async {
       enabled: true,
       builder: (context) => AppDevelopemntStartPoint(
             appRouter: AppRouter(),
+            
           )));
 }

@@ -22,7 +22,7 @@ class SelectGuestScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.cancel, color: white, size: 20),
         ),
@@ -51,7 +51,7 @@ class SelectGuestScreen extends StatelessWidget {
             ),
             SizedBox(height: 15),
             Container(
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 color: white,
                 boxShadow: [
@@ -126,7 +126,7 @@ class SelectGuestScreen extends StatelessWidget {
               ),
             ),
             Spacer(),
-            CommonButtonWidget.button(
+            CommonButtonWidget(
               text: "DONE",
               onTap: () {},
               buttonColor: redCA0,

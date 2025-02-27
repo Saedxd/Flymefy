@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/auth/presentation/login_screens/login_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -20,7 +21,7 @@ class WelcomeScreen2 extends StatelessWidget {
         children: [
           Container(
             height: 350,
-            width: Get.width,
+            width: context.width,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(welcome2Image),
@@ -30,7 +31,7 @@ class WelcomeScreen2 extends StatelessWidget {
             child: Stack(
               children: [
                 Image.asset(welcome2Canvas,
-                    width: Get.width, fit: BoxFit.cover),
+                    width: context.width, fit: BoxFit.cover),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24),
                   child: Column(
@@ -42,7 +43,8 @@ class WelcomeScreen2 extends StatelessWidget {
                           alignment: Alignment.topRight,
                           child: InkWell(
                             onTap: () {
-                              Get.to(() => LogInScreen());
+                              //    Get.to(() => LogInScreen());
+                              Navigator.pushNamed(context, Routes.logInScreen);
                             },
                             child: CommonTextWidget.PoppinsSemiBold(
                               text: "SKIP",
@@ -83,8 +85,8 @@ class WelcomeScreen2 extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 320),
             child: Container(
-              height: Get.height,
-              width: Get.width,
+              height: context.width,
+              width: context.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(30),
@@ -161,11 +163,12 @@ class WelcomeScreen2 extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    CommonButtonWidget.button(
+                    CommonButtonWidget(
                       text: "CONTINUE",
                       buttonColor: redCA0,
                       onTap: () {
-                        Get.to(() => LogInScreen());
+                        //      Get.to(() => LogInScreen());
+                        Navigator.pushNamed(context, Routes.logInScreen);
                       },
                     ),
                   ],

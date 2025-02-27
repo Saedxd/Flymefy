@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/HotelAndHomeStayScreens/HotelsScreen/hotel_detail_search_screen.dart';
 import 'package:flymefy/features/Home/presentation/HotelAndHomeStayScreens/HotelsScreen/rate_plan_detail_screen.dart';
 import 'package:flymefy/features/Home/presentation/HotelAndHomeStayScreens/select_checkin_date_screen.dart';
@@ -26,7 +27,7 @@ class HotelDetailScreen extends StatelessWidget {
             children: [
               Container(
                 height: 250,
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(hotelDetailTopImage),
@@ -43,7 +44,7 @@ class HotelDetailScreen extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.back();
+                              Navigator.pop(context);
                             },
                             child:
                                 SvgPicture.asset(internationalDetailBackImage),
@@ -52,7 +53,9 @@ class HotelDetailScreen extends StatelessWidget {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  Get.to(() => HotelDetailSearchScreen());
+                                  // Get.to(() => HotelDetailSearchScreen());
+                                  Navigator.pushNamed(
+                                      context, Routes.hotelDetailSearchScreen);
                                 },
                                 child: SvgPicture.asset(
                                     internationalDetailSearchImage),
@@ -91,7 +94,9 @@ class HotelDetailScreen extends StatelessWidget {
                     Image.asset(hotelDetailImage4, height: 23, width: 134),
                     InkWell(
                       onTap: () {
-                        Get.to(() => SelectCheckInDateScreen());
+                        //   Get.to(() => SelectCheckInDateScreen());
+                        Navigator.pushNamed(
+                            context, Routes.selectCheckInDateScreen);
                       },
                       child: Row(
                         children: [
@@ -117,9 +122,11 @@ class HotelDetailScreen extends StatelessWidget {
                 itemBuilder: (context, index) => Padding(
                   padding: EdgeInsets.only(bottom: 15),
                   child: InkWell(
-                    onTap: Lists.hotelDetailList1[index]["onTap"],
+                     onTap: () {
+           Lists.hotelDetailList1[index]["onTap"](context);
+                  },
                     child: Container(
-                      width: Get.width,
+                      width: context.width,
                       decoration: BoxDecoration(
                         color: grey9B9.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(5),
@@ -188,7 +195,7 @@ class HotelDetailScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                        width: Get.width,
+                        width: context.width,
                         color: black2E2,
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -218,7 +225,9 @@ class HotelDetailScreen extends StatelessWidget {
                               ),
                               MaterialButton(
                                 onPressed: () {
-                                  Get.to(() => RatePlanDetailScreen());
+                                  //  Get.to(() => RatePlanDetailScreen());
+                                  Navigator.pushNamed(
+                                      context, Routes.ratePlanDetailScreen);
                                 },
                                 height: 40,
                                 minWidth: 140,

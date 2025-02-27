@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/payment_methods/presentation/select_method_screens/select_payment_method_screen.dart';
 import 'package:flymefy/features/seats_meals/presentation/add_one_screens/add_one_screen.dart';
 import 'package:flymefy/features/seats_meals/presentation/meals_screens/meals_screen.dart';
@@ -26,7 +27,7 @@ class SeatsMealsAddOneTabScreen extends StatelessWidget {
             children: [
               Container(
                 height: 130,
-                width: Get.width,
+                width: context.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(flightSearch2TopImage),
@@ -42,7 +43,7 @@ class SeatsMealsAddOneTabScreen extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.back();
+                              Navigator.pop(context);
                               // seatSelected.value = false;
                             },
                             child:
@@ -81,7 +82,7 @@ class SeatsMealsAddOneTabScreen extends StatelessWidget {
             padding: EdgeInsets.only(top: 110, left: 24, right: 24),
             child: Container(
               height: 45,
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 color: white,
                 borderRadius: BorderRadius.circular(5),
@@ -115,7 +116,7 @@ class SeatsMealsAddOneTabScreen extends StatelessWidget {
             right: 0,
             child: Container(
               height: 60,
-              width: Get.width,
+              width: context.width,
               color: black2E2,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24),
@@ -146,7 +147,9 @@ class SeatsMealsAddOneTabScreen extends StatelessWidget {
                     MaterialButton(
                       onPressed: () {
                         // log(Lists.seatsList2.length.toString());
-                        Get.to(() => SelectPaymentMethodScreen());
+                        //   Get.to(() => SelectPaymentMethodScreen());
+                        Navigator.pushNamed(
+                            context, Routes.selectPaymentMethodScreen);
                       },
                       height: 40,
                       minWidth: 140,

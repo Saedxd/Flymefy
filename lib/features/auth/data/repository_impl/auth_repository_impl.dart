@@ -33,7 +33,6 @@ class AuthRepositoryImpl implements AuthRepository {
         _networkInfo = networkInfo;
 
   @override
-  @override
   Future<Either<Failure, GeneralSuccessData>> forgetPassword(
       ForgetPasswordRequest resetPasswordRequest) async {
     Response? response;

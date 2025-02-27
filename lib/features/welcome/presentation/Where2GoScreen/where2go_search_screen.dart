@@ -20,7 +20,7 @@ class Where2GoSearchScreen extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            width: Get.width,
+            width: context.width,
             color: redCA0,
             child: Padding(
               padding:
@@ -29,7 +29,7 @@ class Where2GoSearchScreen extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                     child: Icon(Icons.arrow_back, color: white, size: 20),
                   ),
@@ -47,7 +47,7 @@ class Where2GoSearchScreen extends StatelessWidget {
             ),
           ),
           Container(
-            width: Get.width,
+            width: context.width,
             color: greyEEE,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),

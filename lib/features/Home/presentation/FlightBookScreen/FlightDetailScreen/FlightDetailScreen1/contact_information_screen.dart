@@ -114,9 +114,9 @@ class ContactInformationScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 60),
-                  CommonButtonWidget.button(
+                  CommonButtonWidget(
                     onTap: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                     buttonColor: redCA0,
                     text: "CONFIRM",

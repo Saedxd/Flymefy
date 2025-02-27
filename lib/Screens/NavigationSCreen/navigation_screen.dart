@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/DrawerScreen/drawer_screen.dart';
 import 'package:flymefy/features/Home/presentation/home_screen.dart';
 import 'package:flymefy/features/my_trip/presentation/my_trips_screens/my_trip_screen.dart';
@@ -11,7 +12,6 @@ import 'package:flymefy/Constants/images.dart';
 import 'package:flymefy/Controller/navigation_controller.dart';
 
 import 'package:flymefy/Screens/Utills/common_text_widget.dart';
-
 
 class NavigationScreen extends StatelessWidget {
   final NavigationController navigationController =
@@ -73,7 +73,8 @@ class NavigationScreen extends StatelessWidget {
                 InkWell(
                   enableFeedback: false,
                   onTap: () {
-                    Get.to(() => MyTripScreen());
+                    //   Get.to(() => MyTripScreen());
+                    Navigator.pushNamed(context, Routes.myTripScreen);
                   },
                   child: SvgPicture.asset(
                     suitcaseIcon,
@@ -119,7 +120,8 @@ class NavigationScreen extends StatelessWidget {
                 InkWell(
                   enableFeedback: false,
                   onTap: () {
-                    Get.to(() => MyAccountScreen());
+                    //   Get.to(() => MyAccountScreen());
+                    Navigator.pushNamed(context, Routes.myAccountScreen);
                   },
                   child: SvgPicture.asset(
                     userIcon,
@@ -161,20 +163,18 @@ class NavigationScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Obx(() {
-              return navigationController.pageIndex.value == 0
-                  ? Positioned(
-                      top: 65,
-                      left: 24,
-                      child: InkWell(
-                        onTap: () {
-                          key.currentState!.openDrawer();
-                        },
-                        child: Image.asset(menuIcon, height: 42, width: 42),
-                      ),
-                    )
-                  : SizedBox();
-            }),
+            navigationController.pageIndex.value == 0
+                ? Positioned(
+                    top: 65,
+                    left: 24,
+                    child: InkWell(
+                      onTap: () {
+                        key.currentState!.openDrawer();
+                      },
+                      child: Image.asset(menuIcon, height: 42, width: 42),
+                    ),
+                  )
+                : SizedBox()
           ],
         ));
   }

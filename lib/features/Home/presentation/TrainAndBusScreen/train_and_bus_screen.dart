@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/TrainAndBusScreen/train_and_bus_search_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -20,7 +21,7 @@ class TrainAndBusScreen extends StatelessWidget {
         children: [
           Container(
             height: 100,
-            width: Get.width,
+            width: context.width,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(busAndTrainImage),
@@ -34,7 +35,7 @@ class TrainAndBusScreen extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                     child: Icon(Icons.arrow_back, color: white, size: 20),
                   ),
@@ -56,12 +57,13 @@ class TrainAndBusScreen extends StatelessWidget {
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => Padding(
               padding: EdgeInsets.only(bottom: 15),
-              child: InkWell(
+              child: InkWell(   
                 onTap: () {
-                  Get.to(() => TrainAndBusSearchScreen());
+                  //   Get.to(() => TrainAndBusSearchScreen());
+                  Navigator.pushNamed(context, Routes.trainAndBusSearchScreen);
                 },
                 child: Container(
-                  width: Get.width,
+                  width: context.width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
                     color: white,

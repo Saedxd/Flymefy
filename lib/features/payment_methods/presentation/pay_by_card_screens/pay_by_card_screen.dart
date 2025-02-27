@@ -28,7 +28,7 @@ class PayByCardScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -106,7 +106,7 @@ class PayByCardScreen extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   height: 65,
-                  width: Get.width,
+                  width: context.width,
                   color: black2E2,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),

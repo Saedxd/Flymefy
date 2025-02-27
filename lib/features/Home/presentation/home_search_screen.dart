@@ -20,7 +20,7 @@ class HomeSearchSCreen extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            width: Get.width,
+            width: context.width,
             color: redCA0,
             child: Padding(
               padding:
@@ -29,7 +29,7 @@ class HomeSearchSCreen extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                     child: Icon(Icons.arrow_back, color: white, size: 20),
                   ),
@@ -53,7 +53,7 @@ class HomeSearchSCreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      width: Get.width,
+                      width: context.width,
                       color: greyEEE,
                       child: Padding(
                         padding:
@@ -67,7 +67,7 @@ class HomeSearchSCreen extends StatelessWidget {
                     ),
                     SizedBox(
                       height: 70,
-                      width: Get.width,
+                      width: context.width,
                       child: ScrollConfiguration(
                         behavior: MyBehavior(),
                         child: ListView.builder(
@@ -106,7 +106,7 @@ class HomeSearchSCreen extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      width: Get.width,
+                      width: context.width,
                       color: greyEEE,
                       child: Padding(
                         padding:
@@ -138,7 +138,7 @@ class HomeSearchSCreen extends StatelessWidget {
                     ),
                     SizedBox(height: 12),
                     Container(
-                      width: Get.width,
+                      width: context.width,
                       color: greyEEE,
                       child: Padding(
                         padding:

@@ -19,7 +19,7 @@ class BudgetScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.close, color: white, size: 20),
         ),
@@ -229,7 +229,7 @@ class BudgetScreen extends StatelessWidget {
             //   },
             // ),
             Spacer(),
-            CommonButtonWidget.button(
+            CommonButtonWidget(
               buttonColor: redCA0,
               onTap: () {},
               text: "APPLY",

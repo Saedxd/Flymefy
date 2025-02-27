@@ -51,7 +51,7 @@ class PriceAlertScreen extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         child: CommonTextWidget.PoppinsSemiBold(
                           text: "GOT IT!",
@@ -61,7 +61,7 @@ class PriceAlertScreen extends StatelessWidget {
                       ),
                       MaterialButton(
                         onPressed: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         height: 40,
                         minWidth: 140,

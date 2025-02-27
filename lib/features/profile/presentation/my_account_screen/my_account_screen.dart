@@ -8,6 +8,8 @@ import 'package:flymefy/Screens/Utills/common_text_widget.dart';
 import 'package:flymefy/Screens/Utills/lists_widget.dart';
 import 'package:flymefy/main.dart';
 
+import '../../../../core/routes/routes.dart';
+
 class MyAccountScreen extends StatelessWidget {
   MyAccountScreen({Key? key}) : super(key: key);
 
@@ -22,7 +24,7 @@ class MyAccountScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -41,7 +43,8 @@ class MyAccountScreen extends StatelessWidget {
               SizedBox(height: 20),
               ListTile(
                 onTap: () {
-                  Get.to(() => EditProfileScreen());
+                  //     Get.to(() => EditProfileScreen());
+                  Navigator.pushNamed(context, Routes.editProfileScreen);
                 },
                 leading: Image.asset(myAccountImage, height: 70, width: 70),
                 title: CommonTextWidget.PoppinsMedium(
@@ -66,7 +69,9 @@ class MyAccountScreen extends StatelessWidget {
                 itemBuilder: (context, index) => Padding(
                   padding: EdgeInsets.only(bottom: 30),
                   child: InkWell(
-                    onTap: Lists.myAccountList[index]["onTap"],
+                    onTap: () {
+                      Lists.myAccountList[index]["onTap"](context);
+                    },
                     child: Row(
                       children: [
                         Container(

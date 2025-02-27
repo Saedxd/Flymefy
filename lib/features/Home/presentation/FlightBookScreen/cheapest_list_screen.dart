@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightDetailScreen/flight_detail_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -38,7 +39,7 @@ class _CheapestListScreenState extends State<CheapestListScreen> {
                   });
                 },
                 child: Container(
-                  width: Get.width,
+                  width: context.width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     color: white,
@@ -152,7 +153,7 @@ class _CheapestListScreenState extends State<CheapestListScreen> {
                         SizedBox(height: 15),
                         Container(
                           height: 20,
-                          width: Get.width,
+                          width: context.width,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: orangeFFB.withOpacity(0.25),
@@ -189,7 +190,7 @@ class _CheapestListScreenState extends State<CheapestListScreen> {
                         child: Padding(
                           padding: EdgeInsets.only(bottom: 8),
                           child: Container(
-                            width: Get.width,
+                            width: context.width,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               color: white,
@@ -370,10 +371,12 @@ class _CheapestListScreenState extends State<CheapestListScreen> {
                                     ],
                                   ),
                                   SizedBox(height: 20),
-                                  CommonButtonWidget.button(
+                                  CommonButtonWidget(
                                     buttonColor: redCA0,
                                     onTap: () {
-                                      Get.to(() => FlightDetailScreen());
+                                      //  Get.to(() => FlightDetailScreen());
+                                      Navigator.pushNamed(
+                                          context, Routes.flightDetailScreen);
                                     },
                                     text: "Book Now",
                                   ),

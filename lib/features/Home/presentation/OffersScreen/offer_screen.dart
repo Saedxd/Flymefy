@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/OffersScreen/offer_detail_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -21,7 +22,7 @@ class OfferScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -38,7 +39,7 @@ class OfferScreen extends StatelessWidget {
             children: [
               SizedBox(
                 height: 70,
-                width: Get.width,
+                width: context.width,
                 child: ScrollConfiguration(
                   behavior: MyBehavior(),
                   child: GetBuilder<OfferController>(
@@ -98,12 +99,13 @@ class OfferScreen extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 15),
                   child: InkWell(
                     onTap: () {
-                      Get.to(() => OfferDetailScreen());
+                      //    Get.to(() => OfferDetailScreen());
+                      Navigator.pushNamed(context, Routes.offerDetailScreen);
                     },
                     child: Image.asset(
                       Lists.offerList2[index],
                       height: 186,
-                      width: Get.width,
+                      width: context.width,
                     ),
                   ),
                 ),

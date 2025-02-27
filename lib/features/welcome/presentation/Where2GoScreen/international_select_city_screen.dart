@@ -20,7 +20,7 @@ class InternationalSelectCityScreenScreen extends StatelessWidget {
           children: [
             SizedBox(height: 65),
             Container(
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 color: white,
                 boxShadow: [
@@ -44,7 +44,7 @@ class InternationalSelectCityScreenScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   prefixIcon: InkWell(
                     onTap: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                     child: Icon(Icons.arrow_back, color: grey717),
                   ),

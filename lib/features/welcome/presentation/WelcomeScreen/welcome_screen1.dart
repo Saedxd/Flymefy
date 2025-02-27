@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/welcome/presentation/WelcomeScreen/welcome_screen2.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -96,10 +97,10 @@ class _WelcomeScreen1State extends State<WelcomeScreen1> {
           ),
           Padding(
             padding: EdgeInsets.only(left: 24, right: 24, bottom: 90),
-            child: CommonButtonWidget.button(
+            child: CommonButtonWidget(
               onTap: () {
                 index == 2
-                    ? Get.to(() => WelcomeScreen2())
+                    ? Navigator.pushNamed(context, Routes.welcomeScreen2)
                     : pageController.nextPage(
                         duration: 300.milliseconds, curve: Curves.ease);
               },
@@ -111,7 +112,8 @@ class _WelcomeScreen1State extends State<WelcomeScreen1> {
             padding: EdgeInsets.only(bottom: 50),
             child: InkWell(
               onTap: () {
-                Get.to(() => WelcomeScreen2());
+                //   Get.to(() => WelcomeScreen2());
+                Navigator.pushNamed(context, Routes.welcomeScreen2);
               },
               child: CommonTextWidget.PoppinsSemiBold(
                 text: "Skip",

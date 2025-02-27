@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
 import 'package:flymefy/Constants/images.dart';
@@ -26,7 +27,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         children: [
           Container(
             height: 130,
-            width: Get.width,
+            width: context.width,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(exploreImage),
@@ -40,7 +41,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                     child: Icon(Icons.arrow_back, color: white, size: 20),
                   ),
@@ -57,7 +58,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
           SizedBox(height: 10),
           SizedBox(
             height: 70,
-            width: Get.width,
+            width: context.width,
             child: ScrollConfiguration(
               behavior: MyBehavior(),
               child: ListView.builder(
@@ -130,7 +131,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 padding: EdgeInsets.only(right: 15),
                 child: InkWell(
                   onTap: () {
-                    Get.to(() => HolidayPackageDetailScreen());
+                    //    Get.to(() => HolidayPackageDetailScreen());
+                    Navigator.pushNamed(
+                        context, Routes.holidayPackageDetailScreen);
                   },
                   child: Column(
                     children: [

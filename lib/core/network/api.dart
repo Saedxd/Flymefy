@@ -654,11 +654,11 @@ class Config {
   static String get api_url {
     switch (appFlavor) {
       case Flavor.PRODUCTION:
-        return 'https://rest-fort.org/api';
+        return 'https://api.flymefy.com';
       case Flavor.DEVELOPMENT:
-        return 'https://flutterlaravelteam.com/public/api';
+        return 'https://api.flymefy.com';
       default:
-        return 'https://flutterlaravelteam.com/public/api';
+        return 'https://api.flymefy.com';
     }
   }
 }

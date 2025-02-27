@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/VisaServicesScreen/select_visa_type_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -20,7 +21,7 @@ class GetVisaOnlineScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -105,10 +106,11 @@ class GetVisaOnlineScreen extends StatelessWidget {
           Spacer(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
-            child: CommonButtonWidget.button(
+            child: CommonButtonWidget(
               text: "APPLY",
               onTap: () {
-                Get.to(() => SelectVisaTypeScreen());
+                //     Get.to(() => SelectVisaTypeScreen());
+                Navigator.pushNamed(context, Routes.selectVisaTypeScreen);
               },
               buttonColor: redCA0,
             ),

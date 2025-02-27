@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/holiday_package_review_screen.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/holiday_package_traveller_detail_screen.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,7 @@ class PackageDetailScreen extends StatelessWidget {
                 children: [
                   Container(
                     height: 200,
-                    width: Get.width,
+                    width: context.width,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(packageDetailImage),
@@ -42,7 +43,7 @@ class PackageDetailScreen extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.back();
+                              Navigator.pop(context);
                             },
                             child:
                                 Icon(Icons.arrow_back, color: white, size: 20),
@@ -118,7 +119,7 @@ class PackageDetailScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24),
                     child: Container(
-                      width: Get.width,
+                      width: context.width,
                       decoration: BoxDecoration(
                         color: redF9E.withOpacity(0.95),
                         borderRadius: BorderRadius.circular(5),
@@ -149,8 +150,8 @@ class PackageDetailScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.to(() =>
-                                    HolidayPackageTravellerDetailScreen());
+                                Navigator.pushNamed(context,
+                                    Routes.holidayPackageTravellerDetailScreen);
                               },
                               child: CommonTextWidget.PoppinsMedium(
                                 text: "Edit",
@@ -197,7 +198,7 @@ class PackageDetailScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24),
                     child: Container(
-                      width: Get.width,
+                      width: context.width,
                       decoration: BoxDecoration(
                         color: redF9E.withOpacity(0.95),
                         border: Border.all(
@@ -257,7 +258,7 @@ class PackageDetailScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    width: Get.width,
+                    width: context.width,
                     color: black2E2,
                     child: Padding(
                       padding:
@@ -291,7 +292,9 @@ class PackageDetailScreen extends StatelessWidget {
                           ),
                           MaterialButton(
                             onPressed: () {
-                              Get.to(() => HolidayPackageReviewScreen());
+                              // Get.to(() => HolidayPackageReviewScreen());
+                              Navigator.pushNamed(
+                                  context, Routes.holidayPackageReviewScreen);
                             },
                             height: 40,
                             minWidth: 140,

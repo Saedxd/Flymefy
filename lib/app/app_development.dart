@@ -4,7 +4,6 @@ import 'package:flymefy/core/resources_manager/theme.dart';
 import 'package:flymefy/core/routes/pages.dart';
 import 'package:flymefy/core/service/localization/app_localizations_setup.dart';
 
-
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 NavigatorState get navigator => navigatorKey.currentState!;
 
@@ -24,8 +23,6 @@ class AppDevelopemntStartPoint extends StatelessWidget {
         BlocProvider(
           create: (_) => instance<AuthenticationCubit>()..getAuthentication(),
         ),
-
-   
 
         BlocProvider(
           create: (_) => instance<NotificationCubit>(),
@@ -86,8 +83,8 @@ class _TajarAppMaterailDevelopmentState
                     while (navigator.canPop()) {
                       navigator.pop();
                     }
-                    navigator.pushNamedAndRemoveUntil(
-                        Routes.home, (Route<dynamic> route) => false);
+                    navigator.pushNamedAndRemoveUntil(Routes.navigationScreen,
+                        (Route<dynamic> route) => false);
                   } else if (state.appAuthenticationLevel ==
                       AppAuthenticationLevel.visitor) {
                     debugPrint("got in appAuthenticationLevel");
@@ -95,18 +92,21 @@ class _TajarAppMaterailDevelopmentState
                       navigator.pop();
                     }
                     navigator.pushNamedAndRemoveUntil(
-                      Routes.home,
+                      Routes.navigationScreen,
                       (Route<dynamic> route) => false,
                     );
                   } else if (state.appAuthenticationLevel ==
                           AppAuthenticationLevel.unAuthenticated ||
                       state.appAuthenticationLevel ==
-                          AppAuthenticationLevel.blocked) {
+                              AppAuthenticationLevel.blocked &&
+                          (state.appAuthenticationLevel !=
+                              AppAuthenticationLevel.initial)) {
                     while (navigator.canPop()) {
                       navigator.pop();
                     }
+                    print("got in appAuthenticationLevel");
                     navigator.pushNamedAndRemoveUntil(
-                      Routes.login,
+                      Routes.logInScreen,
                       (Route<dynamic> route) => false,
                     );
                   } else {

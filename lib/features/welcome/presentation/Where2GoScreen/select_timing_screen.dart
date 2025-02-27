@@ -14,7 +14,7 @@ class SelectTimingScreen extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: 300),
       child: Container(
-        width: Get.width,
+        width: context.width,
         color: white,
         child: ScrollConfiguration(
           behavior: MyBehavior(),
@@ -35,7 +35,7 @@ class SelectTimingScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         child: Icon(Icons.close, color: black2E2),
                       ),
@@ -103,7 +103,7 @@ class SelectTimingScreen extends StatelessWidget {
                 SizedBox(height: 50),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: CommonButtonWidget.button(
+                  child: CommonButtonWidget(
                     text: "CONTINUE",
                     onTap: () {},
                     buttonColor: redCA0,

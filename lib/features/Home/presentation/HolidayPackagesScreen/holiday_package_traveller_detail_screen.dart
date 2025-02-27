@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/select_room_and_gust_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -19,7 +20,7 @@ class HolidayPackageTravellerDetailScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -87,7 +88,8 @@ class HolidayPackageTravellerDetailScreen extends StatelessWidget {
             ),
             trailing: InkWell(
               onTap: () {
-                Get.to(() => SelectRoomAndGustScreen());
+                // Get.to(() => SelectRoomAndGustScreen());
+                Navigator.pushNamed(context, Routes.selectRoomAndGuestScreen);
               },
               child: CommonTextWidget.PoppinsMedium(
                 text: "CHANGE",
@@ -127,7 +129,8 @@ class HolidayPackageTravellerDetailScreen extends StatelessWidget {
             ),
             trailing: InkWell(
               onTap: () {
-                Get.to(() => SelectRoomAndGustScreen());
+                //Get.to(() => SelectRoomAndGustScreen());
+                Navigator.pushNamed(context, Routes.selectRoomAndGuestScreen);
               },
               child: CommonTextWidget.PoppinsMedium(
                 text: "CHANGE",
@@ -140,7 +143,7 @@ class HolidayPackageTravellerDetailScreen extends StatelessWidget {
           Spacer(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
-            child: CommonButtonWidget.button(
+            child: CommonButtonWidget(
               onTap: () {},
               buttonColor: redCA0,
               text: "APPLY",

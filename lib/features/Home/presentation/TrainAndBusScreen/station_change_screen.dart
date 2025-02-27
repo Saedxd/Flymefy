@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/TrainAndBusScreen/train_and_bus_search_screen2.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -23,7 +24,7 @@ class StationChangeScreen extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              width: Get.width,
+              width: context.width,
               decoration: BoxDecoration(
                 color: redCA0,
                 borderRadius: BorderRadius.only(
@@ -71,7 +72,7 @@ class StationChangeScreen extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         child: CommonTextWidget.PoppinsMedium(
                           text: "Back",
@@ -81,7 +82,9 @@ class StationChangeScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.to(() => TrainAndBusSearchScreen2());
+                          // Get.to(() => TrainAndBusSearchScreen2());
+                          Navigator.pushNamed(
+                              context, Routes.trainAndBusSearchScreen2);
                         },
                         child: CommonTextWidget.PoppinsMedium(
                           text: "OK, Go AHEAD",

@@ -980,7 +980,7 @@ class _PhoneInputViewState extends State<PhoneInputView> {
     return Container(
       margin: widget.margin ?? EdgeInsets.zero,
       padding: widget.padding ?? const EdgeInsets.symmetric(vertical: 8),
-      width: widget.width ?? double.infinity,
+      width: context.width ?? double.infinity,
       height: widget.error != null ? null : 65,
       child: TextFormField(
         controller: widget.controller ?? TextEditingController(),
@@ -1424,8 +1424,8 @@ class _GenericReadOnlyInputViewState extends State<GenericReadOnlyInputView> {
       margin: widget.margin ?? EdgeInsets.zero,
       padding: widget.padding ??
           const EdgeInsets.symmetric(vertical: AppSize.appSize8),
-      width: widget.width ?? double.infinity,
-      height: widget.height ?? AppSize.appSize65,
+      width: context.width ?? double.infinity,
+      height: context.width ?? AppSize.appSize65,
       child: TextFormField(
         readOnly: true,
         initialValue: widget.value.isEmpty ? null : widget.value,

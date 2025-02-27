@@ -19,7 +19,7 @@ class MyGiftCardScreen extends StatelessWidget {
         centerTitle: true,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back, color: white, size: 20),
         ),
@@ -38,7 +38,7 @@ class MyGiftCardScreen extends StatelessWidget {
           itemBuilder: (context, index) => Padding(
             padding: EdgeInsets.only(bottom: 20),
             child: Image.asset(Lists.giftCardList[index],
-                height: 85, width: Get.width),
+                height: 85, width: context.width),
           ),
         ),
       ),

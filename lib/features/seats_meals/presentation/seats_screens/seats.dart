@@ -4,7 +4,15 @@ import 'package:flymefy/Constants/colors.dart';
 import 'package:flymefy/Screens/Utills/common_text_widget.dart';
 
 RxBool seatSelected = false.obs;
-seatsRow({index, image1, image2, image3, image4, image5, image6}) {
+seatsRow(
+    {index,
+    image1,
+    image2,
+    image3,
+    image4,
+    image5,
+    image6,
+    required BuildContext context}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -42,7 +50,7 @@ seatsRow({index, image1, image2, image3, image4, image5, image6}) {
             children: [
               InkWell(
                 onTap: () {
-                  openBottomSheet();
+                  openBottomSheet(context);
                 },
                 child: Image.asset(
                   image1,
@@ -53,7 +61,7 @@ seatsRow({index, image1, image2, image3, image4, image5, image6}) {
               SizedBox(width: 8),
               InkWell(
                 onTap: () {
-                  openBottomSheet();
+                  openBottomSheet(context);
                 },
                 child: Image.asset(
                   image2,
@@ -64,7 +72,7 @@ seatsRow({index, image1, image2, image3, image4, image5, image6}) {
               SizedBox(width: 8),
               InkWell(
                 onTap: () {
-                  openBottomSheet();
+                  openBottomSheet(context);
                 },
                 child: Image.asset(
                   image3,
@@ -105,7 +113,7 @@ seatsRow({index, image1, image2, image3, image4, image5, image6}) {
             children: [
               InkWell(
                 onTap: () {
-                  openBottomSheet();
+                  openBottomSheet(context);
                 },
                 child: Image.asset(
                   image4,
@@ -116,7 +124,7 @@ seatsRow({index, image1, image2, image3, image4, image5, image6}) {
               SizedBox(width: 8),
               InkWell(
                 onTap: () {
-                  openBottomSheet();
+                  openBottomSheet(context);
                 },
                 child: Image.asset(
                   image5,
@@ -127,7 +135,7 @@ seatsRow({index, image1, image2, image3, image4, image5, image6}) {
               SizedBox(width: 8),
               InkWell(
                 onTap: () {
-                  openBottomSheet();
+                  openBottomSheet(context);
                 },
                 child: Image.asset(
                   image6,
@@ -148,7 +156,7 @@ seatsRow({index, image1, image2, image3, image4, image5, image6}) {
   );
 }
 
-openBottomSheet() {
+openBottomSheet(BuildContext context) {
   Get.bottomSheet(
     isScrollControlled: true,
     Container(
@@ -192,7 +200,7 @@ openBottomSheet() {
                 TextButton(
                   onPressed: () {
                     seatSelected.value = true;
-                    Get.back();
+                    Navigator.pop(context);
                   },
                   child: CommonTextWidget.PoppinsSemiBold(
                     text: "OKAY",
