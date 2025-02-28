@@ -574,7 +574,6 @@ class HomeScreen extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            // Get.to(() => HotelAndHomeStayTabScreen());
                             Navigator.pushNamed(
                                 context, Routes.hotelAndHomeStayTabScreen);
                           },

@@ -150,8 +150,13 @@ class OneWayScreen extends StatelessWidget {
                                 buttonColor: redCA0,
                                 onTap: () {
                                   //  Get.to(() => FlightBookScreen());
-                                  Navigator.pushNamed(
-                                      context, Routes.flightBookScreen);
+                                  // Navigator.pushNamed(
+                                  //     context, Routes.flightBookScreen);
+
+                                  context
+                                      .read<FlightBookCubit>()
+                                      .assignDataToTheRequest(
+                                          FlightType.oneWay);
                                 },
                                 text: "SEARCH FLIGHTS",
                               ),
@@ -417,7 +422,6 @@ class TravelBoxes extends StatelessWidget {
                 Navigator.pushNamed(context, Routes.flightToScreen, arguments: {
                   'cubit': cubit,
                   'type': "TOOneWay",
-                  
                   'onIataClicked': (FlightDetails selectedFlight) {
                     context
                         .read<FlightBookCubit>()

@@ -3,25 +3,23 @@ import 'dart:io';
 import 'package:flymefy/features/auth/domain/entity/register.dart';
 
 class FlightSearchRequest {
-  
- const FlightSearchRequest({
-   this.adults = 1,
-   this.children = 0,
-   this.infants = 0,
-   this.nonstop = 0,
-   this.airline = '',
-   this.solutions = 0,
-   this.searchAirLegs= const [],
+  const FlightSearchRequest({
+    this.adults = 1,
+    this.children = 0,
+    this.infants = 0,
+    this.nonstop = 0,
+    this.airline = '',
+    this.solutions = 0,
+    this.searchAirLegs = const [],
   });
- 
 
- final int adults;
- final int children;
- final int infants;
- final int nonstop;
- final String airline;
- final int solutions;
- final List<SearchAirLegs> searchAirLegs;
+  final int adults;
+  final int children;
+  final int infants;
+  final int nonstop;
+  final String airline;
+  final int solutions;
+  final List<SearchAirLegs> searchAirLegs;
 
   Map<String, dynamic> toJson() {
     return {
@@ -31,7 +29,7 @@ class FlightSearchRequest {
       'nonstop': nonstop,
       'airline': airline,
       'solutions': solutions,
-      'searchAirLegs': searchAirLegs,
+      "searchAirLegs": searchAirLegs.map((e) => e.toJson()).toList(),
     };
   }
 }
@@ -40,18 +38,16 @@ class SearchAirLegs {
   SearchAirLegs({
     this.cabinClass = '',
     this.departureDate = '',
-    this.origin  = '',
-    this.destination= '',
-    this.airline= '',
+    this.origin = '',
+    this.destination = '',
+    this.airline = '',
   });
-
 
   final String cabinClass;
   final String departureDate;
   final String origin;
   final String destination;
   final String airline;
-
 
   Map<String, dynamic> toJson() {
     return {
@@ -63,4 +59,3 @@ class SearchAirLegs {
     };
   }
 }
-

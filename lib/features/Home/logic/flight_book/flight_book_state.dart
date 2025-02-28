@@ -1,5 +1,12 @@
 part of 'flight_book_cubit.dart';
 
+enum FlightType{
+ oneWay,
+ roundTrip,
+ multiCity
+}
+
+
 class FlightBookState extends Equatable {
   final FlowStateApp flowStateApp;
   final Failure failure;
@@ -7,7 +14,6 @@ class FlightBookState extends Equatable {
   final DynamicResponse flightsData;
   final OneWayData oneWayData;
   final RoundTrip roundTrip;
-  final MultiCity multiCity;
   final List<FlightDetails> fromList;
   final List<FlightDetails> toList;
   final CalendarFormat calendarFormat;
@@ -62,7 +68,6 @@ class FlightBookState extends Equatable {
       this.flowStateApp = FlowStateApp.draft,
       this.flightSearchRequest = const FlightSearchRequest(),
       this.flightsData = const DynamicResponse(),
-      this.multiCity = const MultiCity(),
       this.roundTrip = const RoundTrip(),
       this.oneWayData = const OneWayData(),
       this.fromList = defaultFromToList,
@@ -79,7 +84,6 @@ class FlightBookState extends Equatable {
       DynamicResponse? flightsData,
       OneWayData? oneWayData,
       RoundTrip? roundTrip,
-      MultiCity? multiCity,
       List<FlightDetails>? fromList,
       List<FlightDetails>? toList,
       CalendarFormat? calendarFormat,
@@ -92,7 +96,6 @@ class FlightBookState extends Equatable {
         flightsData: flightsData ?? this.flightsData,
         oneWayData: oneWayData ?? this.oneWayData,
         roundTrip: roundTrip ?? this.roundTrip,
-        multiCity: multiCity ?? this.multiCity,
         fromList: fromList ?? this.fromList,
         toList: toList ?? this.toList,
         calendarFormat: calendarFormat ?? this.calendarFormat,
@@ -108,7 +111,6 @@ class FlightBookState extends Equatable {
         flightsData,
         oneWayData,
         roundTrip,
-        multiCity,
         fromList,
         toList,
         calendarFormat,
@@ -197,70 +199,6 @@ class RoundTrip extends Equatable {
         classType: classType ?? this.classType,
         flightDetailsFrom: flightDetailsFrom ?? this.flightDetailsFrom,
         flightDetailsTo: flightDetailsTo ?? this.flightDetailsTo);
-  }
-}
-
-class MultiCity extends Equatable {
-  final FlightDetails flightDetails1;
-  final FlightDetails flightDetails2;
-  final FlightDetails flightDetails3;
-
-  final String date1When;
-  final String date2When;
-  final String date3When;
-
-  final bool showThiredDestination;
-  final int numTravellers;
-  final String classType;
-
-  const MultiCity({
-    this.date1When = "",
-    this.date2When = "",
-    this.date3When = "",
-    this.numTravellers = 1,
-    this.classType = "",
-    this.showThiredDestination = false,
-    this.flightDetails1 = const FlightDetails(),
-    this.flightDetails2 = const FlightDetails(),
-    this.flightDetails3 = const FlightDetails(),
-  });
-
-  @override
-  List<Object?> get props => [
-        date1When,
-        date2When,
-        date3When,
-        numTravellers,
-        classType,
-        showThiredDestination,
-        flightDetails1,
-        flightDetails2,
-        flightDetails3
-      ];
-
-  //copywith
-  MultiCity copyWith({
-    String? date1When,
-    String? date2When,
-    String? date3When,
-    int? numTravellers,
-    String? classType,
-    bool? showThiredDestination,
-    FlightDetails? flightDetails1,
-    FlightDetails? flightDetails2,
-    FlightDetails? flightDetails3,
-  }) {
-    return MultiCity(
-        date1When: date1When ?? this.date1When,
-        date2When: date2When ?? this.date2When,
-        date3When: date3When ?? this.date3When,
-        numTravellers: numTravellers ?? this.numTravellers,
-        classType: classType ?? this.classType,
-        showThiredDestination:
-            showThiredDestination ?? this.showThiredDestination,
-        flightDetails1: flightDetails1 ?? this.flightDetails1,
-        flightDetails2: flightDetails2 ?? this.flightDetails2,
-        flightDetails3: flightDetails3 ?? this.flightDetails3);
   }
 }
 

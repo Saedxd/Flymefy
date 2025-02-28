@@ -3,6 +3,7 @@ import 'package:flymefy/features/Home/data/requests/request.dart';
 import 'package:flymefy/features/Home/domain/entity/flight_search.dart';
 import 'package:flymefy/features/Home/domain/usecase/flight_book_usecase.dart';
 import 'package:flymefy/core/error/failure.dart';
+import 'package:intl/intl.dart';
 
 import 'package:table_calendar/table_calendar.dart';
 
@@ -30,6 +31,103 @@ class FlightBookCubit extends Cubit<FlightBookState> {
       emit(state.copyWith(
           flowStateApp: FlowStateApp.success, flightsData: flightsData));
     });
+  }
+
+  String formatDate(String dateTimeString) {
+    DateTime dateTime = DateTime.parse(dateTimeString);
+    return DateFormat('yyyy-MM-dd').format(dateTime);
+  }
+
+  void assignDataToTheRequest(FlightType flightType) async {
+//     {
+
+//     "search": {
+//         "adults":1,
+//         "children": 0,
+//         "infants": 0,
+//         "nonstop": 0,
+//         "airline": "",
+//         "solutions": 10,
+//         "searchAirLegs": [
+//             {
+//                 "cabinClass": "Economy",
+//                 "departureDate": "2025-03-01",
+//                 "origin": "IST",
+//                 "destination": "LON",
+//                 "airline": ""
+//             },
+//              {
+//                 "cabinClass": "Economy",
+//                 "departureDate": "2025-03-10",
+//                 "origin": "LON",
+//                 "destination": "IST",
+//                 "airline": ""
+//             }
+//         ]
+//     }
+// }
+
+    emit(state.copyWith(
+        flightSearchRequest: FlightSearchRequest(
+      adults: 1,
+      children: 0,
+      infants: 0,
+      nonstop: 0,
+      airline: '',
+      solutions: 0,
+      searchAirLegs: [
+        SearchAirLegs(
+          cabinClass: 'Economy',
+          departureDate:
+              //"2025-03-01",
+              formatDate(flightType == FlightType.oneWay
+                  ? state.oneWayData.dateWhen
+                  : flightType == FlightType.roundTrip
+                      ? state.roundTrip.departureDate
+                      : flightType == FlightType.multiCity
+                          ? state.multiCityBoxes!.cities[0].date
+                          : ''),
+          origin: flightType == FlightType.oneWay
+              ? state.oneWayData.flightDetailsFrom.iataCode
+              : flightType == FlightType.roundTrip
+                  ? state.roundTrip.flightDetailsFrom.iataCode
+                  : flightType == FlightType.multiCity
+                      ? state.multiCityBoxes!.cities[0].from.iataCode
+                      : '',
+          destination: flightType == FlightType.oneWay
+              ? state.oneWayData.flightDetailsTo.iataCode
+              : flightType == FlightType.roundTrip
+                  ? state.roundTrip.flightDetailsTo.iataCode
+                  : flightType == FlightType.multiCity
+                      ? state.multiCityBoxes!.cities[0].to.iataCode
+                      : '',
+          airline: '',
+        ),
+        flightType != FlightType.oneWay
+            ? SearchAirLegs(
+                cabinClass: 'Economy',
+                departureDate: formatDate(flightType == FlightType.roundTrip
+                    ? state.roundTrip.arrivalDate
+                    : flightType == FlightType.multiCity
+                        ? state.multiCityBoxes!.cities[1].date
+                        : ""),
+                origin: flightType == FlightType.roundTrip
+                    ? state.roundTrip.flightDetailsTo.iataCode
+                    : flightType == FlightType.multiCity
+                        ? state.multiCityBoxes!.cities[1].from.iataCode
+                        : '',
+                destination: flightType == FlightType.roundTrip
+                    ? state.roundTrip.flightDetailsFrom.iataCode
+                    : flightType == FlightType.multiCity
+                        ? state.multiCityBoxes!.cities[1].to.iataCode
+                        : '',
+                airline: '',
+              )
+            : SearchAirLegs(),
+      ],
+    )));
+
+    getFlights();
   }
 
   // Update Focused Day
@@ -108,41 +206,45 @@ class FlightBookCubit extends Cubit<FlightBookState> {
   }
 
   void updateCityEntryFrom(int index, FlightDetails newFrom) {
-  final updatedCities = List<CityEntry>.from(state.multiCityBoxes.cities);
-  if (index >= 0 && index < updatedCities.length) {
-    updatedCities[index] = updatedCities[index].copyWith(from: newFrom);
-    emit(state.copyWith(
-        multiCityBoxes: state.multiCityBoxes.copyWith(cities: updatedCities)));
+    final updatedCities = List<CityEntry>.from(state.multiCityBoxes.cities);
+    if (index >= 0 && index < updatedCities.length) {
+      updatedCities[index] = updatedCities[index].copyWith(from: newFrom);
+      emit(state.copyWith(
+          multiCityBoxes:
+              state.multiCityBoxes.copyWith(cities: updatedCities)));
+    }
   }
-}
 
-void updateCityEntryTo(int index, FlightDetails newTo) {
-  final updatedCities = List<CityEntry>.from(state.multiCityBoxes.cities);
-  if (index >= 0 && index < updatedCities.length) {
-    updatedCities[index] = updatedCities[index].copyWith(to: newTo);
-    emit(state.copyWith(
-        multiCityBoxes: state.multiCityBoxes.copyWith(cities: updatedCities)));
+  void updateCityEntryTo(int index, FlightDetails newTo) {
+    final updatedCities = List<CityEntry>.from(state.multiCityBoxes.cities);
+    if (index >= 0 && index < updatedCities.length) {
+      updatedCities[index] = updatedCities[index].copyWith(to: newTo);
+      emit(state.copyWith(
+          multiCityBoxes:
+              state.multiCityBoxes.copyWith(cities: updatedCities)));
+    }
   }
-}
 
-void updateCityEntryDate(int index, String newDate) {
-  final updatedCities = List<CityEntry>.from(state.multiCityBoxes.cities);
-  if (index >= 0 && index < updatedCities.length) {
-    updatedCities[index] = updatedCities[index].copyWith(date: newDate);
-    emit(state.copyWith(
-        multiCityBoxes: state.multiCityBoxes.copyWith(cities: updatedCities)));
+  void updateCityEntryDate(int index, String newDate) {
+    final updatedCities = List<CityEntry>.from(state.multiCityBoxes.cities);
+    if (index >= 0 && index < updatedCities.length) {
+      updatedCities[index] = updatedCities[index].copyWith(date: newDate);
+      emit(state.copyWith(
+          multiCityBoxes:
+              state.multiCityBoxes.copyWith(cities: updatedCities)));
+    }
   }
-}
 
+  void updateMultiCitySelectedDay(DateTime selectedDay, int index) {
+    final updatedCities = List<CityEntry>.from(state.multiCityBoxes.cities);
 
-void updateMultiCitySelectedDay(DateTime selectedDay, int index) {
-  final updatedCities = List<CityEntry>.from(state.multiCityBoxes.cities);
+    if (index >= 0 && index < updatedCities.length) {
+      updatedCities[index] =
+          updatedCities[index].copyWith(date: selectedDay.toString());
 
-  if (index >= 0 && index < updatedCities.length) {
-    updatedCities[index] = updatedCities[index].copyWith(date: selectedDay.toString());
-
-    emit(state.copyWith(
-        multiCityBoxes: state.multiCityBoxes.copyWith(cities: updatedCities)));
+      emit(state.copyWith(
+          multiCityBoxes:
+              state.multiCityBoxes.copyWith(cities: updatedCities)));
+    }
   }
-}
 }

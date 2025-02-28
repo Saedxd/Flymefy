@@ -335,8 +335,12 @@ class MultiCityScreen extends StatelessWidget {
                               child: CommonButtonWidget(
                                 buttonColor: redCA0,
                                 onTap: () {
-                                  Navigator.pushNamed(
-                                      context, Routes.flightBookScreen);
+                                  // Navigator.pushNamed(
+                                  //     context, Routes.flightBookScreen);
+                                  context
+                                      .read<FlightBookCubit>()
+                                      .assignDataToTheRequest(
+                                          FlightType.multiCity);
                                 },
                                 text: "SEARCH FLIGHTS",
                               ),
@@ -467,7 +471,7 @@ class TravelDetailsSmallBox extends StatelessWidget {
 
   String formatDatePart2(DateTime date) {
     // Format for "Thursday, 2022"
-    final DateFormat formatterPart2 = DateFormat('EEEE, yyyy');
+    final DateFormat formatterPart2 = DateFormat('EE, yyyy');
     return formatterPart2.format(date);
   }
 

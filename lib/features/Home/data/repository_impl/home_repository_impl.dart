@@ -35,10 +35,14 @@ class HomeRepositoryImpl implements HomeRepository {
       FlightSearchRequest flightSearchRequest) async {
     Response? response;
     try {
-      response = await _clientApi.postApi(
-        AppConstants.apiGetFlightsFromSearch,
-        data: flightSearchRequest.toJson(),
-      );
+      response =
+          await _clientApi.postApi(AppConstants.apiGetFlightsFromSearch, data: {
+        "search": flightSearchRequest.toJson(),
+      }, headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      });
 
       if (response.isOperationSucceededApi()) {
         return Right(response.toFlightsSearchData());

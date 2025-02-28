@@ -149,8 +149,12 @@ class RoundTripScreen extends StatelessWidget {
                                 buttonColor: redCA0,
                                 onTap: () {
                                   //Get.to(() => FlightBookScreen());
-                                  Navigator.pushNamed(
-                                      context, Routes.flightBookScreen);
+                                  // Navigator.pushNamed(
+                                  //     context, Routes.flightBookScreen);
+                                  context
+                                      .read<FlightBookCubit>()
+                                      .assignDataToTheRequest(
+                                          FlightType.roundTrip);
                                 },
                                 text: "SEARCH FLIGHTS",
                               ),
