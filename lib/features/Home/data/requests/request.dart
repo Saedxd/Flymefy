@@ -4,9 +4,9 @@ import 'package:flymefy/features/auth/domain/entity/register.dart';
 
 class FlightSearchRequest {
   const FlightSearchRequest({
-    this.adults = 1,
-    this.children = 0,
-    this.infants = 0,
+    this.adults = 2,
+    this.children = 2,
+    this.infants = 1,
     this.nonstop = 0,
     this.airline = '',
     this.solutions = 0,

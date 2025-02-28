@@ -105,9 +105,9 @@ class _FlightFromScreenState extends State<FlightFromScreen> {
                   type: widget.type, isFrom: true, index: widget.index);
               final String toText = getCityName(
                   type: widget.type, isFrom: false, index: widget.index);
-              return state.flowStateApp == FlowStateApp.loading
+              return state.flowStateApp == FlowStateApp.getAirportsLoading
                   ? const LoadinContent()
-                  : state.flowStateApp == FlowStateApp.error
+                  : state.flowStateApp == FlowStateApp.getAirportsError
                       ? ErrorContent(
                           message: state.failure.message,
                           onRefresh: () {},

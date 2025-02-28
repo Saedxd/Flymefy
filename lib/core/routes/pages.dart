@@ -25,7 +25,8 @@ import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearch
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/main_screen/flight_search_screen.dart';
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/from_to_screens/flight_to_screen.dart';
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/offer_make_your_trip_screen.dart';
-import 'package:flymefy/features/Home/presentation/FlightBookScreen/flight_book_screen.dart';
+import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/search_results/flight_book_screen.dart';
+import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/search_results/widgets/price_alert_screen.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/budget_screen.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/duration_screen.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/edit_your_search_screen.dart';
@@ -332,11 +333,23 @@ class AppRouter {
         );
 
       case Routes.flightBookScreen:
+        final args = settings.arguments as Map<String, dynamic>;
+        final cubit = args['cubit'] as FlightBookCubit;
         return MaterialPageRoute(
-          builder: (_) => FlightBookScreen(),
+          builder: (_) => FlightBookScreen(
+            cubit: cubit,
+          ),
           settings: settings,
         );
 
+             case Routes.priceAlertScreen:
+       
+        return MaterialPageRoute(
+          builder: (_) => PriceAlertScreen(
+          ),
+          settings: settings,
+        );
+//
       case Routes.offerMakeYourTripScreen:
         return MaterialPageRoute(
           builder: (_) => OfferMakeYourTripScreen(),

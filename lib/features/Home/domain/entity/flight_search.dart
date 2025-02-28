@@ -17,16 +17,26 @@ class DynamicResponse extends Equatable {
   List<Object?> get props => [details];
 }
 
-
+// adtFare: 102 (but decimal part as well, so technically a float)
+// adtTax: 10 (but decimal part as well, so technically a float)
+// chdFare: 102 (but decimal part as well, so technically a float)
+// chdTax: 10 (but decimal part as well, so technically a float)
+// infFare: 20 (but decimal part as well, so technically a float)
+// infTax: 10 (but decimal part as well, so technically a float)
+// qCharge: 0
+// tktFee: 0
+// platformServiceFee: 0
+// adults: 2
+// children: 2
+// infants: 1
+// baggageAmount and carryOnAmount values are strings with "1PC" or "0PC", but not integers.
+// All the values in the miniRules arrays related to penaltyType, isPermited, when, and segmentIndex arrays are all integers.
 class FlightSearchModel extends Equatable {
   final String solutionKey;
   final String solutionId;
   final String fareType;
   final String currency;
-  final String adtFare;
-  final String adtTax;
-  final String chdFare;
-  final String chdTax;
+
   final String qCharge;
   final String tktFee;
   final String platformServiceFee;
@@ -37,12 +47,30 @@ class FlightSearchModel extends Equatable {
   final String platingCarrier;
   final String? prices;
   final String merchantFee;
-  final int adults;
-  final int children;
-  final int infants;
   final Map<String, List<Baggage>> baggageMap;
   final Map<String, List<MiniRule>> miniRuleMap;
   final String? afterSaleRule;
+// "infFare": 36.96,
+//         "infTax": 9.48,
+
+  final int adults;
+  final int children;
+  final int infants;
+
+  final String adtFare;
+  final String adtTax;
+  final String chdFare;
+  final String chdTax;
+  final String infFare;
+  final String infTax;
+
+//make a fucntion to calculate total price of the flight * number of passengers
+
+  double get totalPrice {
+    return (double.parse(adtFare) + double.parse(adtTax)) * adults +
+        (double.parse(chdFare) + double.parse(chdTax)) * children +
+        (double.parse(infFare) + double.parse(infTax)) * infants;
+  }
 
   const FlightSearchModel({
     this.solutionKey = '',
@@ -69,6 +97,8 @@ class FlightSearchModel extends Equatable {
     this.baggageMap = const {},
     this.miniRuleMap = const {},
     this.afterSaleRule,
+    this.infFare = "0",
+    this.infTax = "0",
   });
 
   FlightSearchModel copyWith({
@@ -96,6 +126,8 @@ class FlightSearchModel extends Equatable {
     Map<String, List<Baggage>>? baggageMap,
     Map<String, List<MiniRule>>? miniRuleMap,
     String? afterSaleRule,
+    String? infFare,
+    String? infTax,
   }) {
     return FlightSearchModel(
       solutionKey: solutionKey ?? this.solutionKey,
@@ -122,6 +154,8 @@ class FlightSearchModel extends Equatable {
       baggageMap: baggageMap ?? this.baggageMap,
       miniRuleMap: miniRuleMap ?? this.miniRuleMap,
       afterSaleRule: afterSaleRule ?? this.afterSaleRule,
+      infFare: infFare ?? this.infFare,
+      infTax: infTax ?? this.infTax,
     );
   }
 
@@ -140,7 +174,14 @@ class FlightSearchModel extends Equatable {
       platformServiceFee: map['platformServiceFee']?.toString() ?? '',
       comments: map['comments'],
       journeys: (map['journeys'] as Map<String, dynamic>?)
-              ?.map((key, value) => MapEntry(key, Journey.fromMap(value))) ??
+              ?.map((journeyKey, journeyData) {
+            // Get the actual journey data, skipping the first random key
+            var actualJourneyData = journeyData.values.first;
+            return MapEntry(
+              journeyKey,
+              Journey.fromMap(actualJourneyData as Map<String, dynamic>),
+            );
+          }) ??
           {},
       fareRule: map['fareRule'],
       rule: map['rule'],
@@ -150,17 +191,19 @@ class FlightSearchModel extends Equatable {
       adults: map['adults'] ?? 0,
       children: map['children'] ?? 0,
       infants: map['infants'] ?? 0,
-      baggageMap: (map['baggageMap'] as Map<String, dynamic>?)
-              ?.map((key, value) => MapEntry(key,
+      baggageMap: (map['baggageMap'] as Map<String, dynamic>?)?.map(
+              (key, value) => MapEntry(key,
                   List<Baggage>.from(value.map((x) => Baggage.fromMap(x))))) ??
           {},
-      miniRuleMap: (map['miniRuleMap'] as Map<String, dynamic>?)
-              ?.map((key, value) => MapEntry(
+      miniRuleMap: (map['miniRuleMap'] as Map<String, dynamic>?)?.map(
+              (key, value) => MapEntry(
                   key,
                   List<MiniRule>.from(
                       value.map((x) => MiniRule.fromMap(x))))) ??
           {},
-      afterSaleRule: map['afterSaleRule'],
+      afterSaleRule: map['afterSaleRule']?.toString() ?? "0",
+      infFare: map['infFare']?.toString() ?? "0",
+      infTax: map['infTax']?.toString() ?? "0",
     );
   }
 
@@ -190,6 +233,8 @@ class FlightSearchModel extends Equatable {
         baggageMap,
         miniRuleMap,
         afterSaleRule,
+        infFare,
+        infTax,
       ];
 }
 
@@ -231,8 +276,12 @@ class Journey extends Equatable {
       transferCount: map['transferCount'] ?? 0,
       lastTktTime: map['lastTktTime'],
       segments: (map['segments'] as Map<String, dynamic>?)
-              ?.map((key, value) =>
-                  MapEntry(key, Segment.fromMap(value))) ??
+              ?.map((segmentKey, segmentData) {
+            return MapEntry(
+              segmentKey,
+              Segment.fromMap(segmentData as Map<String, dynamic>),
+            );
+          }) ??
           {},
     );
   }
@@ -361,10 +410,10 @@ class Baggage extends Equatable {
     return Baggage(
       segmentIndexList: List<int>.from(map['segmentIndexList'] ?? []),
       baggageAmount: map['baggageAmount'] ?? '',
-      baggageWeight: map['baggageWeight'],
+      baggageWeight: map['baggageWeight'] ?? '',
       carryOnAmount: map['carryOnAmount'] ?? '',
       carryOnWeight: map['carryOnWeight'] ?? '',
-      carryOnSize: map['carryOnSize'],
+      carryOnSize: map['carryOnSize'] ?? "",
     );
   }
 

@@ -19,6 +19,10 @@ class FlightBookCubit extends Cubit<FlightBookState> {
   })  : _getFlightsFromSearch = getFlightsFromSearch,
         super(FlightBookState());
 
+  void makeDefaultState() {
+    emit(state.copyWith(flowStateApp: FlowStateApp.draft));
+  }
+
   void getFlights() async {
     emit(state.copyWith(flowStateApp: FlowStateApp.loading));
 
@@ -26,11 +30,70 @@ class FlightBookCubit extends Cubit<FlightBookState> {
 
     await delayForCreateNewStatus();
     result.fold((failure) {
+      print("failed to get flights ${failure.message}");
       emit(state.copyWith(flowStateApp: FlowStateApp.error, failure: failure));
     }, (flightsData) {
       emit(state.copyWith(
-          flowStateApp: FlowStateApp.success, flightsData: flightsData));
+          flowStateApp: FlowStateApp.success,
+          flightsData: flightsData,
+          openedTickets: List.generate(
+              flightsData.details.entries.length, (index) => false)));
+      testPrintStatements(flightsData);
     });
+  }
+
+  void testPrintStatements(DynamicResponse flightsData) {
+    // Checking the details in DynamicResponse
+    print("Details: ${flightsData.details.entries.first.value.journeys}");
+
+    // Checking first value of the 'details' map (assuming it has at least one entry)
+    if (flightsData.details.isNotEmpty) {
+      String firstKey = flightsData.details.keys.first;
+      FlightSearchModel firstFlight = flightsData.details[firstKey]!;
+
+      // Check the baggageMap for the first entry
+      if (firstFlight.baggageMap.isNotEmpty) {
+        String firstBaggageKey = firstFlight.baggageMap.keys.first;
+        List<Baggage> firstBaggageList =
+            firstFlight.baggageMap[firstBaggageKey]!;
+
+        print(
+            "Baggage for first flight: ${firstBaggageList.map((baggage) => baggage.baggageAmount).toList()}");
+      } else {
+        print("No baggage map found for the first flight.");
+      }
+
+      // Check the MiniRuleMap
+      if (firstFlight.miniRuleMap.isNotEmpty) {
+        String firstMiniRuleKey = firstFlight.miniRuleMap.keys.first;
+        List<MiniRule> firstMiniRuleList =
+            firstFlight.miniRuleMap[firstMiniRuleKey]!;
+
+        print(
+            "MiniRules for first flight: ${firstMiniRuleList.map((rule) => rule.amount).toList()}");
+      } else {
+        print("No miniRuleMap found for the first flight.");
+      }
+
+      // Check adults, children, and infants count
+      print("Adults: ${firstFlight.adults}");
+      print("Children: ${firstFlight.children}");
+      print("Infants: ${firstFlight.infants}");
+
+      // Check fare and tax values
+      print("Adult Fare: ${firstFlight.adtFare}");
+      print("Adult Tax: ${firstFlight.adtTax}");
+      print("Child Fare: ${firstFlight.chdFare}");
+      print("Child Tax: ${firstFlight.chdTax}");
+    } else {
+      print("No flights data available.");
+    }
+  }
+
+  void toggleOpenTicket(int index) {
+    final updatedOpenedTickets = List<bool>.from(state.openedTickets);
+    updatedOpenedTickets[index] = !updatedOpenedTickets[index];
+    emit(state.copyWith(openedTickets: updatedOpenedTickets));
   }
 
   String formatDate(String dateTimeString) {
@@ -103,27 +166,26 @@ class FlightBookCubit extends Cubit<FlightBookState> {
                       : '',
           airline: '',
         ),
-        flightType != FlightType.oneWay
-            ? SearchAirLegs(
-                cabinClass: 'Economy',
-                departureDate: formatDate(flightType == FlightType.roundTrip
-                    ? state.roundTrip.arrivalDate
-                    : flightType == FlightType.multiCity
-                        ? state.multiCityBoxes!.cities[1].date
-                        : ""),
-                origin: flightType == FlightType.roundTrip
-                    ? state.roundTrip.flightDetailsTo.iataCode
-                    : flightType == FlightType.multiCity
-                        ? state.multiCityBoxes!.cities[1].from.iataCode
-                        : '',
-                destination: flightType == FlightType.roundTrip
-                    ? state.roundTrip.flightDetailsFrom.iataCode
-                    : flightType == FlightType.multiCity
-                        ? state.multiCityBoxes!.cities[1].to.iataCode
-                        : '',
-                airline: '',
-              )
-            : SearchAirLegs(),
+        if (flightType != FlightType.oneWay)
+          SearchAirLegs(
+            cabinClass: 'Economy',
+            departureDate: formatDate(flightType == FlightType.roundTrip
+                ? state.roundTrip.arrivalDate
+                : flightType == FlightType.multiCity
+                    ? state.multiCityBoxes!.cities[1].date
+                    : ""),
+            origin: flightType == FlightType.roundTrip
+                ? state.roundTrip.flightDetailsTo.iataCode
+                : flightType == FlightType.multiCity
+                    ? state.multiCityBoxes!.cities[1].from.iataCode
+                    : '',
+            destination: flightType == FlightType.roundTrip
+                ? state.roundTrip.flightDetailsFrom.iataCode
+                : flightType == FlightType.multiCity
+                    ? state.multiCityBoxes!.cities[1].to.iataCode
+                    : '',
+            airline: '',
+          )
       ],
     )));
 

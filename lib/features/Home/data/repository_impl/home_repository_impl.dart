@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flymefy/core/entity/data_value.dart';
@@ -50,6 +51,7 @@ class HomeRepositoryImpl implements HomeRepository {
         return Left(ApiException.handleApiError(response.data).failure);
       }
     } catch (error) {
+      print("error : ${error.toString()}");
       return Left(
         ExceptionHandling.handleError(
           error,

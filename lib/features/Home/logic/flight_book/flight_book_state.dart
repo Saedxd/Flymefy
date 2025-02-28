@@ -1,11 +1,6 @@
 part of 'flight_book_cubit.dart';
 
-enum FlightType{
- oneWay,
- roundTrip,
- multiCity
-}
-
+enum FlightType { oneWay, roundTrip, multiCity }
 
 class FlightBookState extends Equatable {
   final FlowStateApp flowStateApp;
@@ -19,6 +14,9 @@ class FlightBookState extends Equatable {
   final CalendarFormat calendarFormat;
   final DateTime focusedDay;
   final MultiCityBoxes multiCityBoxes;
+  final FlightType currentSelectedType;
+
+  final List<bool> openedTickets;
 
   static const List<FlightDetails> defaultFromToList = [
     FlightDetails(
@@ -33,33 +31,98 @@ class FlightBookState extends Equatable {
     ),
     FlightDetails(
       city: "Mumbai, Maharashtra",
-      airportName: "Chhatrapati Shivaji International",
+      airportName: "Chhatrapati Shivaji International Airport",
       iataCode: "BOM",
     ),
     FlightDetails(
       city: "Chennai, Tamil Nadu",
-      airportName: "Chennai Central",
-      iataCode: "MAS",
+      airportName: "Chennai International Airport",
+      iataCode: "MAA",
     ),
     FlightDetails(
       city: "Hyderabad, Telangana",
-      airportName: "Secunderbad Junction",
-      iataCode: "SC",
+      airportName: "Rajiv Gandhi International Airport",
+      iataCode: "HYD",
     ),
     FlightDetails(
       city: "Bangalore, Karnataka",
-      airportName: "Bangalore City Junction",
-      iataCode: "SBC",
+      airportName: "Kempegowda International Airport",
+      iataCode: "BLR",
     ),
     FlightDetails(
       city: "Pune, Maharashtra",
-      airportName: "Pune Junction",
-      iataCode: "PUNE",
+      airportName: "Pune International Airport",
+      iataCode: "PNQ",
     ),
     FlightDetails(
       city: "Ahmedabad, Gujarat",
-      airportName: "Ahmedabad Junction",
-      iataCode: "ADI",
+      airportName: "Sardar Vallabhbhai Patel International Airport",
+      iataCode: "AMD",
+    ),
+    FlightDetails(
+      city: "London, United Kingdom",
+      airportName: "Heathrow Airport",
+      iataCode: "LHR",
+    ),
+    FlightDetails(
+      city: "New York, USA",
+      airportName: "John F. Kennedy International Airport",
+      iataCode: "JFK",
+    ),
+    FlightDetails(
+      city: "Los Angeles, USA",
+      airportName: "Los Angeles International Airport",
+      iataCode: "LAX",
+    ),
+    FlightDetails(
+      city: "Paris, France",
+      airportName: "Charles de Gaulle International Airport",
+      iataCode: "CDG",
+    ),
+    FlightDetails(
+      city: "Tokyo, Japan",
+      airportName: "Narita International Airport",
+      iataCode: "NRT",
+    ),
+    FlightDetails(
+      city: "Dubai, United Arab Emirates",
+      airportName: "Dubai International Airport",
+      iataCode: "DXB",
+    ),
+    FlightDetails(
+      city: "Singapore",
+      airportName: "Changi Airport",
+      iataCode: "SIN",
+    ),
+    FlightDetails(
+      city: "Sydney, Australia",
+      airportName: "Sydney Kingsford Smith International Airport",
+      iataCode: "SYD",
+    ),
+    FlightDetails(
+      city: "Toronto, Canada",
+      airportName: "Toronto Pearson International Airport",
+      iataCode: "YYZ",
+    ),
+    FlightDetails(
+      city: "Berlin, Germany",
+      airportName: "Berlin Brandenburg Airport",
+      iataCode: "BER",
+    ),
+    FlightDetails(
+      city: "Rome, Italy",
+      airportName: "Leonardo da Vinci International Airport",
+      iataCode: "FCO",
+    ),
+    FlightDetails(
+      city: "Hong Kong",
+      airportName: "Hong Kong International Airport",
+      iataCode: "HKG",
+    ),
+    FlightDetails(
+      city: "Beijing, China",
+      airportName: "Beijing Capital International Airport",
+      iataCode: "PEK",
     ),
   ];
 
@@ -74,7 +137,9 @@ class FlightBookState extends Equatable {
       this.toList = defaultFromToList,
       this.calendarFormat = CalendarFormat.month,
       DateTime? focusedDay,
-      this.multiCityBoxes = const MultiCityBoxes()})
+      this.multiCityBoxes = const MultiCityBoxes(),
+      this.currentSelectedType = FlightType.oneWay,
+      this.openedTickets = const []})
       : focusedDay = focusedDay ?? DateTime.now().add(Duration(days: 1));
 
   FlightBookState copyWith(
@@ -88,7 +153,9 @@ class FlightBookState extends Equatable {
       List<FlightDetails>? toList,
       CalendarFormat? calendarFormat,
       DateTime? focusedDay,
-      MultiCityBoxes? multiCityBoxes}) {
+      MultiCityBoxes? multiCityBoxes,
+      FlightType? currentSelectedType,
+      List<bool>? openedTickets}) {
     return FlightBookState(
         flowStateApp: flowStateApp ?? this.flowStateApp,
         failure: failure ?? this.failure,
@@ -100,7 +167,9 @@ class FlightBookState extends Equatable {
         toList: toList ?? this.toList,
         calendarFormat: calendarFormat ?? this.calendarFormat,
         focusedDay: focusedDay ?? this.focusedDay,
-        multiCityBoxes: multiCityBoxes ?? this.multiCityBoxes);
+        multiCityBoxes: multiCityBoxes ?? this.multiCityBoxes,
+        currentSelectedType: currentSelectedType ?? this.currentSelectedType,
+        openedTickets: openedTickets ?? this.openedTickets);
   }
 
   @override
@@ -115,7 +184,9 @@ class FlightBookState extends Equatable {
         toList,
         calendarFormat,
         focusedDay,
-        multiCityBoxes
+        multiCityBoxes,
+        currentSelectedType,
+        openedTickets
       ];
 }
 

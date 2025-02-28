@@ -51,6 +51,8 @@ sealed class Routes {
   
   static const String roundTripCalender = "/RoundTripCalender";
 
+  static const String priceAlertScreen = '/PriceAlertScreen';
+
   static const String multiCityCalender = '/MultiCityCalender';
 
   static const String flightDetailScreen1 = '/flightDetailScreen1';

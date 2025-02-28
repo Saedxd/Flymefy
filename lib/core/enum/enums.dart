@@ -123,21 +123,11 @@ enum FlowStateApp {
   loadingUser,
   successLoadedUser,
   errorLoadedUser,
-  completeChangePassword,
-  loadingAddOrRemoveFromWishlish,
-  sucessAddOrRemoveFromWishlish,
-  errorAddOrRemoveFromWishlish,
 
-  getcategoriesLoading,
-  getcategoriesError,
-  getcategoriesSuccess,
-  getCitiesLoading,
-  getCitiesError,
-  getCitiesSuccess,
-  SwitchingPageSuccess,
-  successWithdraw,
-  errorWithdraw,
-  loadingWithdraw
+
+  getAirportsSuccess,
+  getAirportsError,
+  getAirportsLoading,
 }
 
 enum DataSourceValidationInput {

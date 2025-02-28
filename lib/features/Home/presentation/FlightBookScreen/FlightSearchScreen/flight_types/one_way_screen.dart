@@ -31,233 +31,226 @@ class OneWayScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FlightBookCubit, FlightBookState>(
+    return BlocConsumer<FlightBookCubit, FlightBookState>(
         bloc: cubit,
+        listener: (context, state) async {
+          if (state.flowStateApp == FlowStateApp.success) {
+            Navigator.pushNamed(context, Routes.flightBookScreen,
+                arguments: {'cubit': cubit});
+            cubit.makeDefaultState();
+          }
+        },
         builder: (context, state) {
           return state.flowStateApp == FlowStateApp.loading
               ? const LoadinContent()
-              : state.flowStateApp == FlowStateApp.error
-                  ? ErrorContent(
-                      message: state.failure.message,
-                      onRefresh: () {},
-                    )
-                  : ScrollConfiguration(
-                      behavior: MyBehavior(),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TravelBoxes(
-                              cubit: cubit,
+              : ScrollConfiguration(
+                  behavior: MyBehavior(),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TravelBoxes(
+                          cubit: cubit,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          child: Container(
+                            width: context.width,
+                            decoration: BoxDecoration(
+                              color: grey9B9.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(width: 1, color: greyE2E),
                             ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 24),
-                              child: Container(
-                                width: context.width,
-                                decoration: BoxDecoration(
-                                  color: grey9B9.withOpacity(0.15),
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(width: 1, color: greyE2E),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 15, vertical: 7),
-                                  child: Row(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 7),
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(user),
+                                  SizedBox(width: 15),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      SvgPicture.asset(user),
-                                      SizedBox(width: 15),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                      CommonTextWidget.PoppinsMedium(
+                                        text: "TRAVELLERS & CLASS",
+                                        color: grey888,
+                                        fontSize: 14,
+                                      ),
+                                      Row(
                                         children: [
+                                          CommonTextWidget.PoppinsSemiBold(
+                                            text: "1,",
+                                            color: black2E2,
+                                            fontSize: 18,
+                                          ),
                                           CommonTextWidget.PoppinsMedium(
-                                            text: "TRAVELLERS & CLASS",
+                                            text: "TEconomy/Premium Economy",
                                             color: grey888,
                                             fontSize: 14,
-                                          ),
-                                          Row(
-                                            children: [
-                                              CommonTextWidget.PoppinsSemiBold(
-                                                text: "1,",
-                                                color: black2E2,
-                                                fontSize: 18,
-                                              ),
-                                              CommonTextWidget.PoppinsMedium(
-                                                text:
-                                                    "TEconomy/Premium Economy",
-                                                color: grey888,
-                                                fontSize: 14,
-                                              ),
-                                            ],
                                           ),
                                         ],
                                       ),
                                     ],
                                   ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 15),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 24),
-                              child: CommonTextWidget.PoppinsMedium(
-                                text: "SPECIAL FARES (OPTIONAL)",
-                                color: grey888,
-                                fontSize: 14,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 70,
-                              width: context.width,
-                              child: ScrollConfiguration(
-                                behavior: MyBehavior(),
-                                child: ListView.builder(
-                                  itemCount: Lists.flightSearchList2.length,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  padding: EdgeInsets.only(
-                                      top: 13, bottom: 13, left: 24, right: 12),
-                                  itemBuilder: (context, index) => Padding(
-                                    padding: EdgeInsets.only(right: 12),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: white,
-                                        border: Border.all(
-                                            color: greyE2E, width: 1),
-                                      ),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          child: CommonTextWidget.PoppinsMedium(
-                                            text:
-                                                Lists.flightSearchList2[index],
-                                            color: grey5F5,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 25),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 24),
-                              child: CommonButtonWidget(
-                                buttonColor: redCA0,
-                                onTap: () {
-                                  //  Get.to(() => FlightBookScreen());
-                                  // Navigator.pushNamed(
-                                  //     context, Routes.flightBookScreen);
-
-                                  context
-                                      .read<FlightBookCubit>()
-                                      .assignDataToTheRequest(
-                                          FlightType.oneWay);
-                                },
-                                text: "SEARCH FLIGHTS",
-                              ),
-                            ),
-                            SizedBox(height: 20),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 24),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CommonTextWidget.PoppinsSemiBold(
-                                    text: "OFFERS",
-                                    color: black2E2,
-                                    fontSize: 16,
-                                  ),
-                                  Row(
-                                    children: [
-                                      CommonTextWidget.PoppinsRegular(
-                                        text: "View All",
-                                        color: redCA0,
-                                        fontSize: 14,
-                                      ),
-                                      SizedBox(width: 8),
-                                      Icon(Icons.arrow_forward_ios,
-                                          color: redCA0, size: 18),
-                                    ],
-                                  ),
                                 ],
                               ),
                             ),
-                            Divider(color: greyDED, thickness: 1),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: InkWell(
-                                onTap: () {
-                                  //   Get.to(() => OfferMakeYourTripScreen());
-                                  Navigator.pushNamed(
-                                      context, Routes.offerMakeYourTripScreen);
-                                },
-                                child: CarouselSlider.builder(
-                                  itemCount: 4,
-                                  itemBuilder: (context, index, realIndex) =>
-                                      Container(
-                                    height: 170,
-                                    width: context.width,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        image: DecorationImage(
-                                            image:
-                                                AssetImage(flightSearchImage),
-                                            fit: BoxFit.fill,
-                                            filterQuality: FilterQuality.high)),
+                          ),
+                        ),
+                        SizedBox(height: 15),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          child: CommonTextWidget.PoppinsMedium(
+                            text: "SPECIAL FARES (OPTIONAL)",
+                            color: grey888,
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 70,
+                          width: context.width,
+                          child: ScrollConfiguration(
+                            behavior: MyBehavior(),
+                            child: ListView.builder(
+                              itemCount: Lists.flightSearchList2.length,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.only(
+                                  top: 13, bottom: 13, left: 24, right: 12),
+                              itemBuilder: (context, index) => Padding(
+                                padding: EdgeInsets.only(right: 12),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: white,
+                                    border:
+                                        Border.all(color: greyE2E, width: 1),
                                   ),
-                                  options: CarouselOptions(
-                                      autoPlay: true,
-                                      height: 170,
-                                      enableInfiniteScroll: true,
-                                      enlargeCenterPage: true,
-                                      onPageChanged: (index, reason) {
-                                        // realStateController.sliderIndex.value = index;
-                                      }),
+                                  child: Center(
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 20),
+                                      child: CommonTextWidget.PoppinsMedium(
+                                        text: Lists.flightSearchList2[index],
+                                        color: grey5F5,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20),
-                            Container(
-                              width: context.width,
-                              color: redF9E,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 24, vertical: 15),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                          ),
+                        ),
+                        SizedBox(height: 25),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          child: CommonButtonWidget(
+                            buttonColor: redCA0,
+                            onTap: () {
+                              context
+                                  .read<FlightBookCubit>()
+                                  .assignDataToTheRequest(FlightType.oneWay);
+                            },
+                            text: "SEARCH FLIGHTS",
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CommonTextWidget.PoppinsSemiBold(
+                                text: "OFFERS",
+                                color: black2E2,
+                                fontSize: 16,
+                              ),
+                              Row(
+                                children: [
+                                  CommonTextWidget.PoppinsRegular(
+                                    text: "View All",
+                                    color: redCA0,
+                                    fontSize: 14,
+                                  ),
+                                  SizedBox(width: 8),
+                                  Icon(Icons.arrow_forward_ios,
+                                      color: redCA0, size: 18),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Divider(color: greyDED, thickness: 1),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: InkWell(
+                            onTap: () {
+                              //   Get.to(() => OfferMakeYourTripScreen());
+                              Navigator.pushNamed(
+                                  context, Routes.offerMakeYourTripScreen);
+                            },
+                            child: CarouselSlider.builder(
+                              itemCount: 4,
+                              itemBuilder: (context, index, realIndex) =>
+                                  Container(
+                                height: 170,
+                                width: context.width,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    image: DecorationImage(
+                                        image: AssetImage(flightSearchImage),
+                                        fit: BoxFit.fill,
+                                        filterQuality: FilterQuality.high)),
+                              ),
+                              options: CarouselOptions(
+                                  autoPlay: true,
+                                  height: 170,
+                                  enableInfiniteScroll: true,
+                                  enlargeCenterPage: true,
+                                  onPageChanged: (index, reason) {
+                                    // realStateController.sliderIndex.value = index;
+                                  }),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Container(
+                          width: context.width,
+                          color: redF9E,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CommonTextWidget.PoppinsRegular(
+                                  text:
+                                      "Explore the cheapest flight from New Delhi to Mumbai",
+                                  color: black2E2,
+                                  fontSize: 14,
+                                ),
+                                Row(
                                   children: [
-                                    CommonTextWidget.PoppinsRegular(
-                                      text:
-                                          "Explore the cheapest flight from New Delhi to Mumbai",
-                                      color: black2E2,
+                                    CommonTextWidget.PoppinsMedium(
+                                      text: "EXPLORE FARE CALENDAR",
+                                      color: redCA0,
                                       fontSize: 14,
                                     ),
-                                    Row(
-                                      children: [
-                                        CommonTextWidget.PoppinsMedium(
-                                          text: "EXPLORE FARE CALENDAR",
-                                          color: redCA0,
-                                          fontSize: 14,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Icon(Icons.arrow_forward,
-                                            color: redCA0, size: 16),
-                                      ],
-                                    ),
+                                    SizedBox(width: 10),
+                                    Icon(Icons.arrow_forward,
+                                        color: redCA0, size: 16),
                                   ],
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    );
+                      ],
+                    ),
+                  ),
+                );
         });
   }
 }

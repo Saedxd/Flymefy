@@ -34,414 +34,408 @@ class MultiCityScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FlightBookCubit, FlightBookState>(
+    return BlocConsumer<FlightBookCubit, FlightBookState>(
         bloc: cubit,
+        listener: (context, state) async {
+          if (state.flowStateApp == FlowStateApp.success) {
+            Navigator.pushNamed(context, Routes.flightBookScreen,
+                arguments: {'cubit': cubit});
+            cubit.makeDefaultState();
+          }
+        },
         builder: (context, state) {
           return state.flowStateApp == FlowStateApp.loading
               ? const LoadinContent()
-              : state.flowStateApp == FlowStateApp.error
-                  ? ErrorContent(
-                      message: state.failure.message,
-                      onRefresh: () {},
-                    )
-                  : ScrollConfiguration(
-                      behavior: MyBehavior(),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Padding(
-                            //   padding: EdgeInsets.symmetric(horizontal: 24),
-                            //   child: Image.asset(multicityImage),
-                            // ),
-                            // SizedBox(height: 8),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 24),
-                              child: SizedBox(
-                                width: context.width,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SizedBox(
-                                      width: 120,
-                                      child: CommonTextWidget.PoppinsMedium(
-                                        text: "FROM",
-                                        color: const Color.fromARGB(
-                                            255, 178, 174, 174),
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 120,
-                                      child: CommonTextWidget.PoppinsMedium(
-                                        text: "TO",
-                                        color: const Color.fromARGB(
-                                            255, 178, 174, 174),
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 105,
-                                      child: CommonTextWidget.PoppinsMedium(
-                                        text: "DATE",
-                                        color: const Color.fromARGB(
-                                            255, 178, 174, 174),
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ],
+              : ScrollConfiguration(
+                  behavior: MyBehavior(),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Padding(
+                        //   padding: EdgeInsets.symmetric(horizontal: 24),
+                        //   child: Image.asset(multicityImage),
+                        // ),
+                        // SizedBox(height: 8),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          child: SizedBox(
+                            width: context.width,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: 120,
+                                  child: CommonTextWidget.PoppinsMedium(
+                                    text: "FROM",
+                                    color: const Color.fromARGB(
+                                        255, 178, 174, 174),
+                                    fontSize: 15,
+                                  ),
                                 ),
-                              ),
+                                SizedBox(
+                                  width: 120,
+                                  child: CommonTextWidget.PoppinsMedium(
+                                    text: "TO",
+                                    color: const Color.fromARGB(
+                                        255, 178, 174, 174),
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 105,
+                                  child: CommonTextWidget.PoppinsMedium(
+                                    text: "DATE",
+                                    color: const Color.fromARGB(
+                                        255, 178, 174, 174),
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ],
                             ),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: state.multiCityBoxes.cities.length,
-                              itemBuilder: (context, index) {
-                                final cityEntry =
-                                    state.multiCityBoxes.cities[index];
+                          ),
+                        ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: state.multiCityBoxes.cities.length,
+                          itemBuilder: (context, index) {
+                            final cityEntry =
+                                state.multiCityBoxes.cities[index];
 
-                                return Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 24, vertical: 10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      TravelDetailsSmallBox(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, Routes.flightFromScreen,
-                                              arguments: {
-                                                'cubit': cubit,
-                                                'type': "MultiCity",
-                                                'index': index,
-                                                'onIataClicked': (FlightDetails
-                                                    selectedFlight) {
-                                                  context
-                                                      .read<FlightBookCubit>()
-                                                      .updateCityEntryFrom(
-                                                          index,
-                                                          selectedFlight);
-                                                }
-                                              });
-                                        },
-                                        cityName: cityEntry.from.city,
-                                        iataName: cityEntry.from.iataCode,
-                                        type: 'FROM',
-                                        chosenDate: '',
-                                        isEmpty: cityEntry.from.city.isEmpty,
-                                      ),
-                                      SizedBox(
-                                        width: 15,
-                                      ),
-                                      TravelDetailsSmallBox(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, Routes.flightToScreen,
-                                              arguments: {
-                                                'cubit': cubit,
-                                                'type': "MultiCity",
-                                                'index': index,
-                                                'onIataClicked': (FlightDetails
-                                                    selectedFlight) {
-                                                  context
-                                                      .read<FlightBookCubit>()
-                                                      .updateCityEntryTo(index,
-                                                          selectedFlight);
-                                                }
-                                              });
-                                        },
-                                        cityName: cityEntry.to.city,
-                                        iataName: cityEntry.to.iataCode,
-                                        type: 'TO',
-                                        chosenDate: '',
-                                        isEmpty: cityEntry.to.city.isEmpty,
-                                      ),
-                                      SizedBox(
-                                        width: 15,
-                                      ),
-                                      cityEntry.date.isEmpty
-                                          ? TravelDetailsSmallerBox(
-                                              onTap: () {
-                                                Navigator.pushNamed(context,
-                                                    Routes.multiCityCalender,
-                                                    arguments: {
-                                                      'cubit': cubit,
-                                                      'index': index
-                                                    });
-                                              },
-                                              isEmpty: cityEntry.date.isEmpty,
-                                            )
-                                          : TravelDetailsSmallBox(
-                                              onTap: () {
-                                                Navigator.pushNamed(context,
-                                                    Routes.multiCityCalender,
-                                                    arguments: {
-                                                      'cubit': cubit,
-                                                      'index': index
-                                                    });
-                                              },
-                                              cityName:
-                                                  cityEntry.date.toString(),
-                                              iataName: '',
-                                              type: 'DATE',
-                                              chosenDate: cityEntry.date,
-                                              isEmpty: cityEntry.date.isEmpty,
-                                            ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      cityEntry.date.isEmpty
-                                          ? const Icon(
-                                              Icons.close,
-                                              size: 25,
-                                              color: Colors.black,
-                                            ).toButton(() {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  TravelDetailsSmallBox(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, Routes.flightFromScreen,
+                                          arguments: {
+                                            'cubit': cubit,
+                                            'type': "MultiCity",
+                                            'index': index,
+                                            'onIataClicked':
+                                                (FlightDetails selectedFlight) {
                                               context
                                                   .read<FlightBookCubit>()
-                                                  .removeCityEntry(index);
-                                            })
-                                          : SizedBox()
-                                    ],
+                                                  .updateCityEntryFrom(
+                                                      index, selectedFlight);
+                                            }
+                                          });
+                                    },
+                                    cityName: cityEntry.from.city,
+                                    iataName: cityEntry.from.iataCode,
+                                    type: 'FROM',
+                                    chosenDate: '',
+                                    isEmpty: cityEntry.from.city.isEmpty,
                                   ),
-                                );
-                              },
-                            ),
-                            SizedBox(height: 15),
-                            DottedBorder(
-                              borderType: BorderType.RRect, // Rounded Rectangle
-                              radius: Radius.circular(6), // Border radius
-                              dashPattern: [
-                                5,
-                                4
-                              ], // Dotted pattern (length of dash, space)
-                              color: const Color.fromARGB(
-                                  255, 242, 82, 71), // Border color
-                              strokeWidth: 1.5, // Border width
-                              child: Container(
-                                padding: EdgeInsets.all(16),
-                                width: context.width,
-                                height: 70,
-                                child: Center(
-                                  child: Text("+ ADD CITY",
-                                      style: TextStyle(
-                                          color: const Color.fromARGB(
-                                              255, 246, 16, 0),
-                                          fontSize: 18)),
-                                ),
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  TravelDetailsSmallBox(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, Routes.flightToScreen,
+                                          arguments: {
+                                            'cubit': cubit,
+                                            'type': "MultiCity",
+                                            'index': index,
+                                            'onIataClicked':
+                                                (FlightDetails selectedFlight) {
+                                              context
+                                                  .read<FlightBookCubit>()
+                                                  .updateCityEntryTo(
+                                                      index, selectedFlight);
+                                            }
+                                          });
+                                    },
+                                    cityName: cityEntry.to.city,
+                                    iataName: cityEntry.to.iataCode,
+                                    type: 'TO',
+                                    chosenDate: '',
+                                    isEmpty: cityEntry.to.city.isEmpty,
+                                  ),
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  cityEntry.date.isEmpty
+                                      ? TravelDetailsSmallerBox(
+                                          onTap: () {
+                                            Navigator.pushNamed(context,
+                                                Routes.multiCityCalender,
+                                                arguments: {
+                                                  'cubit': cubit,
+                                                  'index': index
+                                                });
+                                          },
+                                          isEmpty: cityEntry.date.isEmpty,
+                                        )
+                                      : TravelDetailsSmallBox(
+                                          onTap: () {
+                                            Navigator.pushNamed(context,
+                                                Routes.multiCityCalender,
+                                                arguments: {
+                                                  'cubit': cubit,
+                                                  'index': index
+                                                });
+                                          },
+                                          cityName: cityEntry.date.toString(),
+                                          iataName: '',
+                                          type: 'DATE',
+                                          chosenDate: cityEntry.date,
+                                          isEmpty: cityEntry.date.isEmpty,
+                                        ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  cityEntry.date.isEmpty
+                                      ? const Icon(
+                                          Icons.close,
+                                          size: 25,
+                                          color: Colors.black,
+                                        ).toButton(() {
+                                          context
+                                              .read<FlightBookCubit>()
+                                              .removeCityEntry(index);
+                                        })
+                                      : SizedBox()
+                                ],
                               ),
-                            ).paddingSymmetric(horizontal: 24).toButton(() {
-                              context.read<FlightBookCubit>().addCityEntry();
-                            }),
-                            SizedBox(height: 15),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 24),
-                              child: Container(
-                                width: context.width,
-                                decoration: BoxDecoration(
-                                  color: grey9B9.withOpacity(0.15),
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(width: 1, color: greyE2E),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 15, vertical: 7),
-                                  child: Row(
+                            );
+                          },
+                        ),
+                        SizedBox(height: 15),
+                        DottedBorder(
+                          borderType: BorderType.RRect, // Rounded Rectangle
+                          radius: Radius.circular(6), // Border radius
+                          dashPattern: [
+                            5,
+                            4
+                          ], // Dotted pattern (length of dash, space)
+                          color: const Color.fromARGB(
+                              255, 242, 82, 71), // Border color
+                          strokeWidth: 1.5, // Border width
+                          child: Container(
+                            padding: EdgeInsets.all(16),
+                            width: context.width,
+                            height: 70,
+                            child: Center(
+                              child: Text("+ ADD CITY",
+                                  style: TextStyle(
+                                      color:
+                                          const Color.fromARGB(255, 246, 16, 0),
+                                      fontSize: 18)),
+                            ),
+                          ),
+                        ).paddingSymmetric(horizontal: 24).toButton(() {
+                          context.read<FlightBookCubit>().addCityEntry();
+                        }),
+                        SizedBox(height: 15),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          child: Container(
+                            width: context.width,
+                            decoration: BoxDecoration(
+                              color: grey9B9.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(width: 1, color: greyE2E),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 7),
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(user),
+                                  SizedBox(width: 15),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      SvgPicture.asset(user),
-                                      SizedBox(width: 15),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                      CommonTextWidget.PoppinsMedium(
+                                        text: "TRAVELLERS & CLASS",
+                                        color: grey888,
+                                        fontSize: 14,
+                                      ),
+                                      Row(
                                         children: [
+                                          CommonTextWidget.PoppinsSemiBold(
+                                            text: "1,",
+                                            color: black2E2,
+                                            fontSize: 18,
+                                          ),
                                           CommonTextWidget.PoppinsMedium(
-                                            text: "TRAVELLERS & CLASS",
+                                            text: "TEconomy/Premium Economy",
                                             color: grey888,
                                             fontSize: 14,
-                                          ),
-                                          Row(
-                                            children: [
-                                              CommonTextWidget.PoppinsSemiBold(
-                                                text: "1,",
-                                                color: black2E2,
-                                                fontSize: 18,
-                                              ),
-                                              CommonTextWidget.PoppinsMedium(
-                                                text:
-                                                    "TEconomy/Premium Economy",
-                                                color: grey888,
-                                                fontSize: 14,
-                                              ),
-                                            ],
                                           ),
                                         ],
                                       ),
                                     ],
                                   ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 15),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 24),
-                              child: CommonTextWidget.PoppinsMedium(
-                                text: "SPECIAL FARES (OPTIONAL)",
-                                color: grey888,
-                                fontSize: 14,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 70,
-                              width: context.width,
-                              child: ScrollConfiguration(
-                                behavior: MyBehavior(),
-                                child: ListView.builder(
-                                  itemCount: Lists.flightSearchList2.length,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  padding: EdgeInsets.only(
-                                      top: 13, bottom: 13, left: 24, right: 12),
-                                  itemBuilder: (context, index) => Padding(
-                                    padding: EdgeInsets.only(right: 12),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: white,
-                                        border: Border.all(
-                                            color: greyE2E, width: 1),
-                                      ),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          child: CommonTextWidget.PoppinsMedium(
-                                            text:
-                                                Lists.flightSearchList2[index],
-                                            color: grey5F5,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 25),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 24),
-                              child: CommonButtonWidget(
-                                buttonColor: redCA0,
-                                onTap: () {
-                                  // Navigator.pushNamed(
-                                  //     context, Routes.flightBookScreen);
-                                  context
-                                      .read<FlightBookCubit>()
-                                      .assignDataToTheRequest(
-                                          FlightType.multiCity);
-                                },
-                                text: "SEARCH FLIGHTS",
-                              ),
-                            ),
-                            SizedBox(height: 20),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 24),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CommonTextWidget.PoppinsSemiBold(
-                                    text: "OFFERS",
-                                    color: black2E2,
-                                    fontSize: 16,
-                                  ),
-                                  Row(
-                                    children: [
-                                      CommonTextWidget.PoppinsRegular(
-                                        text: "View All",
-                                        color: redCA0,
-                                        fontSize: 14,
-                                      ),
-                                      SizedBox(width: 8),
-                                      Icon(Icons.arrow_forward_ios,
-                                          color: redCA0, size: 18),
-                                    ],
-                                  ),
                                 ],
                               ),
                             ),
-                            Divider(color: greyDED, thickness: 1),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: InkWell(
-                                onTap: () {
-                                  //  Get.to(() => OfferMakeYourTripScreen());
-                                  Navigator.pushNamed(
-                                      context, Routes.offerMakeYourTripScreen);
-                                },
-                                child: CarouselSlider.builder(
-                                  itemCount: 4,
-                                  itemBuilder: (context, index, realIndex) =>
-                                      Container(
-                                    height: 170,
-                                    width: context.width,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        image: DecorationImage(
-                                            image:
-                                                AssetImage(flightSearchImage),
-                                            fit: BoxFit.fill,
-                                            filterQuality: FilterQuality.high)),
+                          ),
+                        ),
+                        SizedBox(height: 15),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          child: CommonTextWidget.PoppinsMedium(
+                            text: "SPECIAL FARES (OPTIONAL)",
+                            color: grey888,
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 70,
+                          width: context.width,
+                          child: ScrollConfiguration(
+                            behavior: MyBehavior(),
+                            child: ListView.builder(
+                              itemCount: Lists.flightSearchList2.length,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.only(
+                                  top: 13, bottom: 13, left: 24, right: 12),
+                              itemBuilder: (context, index) => Padding(
+                                padding: EdgeInsets.only(right: 12),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: white,
+                                    border:
+                                        Border.all(color: greyE2E, width: 1),
                                   ),
-                                  options: CarouselOptions(
-                                      autoPlay: true,
-                                      height: 170,
-                                      enableInfiniteScroll: true,
-                                      enlargeCenterPage: true,
-                                      onPageChanged: (index, reason) {
-                                        // realStateController.sliderIndex.value = index;
-                                      }),
+                                  child: Center(
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 20),
+                                      child: CommonTextWidget.PoppinsMedium(
+                                        text: Lists.flightSearchList2[index],
+                                        color: grey5F5,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20),
-                            Container(
-                              width: context.width,
-                              color: redF9E,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 24, vertical: 15),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                          ),
+                        ),
+                        SizedBox(height: 25),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          child: CommonButtonWidget(
+                            buttonColor: redCA0,
+                            onTap: () {
+                              // Navigator.pushNamed(
+                              //     context, Routes.flightBookScreen);
+                              context
+                                  .read<FlightBookCubit>()
+                                  .assignDataToTheRequest(FlightType.multiCity);
+                            },
+                            text: "SEARCH FLIGHTS",
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CommonTextWidget.PoppinsSemiBold(
+                                text: "OFFERS",
+                                color: black2E2,
+                                fontSize: 16,
+                              ),
+                              Row(
+                                children: [
+                                  CommonTextWidget.PoppinsRegular(
+                                    text: "View All",
+                                    color: redCA0,
+                                    fontSize: 14,
+                                  ),
+                                  SizedBox(width: 8),
+                                  Icon(Icons.arrow_forward_ios,
+                                      color: redCA0, size: 18),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Divider(color: greyDED, thickness: 1),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: InkWell(
+                            onTap: () {
+                              //  Get.to(() => OfferMakeYourTripScreen());
+                              Navigator.pushNamed(
+                                  context, Routes.offerMakeYourTripScreen);
+                            },
+                            child: CarouselSlider.builder(
+                              itemCount: 4,
+                              itemBuilder: (context, index, realIndex) =>
+                                  Container(
+                                height: 170,
+                                width: context.width,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    image: DecorationImage(
+                                        image: AssetImage(flightSearchImage),
+                                        fit: BoxFit.fill,
+                                        filterQuality: FilterQuality.high)),
+                              ),
+                              options: CarouselOptions(
+                                  autoPlay: true,
+                                  height: 170,
+                                  enableInfiniteScroll: true,
+                                  enlargeCenterPage: true,
+                                  onPageChanged: (index, reason) {
+                                    // realStateController.sliderIndex.value = index;
+                                  }),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Container(
+                          width: context.width,
+                          color: redF9E,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CommonTextWidget.PoppinsRegular(
+                                  text:
+                                      "Explore the cheapest flight from New Delhi to Mumbai",
+                                  color: black2E2,
+                                  fontSize: 14,
+                                ),
+                                Row(
                                   children: [
-                                    CommonTextWidget.PoppinsRegular(
-                                      text:
-                                          "Explore the cheapest flight from New Delhi to Mumbai",
-                                      color: black2E2,
+                                    CommonTextWidget.PoppinsMedium(
+                                      text: "EXPLORE FARE CALENDAR",
+                                      color: redCA0,
                                       fontSize: 14,
                                     ),
-                                    Row(
-                                      children: [
-                                        CommonTextWidget.PoppinsMedium(
-                                          text: "EXPLORE FARE CALENDAR",
-                                          color: redCA0,
-                                          fontSize: 14,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Icon(Icons.arrow_forward,
-                                            color: redCA0, size: 16),
-                                      ],
-                                    ),
+                                    SizedBox(width: 10),
+                                    Icon(Icons.arrow_forward,
+                                        color: redCA0, size: 16),
                                   ],
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    );
+                      ],
+                    ),
+                  ),
+                );
         });
   }
 }

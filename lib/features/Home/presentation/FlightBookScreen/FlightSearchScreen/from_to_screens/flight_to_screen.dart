@@ -108,9 +108,9 @@ class _FlightToScreenState extends State<FlightToScreen> {
       body: BlocBuilder<FlightBookCubit, FlightBookState>(
         bloc: widget.cubit,
         builder: (context, state) {
-          return state.flowStateApp == FlowStateApp.loading
+          return state.flowStateApp == FlowStateApp.getAirportsLoading
               ? const LoadinContent()
-              : state.flowStateApp == FlowStateApp.error
+              : state.flowStateApp == FlowStateApp.getAirportsError
                   ? ErrorContent(
                       message: state.failure.message,
                       onRefresh: () {},
