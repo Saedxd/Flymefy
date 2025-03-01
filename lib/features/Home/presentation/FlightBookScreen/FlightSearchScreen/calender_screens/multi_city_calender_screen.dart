@@ -89,9 +89,9 @@ class _CalenderScreenState extends State<MultiCityCalenderScreen> {
                 },
                 selectedDayPredicate: (day) {
                   return isSameDay(
-                      state.multiCityBoxes.cities[widget.index].date.isNotEmpty
+                      state.multiCity.cities[widget.index].date.isNotEmpty
                           ? DateTime.parse(
-                              state.multiCityBoxes.cities[widget.index].date)
+                              state.multiCity.cities[widget.index].date)
                           : DateTime.now(),
                       day);
                 },

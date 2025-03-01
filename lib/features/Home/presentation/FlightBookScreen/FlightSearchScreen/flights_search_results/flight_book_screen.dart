@@ -3,14 +3,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flymefy/core/app_export.dart';
 import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/logic/flight_book/flight_book_cubit.dart';
-import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/search_results/widgets/ticket_list_screen.dart';
-import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/search_results/widgets/keep_track_price_screen.dart';
+import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/flights_search_results/widgets/ticket_list_screen.dart';
+import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/flights_search_results/widgets/keep_track_price_screen.dart';
 import 'package:flymefy/Constants/colors.dart';
 import 'package:flymefy/Constants/font_family.dart';
 import 'package:flymefy/Constants/images.dart';
 import 'package:flymefy/Screens/Utills/common_text_widget.dart';
 import 'package:flymefy/Screens/Utills/lists_widget.dart';
 import 'package:flymefy/main.dart';
+import 'package:intl/intl.dart';
 
 class FlightBook extends StatelessWidget {
   const FlightBook({Key? key, required this.cubit}) : super(key: key);
@@ -36,13 +37,6 @@ class FlightBookScreen extends StatefulWidget {
 
 class _FlightBookScreenState extends State<FlightBookScreen>
     with TickerProviderStateMixin {
-// ignore: prefer_typing_uninitialized_variables
-  var selectedIndex;
-
-  onIndexChange(index) {
-    selectedIndex = index;
-  }
-
   final List<Tab> myTabs = <Tab>[
     Tab(
       child: Column(
@@ -155,7 +149,7 @@ class _FlightBookScreenState extends State<FlightBookScreen>
                                               BorderRadius.circular(5),
                                         ),
                                         child: ListTile(
-                                          horizontalTitleGap: -5,
+                                          horizontalTitleGap: 5,
                                           leading: InkWell(
                                             onTap: () {
                                               Navigator.pop(context);
@@ -165,21 +159,40 @@ class _FlightBookScreenState extends State<FlightBookScreen>
                                           ),
                                           title:
                                               CommonTextWidget.PoppinsRegular(
-                                            text: "New Delhi to Mumbai",
+                                            text: state.currentSelectedType ==
+                                                    FlightType.oneWay
+                                                ? "${state.oneWayData.flightDetailsFrom.city.split(' ').first} to ${state.oneWayData.flightDetailsTo.city.split(' ').first}"
+                                                : state.currentSelectedType ==
+                                                        FlightType.roundTrip
+                                                    ? "${state.roundTrip.flightDetailsFrom.city.split(' ').first} to ${state.roundTrip.flightDetailsTo.city.split(' ').first}"
+                                                    : state.currentSelectedType ==
+                                                            FlightType.multiCity
+                                                        ? "${state.multiCity.cities[0].from.city.split(' ').first} to ${state.multiCity.cities[0].to.city.split(' ').first}"
+                                                        : "",
                                             color: black2E2,
                                             fontSize: 15,
                                           ),
                                           subtitle:
                                               CommonTextWidget.PoppinsRegular(
-                                            text: "24 Sep | 1 Adult | Economy",
+                                            text:
+                                                //"",
+                                                state.currentSelectedType ==
+                                                        FlightType.oneWay
+                                                    ? "${widget.cubit.formatDateDDMMM(DateTime.parse(state.oneWayData.dateWhen))} | ${state.flightSearchRequest.adults} Adult | Economy"
+                                                    : state.currentSelectedType ==
+                                                            FlightType.roundTrip
+                                                        ? "${widget.cubit.formatDateDDMMM(DateTime.parse(state.roundTrip.departureDate))} | ${state.flightSearchRequest.adults} Adult | Economy"
+                                                        : state.currentSelectedType ==
+                                                                FlightType
+                                                                    .multiCity
+                                                            ? "${widget.cubit.formatDateDDMMM(DateTime.parse(state.multiCity.cities[0].date))} | ${state.flightSearchRequest.adults} Adult | Economy"
+                                                            : "",
                                             color: grey717,
                                             fontSize: 12,
                                           ),
                                           trailing: InkWell(
                                             onTap: () {
-                                              //  Get.to(() => FlightModifySearch());
-                                              Navigator.pushNamed(context,
-                                                  Routes.flightModifySearch);
+                                              Navigator.pop(context);
                                             },
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
@@ -197,161 +210,45 @@ class _FlightBookScreenState extends State<FlightBookScreen>
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 10),
-                                    Expanded(
-                                      child: InkWell(
-                                        onTap: () {
-                                          // Get.bottomSheet(
-                                          //   KeepTrackPriceScreen(),
-                                          //   backgroundColor: Colors.transparent,
-                                          //   isScrollControlled: true,
-                                          // );
-                                        },
-                                        child: Container(
-                                          width: context.width,
-                                          decoration: BoxDecoration(
-                                            color: white,
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 7),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                SvgPicture.asset(notification),
-                                                CommonTextWidget.PoppinsMedium(
-                                                  text: "Price Alert",
-                                                  color: redCA0,
-                                                  fontSize: 12,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                    // SizedBox(width: 10),
+                                    // Expanded(
+                                    //   child: InkWell(
+                                    //     onTap: () {
+                                    //       // Get.bottomSheet(
+                                    //       //   KeepTrackPriceScreen(),
+                                    //       //   backgroundColor: Colors.transparent,
+                                    //       //   isScrollControlled: true,
+                                    //       // );
+                                    //     },
+                                    //     child: Container(
+                                    //       width: context.width,
+                                    //       decoration: BoxDecoration(
+                                    //         color: white,
+                                    //         borderRadius:
+                                    //             BorderRadius.circular(5),
+                                    //       ),
+                                    //       child: Padding(
+                                    //         padding: EdgeInsets.symmetric(
+                                    //             horizontal: 10, vertical: 7),
+                                    //         child: Column(
+                                    //           mainAxisSize: MainAxisSize.min,
+                                    //           children: [
+                                    //             SvgPicture.asset(notification),
+                                    //             CommonTextWidget.PoppinsMedium(
+                                    //               text: "Price Alert",
+                                    //               color: redCA0,
+                                    //               fontSize: 12,
+                                    //             ),
+                                    //           ],
+                                    //         ),
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),
                             ),
-                            // Container(
-                            //   width: context.width,
-                            //   color: white,
-                            //   child: Padding(
-                            //     padding: EdgeInsets.symmetric(
-                            //         horizontal: 24, vertical: 10),
-                            //     child: Row(
-                            //       children: [
-                            //         Container(
-                            //           decoration: BoxDecoration(
-                            //             color: redCA0,
-                            //             borderRadius: BorderRadius.only(
-                            //               topLeft: Radius.circular(5),
-                            //               bottomLeft: Radius.circular(5),
-                            //             ),
-                            //           ),
-                            //           child: Padding(
-                            //             padding: EdgeInsets.symmetric(
-                            //                 horizontal: 5, vertical: 10),
-                            //             child: RotatedBox(
-                            //               quarterTurns: 3,
-                            //               child: CommonTextWidget.PoppinsMedium(
-                            //                 text: "SEP",
-                            //                 color: white,
-                            //                 fontSize: 12,
-                            //               ),
-                            //             ),
-                            //           ),
-                            //         ),
-                            //         // Expanded(
-                            //         //   child: SizedBox(
-                            //         //     height: 40,
-                            //         //     width: context.width,
-                            //         //     child:
-
-                            //         //       ListView.builder(
-                            //         //         itemCount: Lists.flightBookList1.length,
-                            //         //         padding: EdgeInsets.only(left: 6),
-                            //         //         shrinkWrap: true,
-                            //         //         scrollDirection: Axis.horizontal,
-                            //         //         itemBuilder: (context, index) => Padding(
-                            //         //           padding: EdgeInsets.only(right: 6),
-                            //         //           child: InkWell(
-                            //         //             onTap: () {
-                            //         //             //  controller.onIndexChange(index);
-                            //         //             },
-                            //         //             child: Container(
-                            //         //               decoration: BoxDecoration(
-                            //         //                 color: state.selectedIndex == index
-                            //         //                     ? redCA0
-                            //         //                     : white,
-                            //         //                 borderRadius: BorderRadius.circular(5),
-                            //         //                 border: Border.all(
-                            //         //                     color:
-                            //         //                         state.selectedIndex == index
-                            //         //                             ? redCA0
-                            //         //                             : greyE2E,
-                            //         //                     width: 1),
-                            //         //               ),
-                            //         //               child: Padding(
-                            //         //                 padding: EdgeInsets.symmetric(
-                            //         //                     horizontal: 20, vertical: 4),
-                            //         //                 child: Column(
-                            //         //                   children: [
-                            //         //                     CommonTextWidget.PoppinsMedium(
-                            //         //                       text: Lists.flightBookList1[index]
-                            //         //                           ["text1"],
-                            //         //                       color: state.selectedIndex ==
-                            //         //                               index
-                            //         //                           ? white
-                            //         //                           : grey717,
-                            //         //                       fontSize: 10,
-                            //         //                     ),
-                            //         //                     CommonTextWidget.PoppinsMedium(
-                            //         //                       text: Lists.flightBookList1[index]
-                            //         //                           ["text2"],
-                            //         //                       color: state.selectedIndex ==
-                            //         //                               index
-                            //         //                           ? white
-                            //         //                           : grey717,
-                            //         //                       fontSize: 10,
-                            //         //                     ),
-                            //         //                   ],
-                            //         //                 ),
-                            //         //               ),
-                            //         //             ),
-                            //         //           ),
-                            //         //         ),
-                            //         //       ),
-
-                            //         //   ),
-                            //         // ),
-
-                            //         InkWell(
-                            //           onTap: () {
-                            //             //Get.to(() => CalenderScreen());
-                            //             //   Navigator.pushNamed(context, Routes.calenderScreen);
-                            //           },
-                            //           child: Container(
-                            //             decoration: BoxDecoration(
-                            //               color: redCA0,
-                            //               borderRadius:
-                            //                   BorderRadius.circular(5),
-                            //             ),
-                            //             child: Padding(
-                            //               padding: EdgeInsets.symmetric(
-                            //                   horizontal: 10, vertical: 10),
-                            //               child: SvgPicture.asset(calendar),
-                            //             ),
-                            //           ),
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
-
                             SizedBox(height: 12),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 24),

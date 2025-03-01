@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flymefy/core/routes/routes.dart';
 import 'package:flymefy/features/Home/presentation/AirportCabsScreens/cab_search_screen.dart';
 import 'package:flymefy/features/Home/presentation/DrawerScreen/drawer_screen.dart';
-import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/main_screen/flight_search_screen.dart';
+import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/flight_search/flight_search_screen.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/holiday_packages_screen.dart';
 import 'package:flymefy/features/Home/presentation/HomeStayScreen/home_stay_screen.dart';
 import 'package:flymefy/features/Home/presentation/HotelAndHomeStayScreens/hotel_and_home_stay_tab_screen.dart';

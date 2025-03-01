@@ -21,12 +21,12 @@ import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightDetail
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightDetailScreen/FlightDetailScreen1/flight_detail_screen1.dart';
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightDetailScreen/flight_detail_screen.dart';
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/calender_screens/round_trip_calender_screen.dart';
+import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/flights_search_results/flight_book_screen.dart';
+import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/flights_search_results/widgets/price_alert_screen.dart';
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/from_to_screens/flight_from_screen.dart';
-import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/main_screen/flight_search_screen.dart';
+import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/flight_search/flight_search_screen.dart';
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/from_to_screens/flight_to_screen.dart';
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/offer_make_your_trip_screen.dart';
-import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/search_results/flight_book_screen.dart';
-import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/search_results/widgets/price_alert_screen.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/budget_screen.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/duration_screen.dart';
 import 'package:flymefy/features/Home/presentation/HolidayPackagesScreen/edit_your_search_screen.dart';

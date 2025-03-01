@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/search_results/widgets/price_alert_screen.dart';
+import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/flights_search_results/widgets/price_alert_screen.dart';
 import 'package:get/get.dart';
 import 'package:flymefy/Constants/colors.dart';
 import 'package:flymefy/Screens/Utills/common_text_widget.dart';

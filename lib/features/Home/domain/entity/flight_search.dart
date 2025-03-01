@@ -16,21 +16,6 @@ class DynamicResponse extends Equatable {
   @override
   List<Object?> get props => [details];
 }
-
-// adtFare: 102 (but decimal part as well, so technically a float)
-// adtTax: 10 (but decimal part as well, so technically a float)
-// chdFare: 102 (but decimal part as well, so technically a float)
-// chdTax: 10 (but decimal part as well, so technically a float)
-// infFare: 20 (but decimal part as well, so technically a float)
-// infTax: 10 (but decimal part as well, so technically a float)
-// qCharge: 0
-// tktFee: 0
-// platformServiceFee: 0
-// adults: 2
-// children: 2
-// infants: 1
-// baggageAmount and carryOnAmount values are strings with "1PC" or "0PC", but not integers.
-// All the values in the miniRules arrays related to penaltyType, isPermited, when, and segmentIndex arrays are all integers.
 class FlightSearchModel extends Equatable {
   final String solutionKey;
   final String solutionId;
@@ -64,13 +49,7 @@ class FlightSearchModel extends Equatable {
   final String infFare;
   final String infTax;
 
-//make a fucntion to calculate total price of the flight * number of passengers
 
-  double get totalPrice {
-    return (double.parse(adtFare) + double.parse(adtTax)) * adults +
-        (double.parse(chdFare) + double.parse(chdTax)) * children +
-        (double.parse(infFare) + double.parse(infTax)) * infants;
-  }
 
   const FlightSearchModel({
     this.solutionKey = '',

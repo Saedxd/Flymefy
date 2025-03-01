@@ -98,10 +98,10 @@ class MultiCityScreen extends StatelessWidget {
                         ListView.builder(
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: state.multiCityBoxes.cities.length,
+                          itemCount: state.multiCity.cities.length,
                           itemBuilder: (context, index) {
                             final cityEntry =
-                                state.multiCityBoxes.cities[index];
+                                state.multiCity.cities[index];
 
                             return Padding(
                               padding: EdgeInsets.symmetric(

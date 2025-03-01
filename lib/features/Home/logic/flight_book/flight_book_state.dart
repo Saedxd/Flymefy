@@ -6,24 +6,20 @@ class FlightBookState extends Equatable {
   final FlowStateApp flowStateApp;
   final Failure failure;
   final FlightSearchRequest flightSearchRequest;
-  final DynamicResponse flightsData;
+  final DynamicResponse flightData;
+  final Flights flights;
   final OneWayData oneWayData;
   final RoundTrip roundTrip;
   final List<FlightDetails> fromList;
   final List<FlightDetails> toList;
   final CalendarFormat calendarFormat;
   final DateTime focusedDay;
-  final MultiCityBoxes multiCityBoxes;
+  final MultiCity multiCity;
   final FlightType currentSelectedType;
 
   final List<bool> openedTickets;
 
   static const List<FlightDetails> defaultFromToList = [
-    FlightDetails(
-      city: "Ahmedabad",
-      airportName: "Sardar Vallabhbhai Patel International Airport",
-      iataCode: "AMD",
-    ),
     FlightDetails(
       city: "New Delhi",
       airportName: "Indira Gandhi International Airport",
@@ -48,16 +44,6 @@ class FlightBookState extends Equatable {
       city: "Bangalore, Karnataka",
       airportName: "Kempegowda International Airport",
       iataCode: "BLR",
-    ),
-    FlightDetails(
-      city: "Pune, Maharashtra",
-      airportName: "Pune International Airport",
-      iataCode: "PNQ",
-    ),
-    FlightDetails(
-      city: "Ahmedabad, Gujarat",
-      airportName: "Sardar Vallabhbhai Patel International Airport",
-      iataCode: "AMD",
     ),
     FlightDetails(
       city: "London, United Kingdom",
@@ -124,52 +110,266 @@ class FlightBookState extends Equatable {
       airportName: "Beijing Capital International Airport",
       iataCode: "PEK",
     ),
+    // New 50 Airports
+    FlightDetails(
+      city: "Frankfurt, Germany",
+      airportName: "Frankfurt Airport",
+      iataCode: "FRA",
+    ),
+    FlightDetails(
+      city: "Amsterdam, Netherlands",
+      airportName: "Schiphol Airport",
+      iataCode: "AMS",
+    ),
+    FlightDetails(
+      city: "Seoul, South Korea",
+      airportName: "Incheon International Airport",
+      iataCode: "ICN",
+    ),
+    FlightDetails(
+      city: "Kuala Lumpur, Malaysia",
+      airportName: "Kuala Lumpur International Airport",
+      iataCode: "KUL",
+    ),
+    FlightDetails(
+      city: "Bangkok, Thailand",
+      airportName: "Suvarnabhumi Airport",
+      iataCode: "BKK",
+    ),
+    FlightDetails(
+      city: "San Francisco, USA",
+      airportName: "San Francisco International Airport",
+      iataCode: "SFO",
+    ),
+    FlightDetails(
+      city: "Chicago, USA",
+      airportName: "O'Hare International Airport",
+      iataCode: "ORD",
+    ),
+    FlightDetails(
+      city: "Dubai, UAE",
+      airportName: "Dubai International Airport",
+      iataCode: "DXB",
+    ),
+    FlightDetails(
+      city: "Madrid, Spain",
+      airportName: "Adolfo Suárez Madrid–Barajas Airport",
+      iataCode: "MAD",
+    ),
+    FlightDetails(
+      city: "Moscow, Russia",
+      airportName: "Sheremetyevo International Airport",
+      iataCode: "SVO",
+    ),
+    FlightDetails(
+      city: "Cairo, Egypt",
+      airportName: "Cairo International Airport",
+      iataCode: "CAI",
+    ),
+    FlightDetails(
+      city: "Rome, Italy",
+      airportName: "Fiumicino Airport",
+      iataCode: "FCO",
+    ),
+    FlightDetails(
+      city: "Zurich, Switzerland",
+      airportName: "Zurich Airport",
+      iataCode: "ZRH",
+    ),
+    FlightDetails(
+      city: "Los Angeles, USA",
+      airportName: "Los Angeles International Airport",
+      iataCode: "LAX",
+    ),
+    FlightDetails(
+      city: "Barcelona, Spain",
+      airportName: "Barcelona El Prat Airport",
+      iataCode: "BCN",
+    ),
+    FlightDetails(
+      city: "Vienna, Austria",
+      airportName: "Vienna International Airport",
+      iataCode: "VIE",
+    ),
+    FlightDetails(
+      city: "Madrid, Spain",
+      airportName: "Madrid–Barajas Adolfo Suárez Airport",
+      iataCode: "MAD",
+    ),
+    FlightDetails(
+      city: "Lisbon, Portugal",
+      airportName: "Lisbon Portela Airport",
+      iataCode: "LIS",
+    ),
+    FlightDetails(
+      city: "Istanbul, Turkey",
+      airportName: "Istanbul Airport",
+      iataCode: "IST",
+    ),
+    FlightDetails(
+      city: "Dubai, UAE",
+      airportName: "Dubai International Airport",
+      iataCode: "DXB",
+    ),
+    FlightDetails(
+      city: "Doha, Qatar",
+      airportName: "Hamad International Airport",
+      iataCode: "DOH",
+    ),
+    FlightDetails(
+      city: "Bali, Indonesia",
+      airportName: "Ngurah Rai International Airport",
+      iataCode: "DPS",
+    ),
+    FlightDetails(
+      city: "Johannesburg, South Africa",
+      airportName: "O.R. Tambo International Airport",
+      iataCode: "JNB",
+    ),
+    FlightDetails(
+      city: "Shanghai, China",
+      airportName: "Shanghai Pudong International Airport",
+      iataCode: "PVG",
+    ),
+    FlightDetails(
+      city: "Shanghai, China",
+      airportName: "Hongqiao International Airport",
+      iataCode: "SHA",
+    ),
+    FlightDetails(
+      city: "Mexico City, Mexico",
+      airportName: "Mexico City International Airport",
+      iataCode: "MEX",
+    ),
+    FlightDetails(
+      city: "Buenos Aires, Argentina",
+      airportName: "Ezeiza International Airport",
+      iataCode: "EZE",
+    ),
+    FlightDetails(
+      city: "Santiago, Chile",
+      airportName: "Arturo Merino Benítez International Airport",
+      iataCode: "SCL",
+    ),
+    FlightDetails(
+      city: "Seoul, South Korea",
+      airportName: "Incheon International Airport",
+      iataCode: "ICN",
+    ),
+    FlightDetails(
+      city: "Lagos, Nigeria",
+      airportName: "Murtala Muhammed International Airport",
+      iataCode: "LOS",
+    ),
+    FlightDetails(
+      city: "Bangkok, Thailand",
+      airportName: "Don Mueang International Airport",
+      iataCode: "DMK",
+    ),
+    FlightDetails(
+      city: "Cairo, Egypt",
+      airportName: "Cairo International Airport",
+      iataCode: "CAI",
+    ),
+    FlightDetails(
+      city: "Kuala Lumpur, Malaysia",
+      airportName: "Kuala Lumpur International Airport",
+      iataCode: "KUL",
+    ),
+    FlightDetails(
+      city: "Sao Paulo, Brazil",
+      airportName: "São Paulo–Guarulhos International Airport",
+      iataCode: "GRU",
+    ),
+    FlightDetails(
+      city: "Rio de Janeiro, Brazil",
+      airportName: "Galeão International Airport",
+      iataCode: "GIG",
+    ),
+    FlightDetails(
+      city: "Cape Town, South Africa",
+      airportName: "Cape Town International Airport",
+      iataCode: "CPT",
+    ),
+    FlightDetails(
+      city: "Copenhagen, Denmark",
+      airportName: "Copenhagen Airport",
+      iataCode: "CPH",
+    ),
+    FlightDetails(
+      city: "Athens, Greece",
+      airportName: "Elefthérios Venizélos International Airport",
+      iataCode: "ATH",
+    ),
+    FlightDetails(
+      city: "Tel Aviv, Israel",
+      airportName: "Ben Gurion International Airport",
+      iataCode: "TLV",
+    ),
+    FlightDetails(
+      city: "Kuwait City, Kuwait",
+      airportName: "Kuwait International Airport",
+      iataCode: "KWI",
+    ),
+    FlightDetails(
+      city: "Lima, Peru",
+      airportName: "Jorge Chávez International Airport",
+      iataCode: "LIM",
+    ),
+    FlightDetails(
+      city: "Dubai, United Arab Emirates",
+      airportName: "Dubai International Airport",
+      iataCode: "DXB",
+    ),
   ];
 
-  FlightBookState(
-      {this.failure = const Failure.empty(),
-      this.flowStateApp = FlowStateApp.draft,
-      this.flightSearchRequest = const FlightSearchRequest(),
-      this.flightsData = const DynamicResponse(),
-      this.roundTrip = const RoundTrip(),
-      this.oneWayData = const OneWayData(),
-      this.fromList = defaultFromToList,
-      this.toList = defaultFromToList,
-      this.calendarFormat = CalendarFormat.month,
-      DateTime? focusedDay,
-      this.multiCityBoxes = const MultiCityBoxes(),
-      this.currentSelectedType = FlightType.oneWay,
-      this.openedTickets = const []})
-      : focusedDay = focusedDay ?? DateTime.now().add(Duration(days: 1));
+  FlightBookState({
+    this.failure = const Failure.empty(),
+    this.flowStateApp = FlowStateApp.draft,
+    this.flightSearchRequest = const FlightSearchRequest(),
+    this.flights = const Flights(),
+    this.roundTrip = const RoundTrip(),
+    this.oneWayData = const OneWayData(),
+    this.fromList = defaultFromToList,
+    this.toList = defaultFromToList,
+    this.calendarFormat = CalendarFormat.month,
+    DateTime? focusedDay,
+    this.multiCity = const MultiCity(),
+    this.currentSelectedType = FlightType.oneWay,
+    this.openedTickets = const [],
+    this.flightData = const DynamicResponse(),
+  }) : focusedDay = focusedDay ?? DateTime.now().add(Duration(days: 1));
 
   FlightBookState copyWith(
       {FlowStateApp? flowStateApp,
       Failure? failure,
       FlightSearchRequest? flightSearchRequest,
-      DynamicResponse? flightsData,
+      Flights? flights,
       OneWayData? oneWayData,
       RoundTrip? roundTrip,
       List<FlightDetails>? fromList,
       List<FlightDetails>? toList,
       CalendarFormat? calendarFormat,
       DateTime? focusedDay,
-      MultiCityBoxes? multiCityBoxes,
+      MultiCity? MultiCity,
       FlightType? currentSelectedType,
-      List<bool>? openedTickets}) {
+      List<bool>? openedTickets,
+      DynamicResponse? flightData}) {
     return FlightBookState(
         flowStateApp: flowStateApp ?? this.flowStateApp,
         failure: failure ?? this.failure,
         flightSearchRequest: flightSearchRequest ?? this.flightSearchRequest,
-        flightsData: flightsData ?? this.flightsData,
+        flights: flights ?? this.flights,
         oneWayData: oneWayData ?? this.oneWayData,
         roundTrip: roundTrip ?? this.roundTrip,
         fromList: fromList ?? this.fromList,
         toList: toList ?? this.toList,
         calendarFormat: calendarFormat ?? this.calendarFormat,
         focusedDay: focusedDay ?? this.focusedDay,
-        multiCityBoxes: multiCityBoxes ?? this.multiCityBoxes,
+        multiCity: MultiCity ?? this.multiCity,
         currentSelectedType: currentSelectedType ?? this.currentSelectedType,
-        openedTickets: openedTickets ?? this.openedTickets);
+        openedTickets: openedTickets ?? this.openedTickets,
+        flightData: flightData ?? this.flightData);
   }
 
   @override
@@ -177,16 +377,17 @@ class FlightBookState extends Equatable {
         flowStateApp,
         failure,
         flightSearchRequest,
-        flightsData,
+        flights,
         oneWayData,
         roundTrip,
         fromList,
         toList,
         calendarFormat,
         focusedDay,
-        multiCityBoxes,
+        MultiCity,
         currentSelectedType,
-        openedTickets
+        openedTickets,
+        flightData
       ];
 }
 
@@ -195,34 +396,49 @@ class OneWayData extends Equatable {
   final FlightDetails flightDetailsTo;
 
   final String dateWhen;
-  final int numTravellers;
+  final int adults;
+  final int children;
+  final int infants;
   final String classType;
 
   const OneWayData({
     this.dateWhen = "",
-    this.numTravellers = 0,
-    this.classType = "",
+    this.classType = "Economy",
     this.flightDetailsFrom = const FlightDetails(),
     this.flightDetailsTo = const FlightDetails(),
+    this.adults = 1,
+    this.children = 0,
+    this.infants = 0,
   });
 
   @override
-  List<Object?> get props =>
-      [dateWhen, numTravellers, classType, flightDetailsFrom, flightDetailsTo];
+  List<Object?> get props => [
+        dateWhen,
+        classType,
+        flightDetailsFrom,
+        flightDetailsTo,
+        adults,
+        children,
+        infants
+      ];
   //copy with
   OneWayData copyWith({
     String? dateWhen,
-    int? numTravellers,
     String? classType,
     FlightDetails? flightDetailsFrom,
     FlightDetails? flightDetailsTo,
+    int? adults,
+    int? children,
+    int? infants,
   }) {
     return OneWayData(
         dateWhen: dateWhen ?? this.dateWhen,
-        numTravellers: numTravellers ?? this.numTravellers,
         classType: classType ?? this.classType,
         flightDetailsFrom: flightDetailsFrom ?? this.flightDetailsFrom,
-        flightDetailsTo: flightDetailsTo ?? this.flightDetailsTo);
+        flightDetailsTo: flightDetailsTo ?? this.flightDetailsTo,
+        adults: adults ?? this.adults,
+        children: children ?? this.children,
+        infants: infants ?? this.infants);
   }
 }
 
@@ -232,26 +448,32 @@ class RoundTrip extends Equatable {
 
   final String departureDate;
   final String arrivalDate;
-  final int numTravellers;
   final String classType;
+  final int adults;
+  final int children;
+  final int infants;
 
   const RoundTrip({
     this.departureDate = "",
     this.arrivalDate = "",
-    this.numTravellers = 1,
-    this.classType = "",
+    this.classType = "Economy",
     this.flightDetailsFrom = const FlightDetails(),
     this.flightDetailsTo = const FlightDetails(),
+    this.adults = 1,
+    this.children = 0,
+    this.infants = 0,
   });
 
   @override
   List<Object?> get props => [
         departureDate,
         arrivalDate,
-        numTravellers,
         classType,
         flightDetailsFrom,
-        flightDetailsTo
+        flightDetailsTo,
+        adults,
+        children,
+        infants
       ];
 
 //copywith
@@ -262,14 +484,19 @@ class RoundTrip extends Equatable {
     String? classType,
     FlightDetails? flightDetailsFrom,
     FlightDetails? flightDetailsTo,
+    int? adults,
+    int? children,
+    int? infants,
   }) {
     return RoundTrip(
         departureDate: departureDate ?? this.departureDate,
         arrivalDate: arrivalDate ?? this.arrivalDate,
-        numTravellers: numTravellers ?? this.numTravellers,
         classType: classType ?? this.classType,
         flightDetailsFrom: flightDetailsFrom ?? this.flightDetailsFrom,
-        flightDetailsTo: flightDetailsTo ?? this.flightDetailsTo);
+        flightDetailsTo: flightDetailsTo ?? this.flightDetailsTo,
+        adults: adults ?? this.adults,
+        children: children ?? this.children,
+        infants: infants ?? this.infants);
   }
 }
 
@@ -287,19 +514,38 @@ class FlightDetails {
 //copy With
 }
 
-class MultiCityBoxes extends Equatable {
+class MultiCity extends Equatable {
   final List<CityEntry> cities;
+  final int adults;
+  final int children;
+  final int infants;
+  final String classType;
 
-  const MultiCityBoxes({this.cities = const []});
+  const MultiCity({
+    this.cities = const [],
+    this.adults = 1,
+    this.children = 0,
+    this.infants = 0,
+    this.classType = "Economy",
+  });
 
-  MultiCityBoxes copyWith({List<CityEntry>? cities}) {
-    return MultiCityBoxes(
+  MultiCity copyWith(
+      {List<CityEntry>? cities,
+      int? adults,
+      int? children,
+      int? infants,
+      String? classType}) {
+    return MultiCity(
       cities: cities ?? this.cities,
+      adults: adults ?? this.adults,
+      infants: infants ?? this.infants,
+      children: children ?? this.children,
+      classType: classType ?? this.classType,
     );
   }
 
   @override
-  List<Object> get props => [cities];
+  List<Object> get props => [cities, adults, children, infants, classType];
 }
 
 class CityEntry extends Equatable {

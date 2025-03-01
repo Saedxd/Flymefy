@@ -9,6 +9,7 @@ import 'package:flymefy/Constants/images.dart';
 import 'package:flymefy/Screens/Utills/common_text_widget.dart';
 import 'package:flymefy/Screens/Utills/lists_widget.dart';
 import 'package:flymefy/main.dart';
+import 'package:intl/intl.dart';
 
 class FlightsTo extends StatelessWidget {
   const FlightsTo(
@@ -54,6 +55,8 @@ class FlightToScreen extends StatefulWidget {
 }
 
 class _FlightToScreenState extends State<FlightToScreen> {
+
+
   String getCityName({required String type, required bool isFrom, int? index}) {
     if (type == "TORoundTrip") {
       return isFrom
@@ -75,11 +78,11 @@ class _FlightToScreenState extends State<FlightToScreen> {
       // Ensure index is provided and valid
       if (index == null ||
           index < 0 ||
-          index >= widget.cubit.state.multiCityBoxes.cities.length) {
+          index >= widget.cubit.state.multiCity.cities.length) {
         return "Enter any City/Airport Name";
       }
 
-      final cityEntry = widget.cubit.state.multiCityBoxes.cities[index];
+      final cityEntry = widget.cubit.state.multiCity.cities[index];
       return isFrom
           ? cityEntry.from.city.isNotEmpty
               ? cityEntry.from.city

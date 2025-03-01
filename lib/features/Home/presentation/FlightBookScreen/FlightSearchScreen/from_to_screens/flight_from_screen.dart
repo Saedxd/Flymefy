@@ -73,11 +73,11 @@ class _FlightFromScreenState extends State<FlightFromScreen> {
       // Ensure index is provided and valid
       if (index == null ||
           index < 0 ||
-          index >= widget.cubit.state.multiCityBoxes.cities.length) {
+          index >= widget.cubit.state.multiCity.cities.length) {
         return "Enter any City/Airport Name";
       }
 
-      final cityEntry = widget.cubit.state.multiCityBoxes.cities[index];
+      final cityEntry = widget.cubit.state.multiCity.cities[index];
       return isFrom
           ? cityEntry.from.city.isNotEmpty
               ? cityEntry.from.city
@@ -105,6 +105,8 @@ class _FlightFromScreenState extends State<FlightFromScreen> {
                   type: widget.type, isFrom: true, index: widget.index);
               final String toText = getCityName(
                   type: widget.type, isFrom: false, index: widget.index);
+
+
               return state.flowStateApp == FlowStateApp.getAirportsLoading
                   ? const LoadinContent()
                   : state.flowStateApp == FlowStateApp.getAirportsError

@@ -9,6 +9,7 @@ import 'package:flymefy/Constants/images.dart';
 import 'package:flymefy/Screens/Utills/common_button_widget.dart';
 import 'package:flymefy/Screens/Utills/common_text_widget.dart';
 import 'package:flymefy/Screens/Utills/lists_widget.dart';
+import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/flight_types/widgets/travelers_and_class_bottom_sheet.dart';
 import 'package:flymefy/main.dart';
 import 'package:intl/intl.dart';
 
@@ -97,7 +98,16 @@ class OneWayScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        ),
+                        ).toButton(()async{
+                           await showCustomModalBottomSheet(
+          context: context,
+          builder: (_) {
+            return  TravelersAndClassBottomSheet(
+              cubit: cubit,
+            );
+          },
+        );
+                        }),
                         SizedBox(height: 15),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 24),
