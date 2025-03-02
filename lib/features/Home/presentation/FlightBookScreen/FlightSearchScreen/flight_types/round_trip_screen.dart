@@ -10,6 +10,7 @@ import 'package:flymefy/Constants/images.dart';
 import 'package:flymefy/Screens/Utills/common_button_widget.dart';
 import 'package:flymefy/Screens/Utills/common_text_widget.dart';
 import 'package:flymefy/Screens/Utills/lists_widget.dart';
+import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/flight_types/widgets/travelers_and_class_bottom_sheet.dart';
 import 'package:flymefy/main.dart';
 
 class RoundTripS extends StatelessWidget {
@@ -79,12 +80,14 @@ class RoundTripScreen extends StatelessWidget {
                                       Row(
                                         children: [
                                           CommonTextWidget.PoppinsSemiBold(
-                                            text: "1,",
+                                            text:
+                                                "${state.roundTrip.totalTravellers},",
                                             color: black2E2,
                                             fontSize: 18,
                                           ),
                                           CommonTextWidget.PoppinsMedium(
-                                            text: "TEconomy/Premium Economy",
+                                            text:
+                                                "${state.roundTrip.classType} Class",
                                             color: grey888,
                                             fontSize: 14,
                                           ),
@@ -96,7 +99,16 @@ class RoundTripScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        ),
+                        ).toButton(() async {
+                          await showCustomModalBottomSheet(
+                            context: context,
+                            builder: (_) {
+                              return TravelersAndClassBottomSheet(
+                                cubit: cubit,
+                              );
+                            },
+                          );
+                        }),
                         SizedBox(height: 15),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 24),
@@ -148,9 +160,6 @@ class RoundTripScreen extends StatelessWidget {
                           child: CommonButtonWidget(
                             buttonColor: redCA0,
                             onTap: () {
-                              //Get.to(() => FlightBookScreen());
-                              // Navigator.pushNamed(
-                              //     context, Routes.flightBookScreen);
                               context
                                   .read<FlightBookCubit>()
                                   .assignDataToTheRequest(FlightType.roundTrip);

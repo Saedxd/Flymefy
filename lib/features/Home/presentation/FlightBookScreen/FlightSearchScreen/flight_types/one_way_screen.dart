@@ -81,12 +81,14 @@ class OneWayScreen extends StatelessWidget {
                                       Row(
                                         children: [
                                           CommonTextWidget.PoppinsSemiBold(
-                                            text: "1,",
+                                            text:
+                                                "${state.oneWayData.totalTravellers},",
                                             color: black2E2,
                                             fontSize: 18,
                                           ),
                                           CommonTextWidget.PoppinsMedium(
-                                            text: "TEconomy/Premium Economy",
+                                            text:
+                                                "${state.oneWayData.classType} Class",
                                             color: grey888,
                                             fontSize: 14,
                                           ),
@@ -98,15 +100,15 @@ class OneWayScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        ).toButton(()async{
-                           await showCustomModalBottomSheet(
-          context: context,
-          builder: (_) {
-            return  TravelersAndClassBottomSheet(
-              cubit: cubit,
-            );
-          },
-        );
+                        ).toButton(() async {
+                          await showCustomModalBottomSheet(
+                            context: context,
+                            builder: (_) {
+                              return TravelersAndClassBottomSheet(
+                                cubit: cubit,
+                              );
+                            },
+                          );
                         }),
                         SizedBox(height: 15),
                         Padding(

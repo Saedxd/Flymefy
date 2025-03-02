@@ -351,7 +351,7 @@ class FlightBookState extends Equatable {
       List<FlightDetails>? toList,
       CalendarFormat? calendarFormat,
       DateTime? focusedDay,
-      MultiCity? MultiCity,
+      MultiCity? multiCity,
       FlightType? currentSelectedType,
       List<bool>? openedTickets,
       DynamicResponse? flightData}) {
@@ -366,7 +366,7 @@ class FlightBookState extends Equatable {
         toList: toList ?? this.toList,
         calendarFormat: calendarFormat ?? this.calendarFormat,
         focusedDay: focusedDay ?? this.focusedDay,
-        multiCity: MultiCity ?? this.multiCity,
+        multiCity: multiCity ?? this.multiCity,
         currentSelectedType: currentSelectedType ?? this.currentSelectedType,
         openedTickets: openedTickets ?? this.openedTickets,
         flightData: flightData ?? this.flightData);
@@ -384,7 +384,7 @@ class FlightBookState extends Equatable {
         toList,
         calendarFormat,
         focusedDay,
-        MultiCity,
+        multiCity,
         currentSelectedType,
         openedTickets,
         flightData
@@ -400,6 +400,7 @@ class OneWayData extends Equatable {
   final int children;
   final int infants;
   final String classType;
+  int get totalTravellers => adults + children + infants;
 
   const OneWayData({
     this.dateWhen = "",
@@ -452,6 +453,7 @@ class RoundTrip extends Equatable {
   final int adults;
   final int children;
   final int infants;
+  int get totalTravellers => adults + children + infants;
 
   const RoundTrip({
     this.departureDate = "",
@@ -529,14 +531,19 @@ class MultiCity extends Equatable {
     this.classType = "Economy",
   });
 
-  MultiCity copyWith(
-      {List<CityEntry>? cities,
-      int? adults,
-      int? children,
-      int? infants,
-      String? classType}) {
+  int get totalTravellers => adults + children + infants;
+
+  MultiCity copyWith({
+    List<CityEntry>? cities,
+    int? adults,
+    int? children,
+    int? infants,
+    String? classType,
+  }) {
     return MultiCity(
-      cities: cities ?? this.cities,
+      cities: cities != null
+          ? List<CityEntry>.from(cities)
+          : this.cities, // 🔥 Ensures a new list
       adults: adults ?? this.adults,
       infants: infants ?? this.infants,
       children: children ?? this.children,

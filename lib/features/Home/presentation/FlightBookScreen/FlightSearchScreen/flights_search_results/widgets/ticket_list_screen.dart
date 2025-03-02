@@ -47,25 +47,32 @@ class _PlanTicketsOffersListScreenScreenState
         bloc: widget.cubit,
         listener: (context, state) async {},
         builder: (context, state) {
-          return ScrollConfiguration(
-            behavior: MyBehavior(),
-            child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 24),
-                shrinkWrap: true,
-                itemCount: widget.cubit.state.flights.flights.length,
-                itemBuilder: (context, parentIndex) {
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: 3),
-                    child: Column(
-                      children: [
-                        PlainTicketClickableBox(
-                          cubit: widget.cubit,
-                          parentIndex: parentIndex,
-                        ),
-                      ],
-                    ),
-                  );
-                }),
+          return RefreshIndicator(
+            onRefresh: () async {
+              //widget.cubit.getFlights(state.currentSelectedType);
+            },
+            child: ScrollConfiguration(
+              behavior: MyBehavior(),
+              child: ListView.builder(
+                  physics: const AlwaysScrollableScrollPhysics(
+                      parent: BouncingScrollPhysics()),
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  shrinkWrap: true,
+                  itemCount: widget.cubit.state.flights.flights.length,
+                  itemBuilder: (context, parentIndex) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 3),
+                      child: Column(
+                        children: [
+                          PlainTicketClickableBox(
+                            cubit: widget.cubit,
+                            parentIndex: parentIndex,
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+            ),
           );
         });
   }
@@ -126,18 +133,18 @@ TableRow baggageCarryOnAdults(Baggage adultBaggage, int adults) {
       ? TableRow(
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 10, right: 10),
+              padding: const EdgeInsets.only(bottom: 10, right: 10),
               child: SvgPicture.asset(briefcase),
             ),
-            Text("Carry On",
+            const Text("Carry On",
                 style: TextStyle(fontSize: 12, color: Colors.black)),
             Text(
               "${adultBaggage.carryOnAmount} ${adultBaggage.carryOnWeight}",
-              style: TextStyle(fontSize: 12, color: Colors.grey),
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
             ),
           ],
         )
-      : TableRow(children: [
+      : const TableRow(children: [
           SizedBox(),
           SizedBox(),
           SizedBox()
@@ -150,18 +157,18 @@ TableRow baggageCarryOnChildren(Baggage childBaggage, int children) {
       ? TableRow(
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 10, right: 10),
+              padding: const EdgeInsets.only(bottom: 10, right: 10),
               child: SvgPicture.asset(briefcase),
             ),
-            Text("Carry On Children",
+            const Text("Carry On Children",
                 style: TextStyle(fontSize: 12, color: Colors.black)),
             Text(
               "${childBaggage.carryOnAmount} ${childBaggage.carryOnWeight}",
-              style: TextStyle(fontSize: 12, color: Colors.grey),
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
             ),
           ],
         )
-      : TableRow(children: [
+      : const TableRow(children: [
           SizedBox(),
           SizedBox(),
           SizedBox()
@@ -174,18 +181,18 @@ TableRow baggageCarryOnInfants(Baggage infantBaggage, int infants) {
       ? TableRow(
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 10, right: 10),
+              padding: const EdgeInsets.only(bottom: 10, right: 10),
               child: SvgPicture.asset(briefcase),
             ),
-            Text("Carry On Infants",
+            const Text("Carry On Infants",
                 style: TextStyle(fontSize: 12, color: Colors.black)),
             Text(
               "${infantBaggage.carryOnAmount} ${infantBaggage.carryOnWeight}",
-              style: TextStyle(fontSize: 12, color: Colors.grey),
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
             ),
           ],
         )
-      : TableRow(children: [
+      : const TableRow(children: [
           SizedBox(),
           SizedBox(),
           SizedBox()
@@ -198,18 +205,18 @@ TableRow baggageCheckInAdults(Baggage adultBaggage, int adults) {
       ? TableRow(
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 10, right: 10),
+              padding: const EdgeInsets.only(bottom: 10, right: 10),
               child: SvgPicture.asset(backpack),
             ),
-            Text("Check-in",
+            const Text("Check-in",
                 style: TextStyle(fontSize: 12, color: Colors.black)),
             Text(
               "${adultBaggage.baggageAmount} ${adultBaggage.baggageWeight!}",
-              style: TextStyle(fontSize: 12, color: Colors.grey),
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
             ),
           ],
         )
-      : TableRow(children: [
+      : const TableRow(children: [
           SizedBox(),
           SizedBox(),
           SizedBox()
@@ -222,18 +229,18 @@ TableRow baggageCheckInChildren(Baggage childBaggage, int children) {
       ? TableRow(
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 10, right: 10),
+              padding: const EdgeInsets.only(bottom: 10, right: 10),
               child: SvgPicture.asset(backpack),
             ),
-            Text("Check-in Children",
+            const Text("Check-in Children",
                 style: TextStyle(fontSize: 12, color: Colors.black)),
             Text(
               "${(childBaggage.baggageAmount)} ${(childBaggage.baggageWeight!)}",
-              style: TextStyle(fontSize: 12, color: Colors.grey),
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
             ),
           ],
         )
-      : TableRow(children: [
+      : const TableRow(children: [
           SizedBox(),
           SizedBox(),
           SizedBox()
@@ -246,18 +253,18 @@ TableRow baggageCheckInInfants(Baggage infantBaggage, int infants) {
       ? TableRow(
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 10, right: 10),
+              padding: const EdgeInsets.only(bottom: 10, right: 10),
               child: SvgPicture.asset(backpack),
             ),
-            Text("Check-in Infants",
+            const Text("Check-in Infants",
                 style: TextStyle(fontSize: 12, color: Colors.black)),
             Text(
               "${(infantBaggage.baggageAmount)} ${(infantBaggage.baggageWeight!)}",
-              style: TextStyle(fontSize: 12, color: Colors.grey),
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
             ),
           ],
         )
-      : TableRow(children: [
+      : const TableRow(children: [
           SizedBox(),
           SizedBox(),
           SizedBox()

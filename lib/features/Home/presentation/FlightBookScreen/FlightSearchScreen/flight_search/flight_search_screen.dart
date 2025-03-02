@@ -52,6 +52,26 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>
   void initState() {
     super.initState();
     controller = TabController(length: myTabs.length, vsync: this);
+
+    // Add listener to detect tab changes
+    controller.addListener(() {
+      if (!controller.indexIsChanging) {
+        final cubit = context.read<FlightBookCubit>();
+
+        // Map tab index to FlightType and update cubit
+        switch (controller.index) {
+          case 0:
+            cubit.changeCurrentSelectedType(FlightType.oneWay);
+            break;
+          case 1:
+            cubit.changeCurrentSelectedType(FlightType.roundTrip);
+            break;
+          case 2:
+            cubit.changeCurrentSelectedType(FlightType.multiCity);
+            break;
+        }
+      }
+    });
   }
 
   @override
@@ -96,35 +116,6 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>
                   ),
                 ),
                 SizedBox(height: 40),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Container(
-                    width: context.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: redF9E,
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(offerIcon),
-                          SizedBox(width: 10),
-                          Expanded(
-                            child: CommonTextWidget.PoppinsMedium(
-                              text:
-                                  "Get FLAT 13% OFF* on your first booking! use "
-                                  "code: WELCOMEMMT",
-                              color: redCA0,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
                 SizedBox(height: 15),
                 Expanded(
                   child: TabBarView(

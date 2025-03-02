@@ -16,15 +16,13 @@ class DynamicResponse extends Equatable {
   @override
   List<Object?> get props => [details];
 }
+
 class FlightSearchModel extends Equatable {
   final String solutionKey;
   final String solutionId;
   final String fareType;
   final String currency;
 
-  final String qCharge;
-  final String tktFee;
-  final String platformServiceFee;
   final String? comments;
   final Map<String, Journey> journeys;
   final String? fareRule;
@@ -48,8 +46,17 @@ class FlightSearchModel extends Equatable {
   final String chdTax;
   final String infFare;
   final String infTax;
+  final String platformServiceFee;
 
-
+  final String qCharge;
+  final String tktFee;
+  // "adtFare": 68.07,
+  //       "adtTax": 8.71,
+  //       "chdFare": 0,
+  //       "chdTax": 0,
+  //       "qCharge": 0,
+  //       "tktFee": 0,
+  //       "platformServiceFee": 0,
 
   const FlightSearchModel({
     this.solutionKey = '',
@@ -138,6 +145,16 @@ class FlightSearchModel extends Equatable {
     );
   }
 
+  // final String adtFare;
+  // final String adtTax;
+  // final String chdFare;
+  // final String chdTax;
+  // final String infFare;
+  // final String infTax;
+  // final String platformServiceFee;
+
+  // final String qCharge;
+  // final String tktFee;
   factory FlightSearchModel.fromMap(Map<String, dynamic> map) {
     return FlightSearchModel(
       solutionKey: map['solutionKey'] ?? '',
@@ -516,30 +533,30 @@ class Segment extends Equatable {
 
   factory Segment.fromMap(Map<String, dynamic> map) {
     return Segment(
-      segmentId: map['segmentId'] ?? '',
-      airline: map['airline'] ?? '',
-      flightNum: map['flightNum'] ?? '',
-      equipment: map['equipment'] ?? '',
-      cabinClass: map['cabinClass'] ?? '',
-      bookingCode: map['bookingCode'] ?? '',
+      segmentId: map['segmentId']?.toString() ?? '',
+      airline: map['airline']?.toString() ?? '',
+      flightNum: map['flightNum']?.toString() ?? '',
+      equipment: map['equipment']?.toString() ?? '',
+      cabinClass: map['cabinClass']?.toString() ?? '',
+      bookingCode: map['bookingCode']?.toString() ?? '',
       availabilityCount: map['availabilityCount'] ?? 0,
-      departure: map['departure'] ?? '',
-      arrival: map['arrival'] ?? '',
+      departure: map['departure']?.toString() ?? '',
+      arrival: map['arrival']?.toString() ?? '',
       departureTerminal: map['departureTerminal'],
       arrivalTerminal: map['arrivalTerminal'],
       departureDate: map['departureDate'] ?? 0,
       arrivalDate: map['arrivalDate'] ?? 0,
       flightTime: map['flightTime'] ?? 0,
-      stayTime: map['stayTime'],
-      codeShare: map['codeShare'] ?? '',
-      opFltNo: map['opFltNo'],
-      opFltAirline: map['opFltAirline'],
-      stopover: map['stopover'],
-      fareBasis: map['fareBasis'] ?? '',
-      strDepartureDate: map['strDepartureDate'] ?? '',
-      strDepartureTime: map['strDepartureTime'] ?? '',
-      strArrivalDate: map['strArrivalDate'] ?? '',
-      strArrivalTime: map['strArrivalTime'] ?? '',
+      stayTime: map['stayTime']?.toString() ?? '',
+      codeShare: map['codeShare']?.toString() ?? '',
+      opFltNo: map['opFltNo']?.toString() ?? '',
+      opFltAirline: map['opFltAirline']?.toString() ?? '',
+      stopover: map['stopover']?.toString() ?? '',
+      fareBasis: map['fareBasis']?.toString() ?? '',
+      strDepartureDate: map['strDepartureDate']?.toString() ?? '',
+      strDepartureTime: map['strDepartureTime']?.toString() ?? '',
+      strArrivalDate: map['strArrivalDate']?.toString() ?? '',
+      strArrivalTime: map['strArrivalTime']?.toString() ?? '',
     );
   }
 

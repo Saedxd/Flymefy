@@ -11,6 +11,7 @@ import 'package:flymefy/Constants/images.dart';
 import 'package:flymefy/Screens/Utills/common_button_widget.dart';
 import 'package:flymefy/Screens/Utills/common_text_widget.dart';
 import 'package:flymefy/Screens/Utills/lists_widget.dart';
+import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/flight_types/widgets/travelers_and_class_bottom_sheet.dart';
 import 'package:flymefy/main.dart';
 import 'package:intl/intl.dart';
 
@@ -51,6 +52,7 @@ class MultiCityScreen extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         // Padding(
                         //   padding: EdgeInsets.symmetric(horizontal: 24),
@@ -58,7 +60,7 @@ class MultiCityScreen extends StatelessWidget {
                         // ),
                         // SizedBox(height: 8),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: SizedBox(
                             width: context.width,
                             child: Row(
@@ -97,15 +99,15 @@ class MultiCityScreen extends StatelessWidget {
                         ),
                         ListView.builder(
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: state.multiCity.cities.length,
                           itemBuilder: (context, index) {
-                            final cityEntry =
-                                state.multiCity.cities[index];
+                            print(state.multiCity.cities[index].from.city);
+                            final cityEntry = state.multiCity.cities[index];
 
                             return Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 24, vertical: 10),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 24),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -133,7 +135,7 @@ class MultiCityScreen extends StatelessWidget {
                                     chosenDate: '',
                                     isEmpty: cityEntry.from.city.isEmpty,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 15,
                                   ),
                                   TravelDetailsSmallBox(
@@ -159,7 +161,7 @@ class MultiCityScreen extends StatelessWidget {
                                     chosenDate: '',
                                     isEmpty: cityEntry.to.city.isEmpty,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 15,
                                   ),
                                   cityEntry.date.isEmpty
@@ -189,7 +191,7 @@ class MultiCityScreen extends StatelessWidget {
                                           chosenDate: cityEntry.date,
                                           isEmpty: cityEntry.date.isEmpty,
                                         ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   cityEntry.date.isEmpty
@@ -202,17 +204,17 @@ class MultiCityScreen extends StatelessWidget {
                                               .read<FlightBookCubit>()
                                               .removeCityEntry(index);
                                         })
-                                      : SizedBox()
+                                      : const SizedBox()
                                 ],
                               ),
-                            );
+                            ).paddingOnly(bottom: 10);
                           },
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         DottedBorder(
                           borderType: BorderType.RRect, // Rounded Rectangle
-                          radius: Radius.circular(6), // Border radius
-                          dashPattern: [
+                          radius: const Radius.circular(6), // Border radius
+                          dashPattern: const [
                             5,
                             4
                           ], // Dotted pattern (length of dash, space)
@@ -220,23 +222,30 @@ class MultiCityScreen extends StatelessWidget {
                               255, 242, 82, 71), // Border color
                           strokeWidth: 1.5, // Border width
                           child: Container(
-                            padding: EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(16),
                             width: context.width,
                             height: 70,
                             child: Center(
-                              child: Text("+ ADD CITY",
+                              child: Text(
+                                  state.multiCity.cities.length < 2
+                                      ? "+ ADD CITY"
+                                      : "- Clear Selection",
                                   style: TextStyle(
-                                      color:
-                                          const Color.fromARGB(255, 246, 16, 0),
+                                      color: Color.fromARGB(255, 246, 16, 0),
                                       fontSize: 18)),
                             ),
                           ),
-                        ).paddingSymmetric(horizontal: 24).toButton(() {
-                          context.read<FlightBookCubit>().addCityEntry();
-                        }),
-                        SizedBox(height: 15),
+                        ).toButton(() {
+                          if (state.multiCity.cities.length < 2) {
+                            context.read<FlightBookCubit>().addCityEntry();
+                          } else {
+                            context.read<FlightBookCubit>().clearCityEntries();
+                          }
+                        }).paddingSymmetric(horizontal: 24),
+
+                        const SizedBox(height: 15),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: Container(
                             width: context.width,
                             decoration: BoxDecoration(
@@ -245,12 +254,12 @@ class MultiCityScreen extends StatelessWidget {
                               border: Border.all(width: 1, color: greyE2E),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 15, vertical: 7),
                               child: Row(
                                 children: [
                                   SvgPicture.asset(user),
-                                  SizedBox(width: 15),
+                                  const SizedBox(width: 15),
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -263,12 +272,13 @@ class MultiCityScreen extends StatelessWidget {
                                       Row(
                                         children: [
                                           CommonTextWidget.PoppinsSemiBold(
-                                            text: "1,",
+                                            text: "${state.multiCity.adults},",
                                             color: black2E2,
                                             fontSize: 18,
                                           ),
                                           CommonTextWidget.PoppinsMedium(
-                                            text: "TEconomy/Premium Economy",
+                                            text:
+                                                "${state.multiCity.classType} Class",
                                             color: grey888,
                                             fontSize: 14,
                                           ),
@@ -280,10 +290,19 @@ class MultiCityScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(height: 15),
+                        ).toButton(() async {
+                          await showCustomModalBottomSheet(
+                            context: context,
+                            builder: (_) {
+                              return TravelersAndClassBottomSheet(
+                                cubit: cubit,
+                              );
+                            },
+                          );
+                        }),
+                        const SizedBox(height: 15),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: CommonTextWidget.PoppinsMedium(
                             text: "SPECIAL FARES (OPTIONAL)",
                             color: grey888,
@@ -299,10 +318,10 @@ class MultiCityScreen extends StatelessWidget {
                               itemCount: Lists.flightSearchList2.length,
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
-                              padding: EdgeInsets.only(
+                              padding: const EdgeInsets.only(
                                   top: 13, bottom: 13, left: 24, right: 12),
                               itemBuilder: (context, index) => Padding(
-                                padding: EdgeInsets.only(right: 12),
+                                padding: const EdgeInsets.only(right: 12),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
@@ -312,8 +331,8 @@ class MultiCityScreen extends StatelessWidget {
                                   ),
                                   child: Center(
                                     child: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 20),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
                                       child: CommonTextWidget.PoppinsMedium(
                                         text: Lists.flightSearchList2[index],
                                         color: grey5F5,
@@ -326,9 +345,9 @@ class MultiCityScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 25),
+                        const SizedBox(height: 25),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: CommonButtonWidget(
                             buttonColor: redCA0,
                             onTap: () {
@@ -341,9 +360,9 @@ class MultiCityScreen extends StatelessWidget {
                             text: "SEARCH FLIGHTS",
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -359,15 +378,15 @@ class MultiCityScreen extends StatelessWidget {
                                     color: redCA0,
                                     fontSize: 14,
                                   ),
-                                  SizedBox(width: 8),
-                                  Icon(Icons.arrow_forward_ios,
+                                  const SizedBox(width: 8),
+                                  const Icon(Icons.arrow_forward_ios,
                                       color: redCA0, size: 18),
                                 ],
                               ),
                             ],
                           ),
                         ),
-                        Divider(color: greyDED, thickness: 1),
+                        const Divider(color: greyDED, thickness: 1),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: InkWell(
@@ -384,7 +403,7 @@ class MultiCityScreen extends StatelessWidget {
                                 width: context.width,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    image: DecorationImage(
+                                    image: const DecorationImage(
                                         image: AssetImage(flightSearchImage),
                                         fit: BoxFit.fill,
                                         filterQuality: FilterQuality.high)),
@@ -400,12 +419,12 @@ class MultiCityScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Container(
                           width: context.width,
                           color: redF9E,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 24, vertical: 15),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -423,8 +442,8 @@ class MultiCityScreen extends StatelessWidget {
                                       color: redCA0,
                                       fontSize: 14,
                                     ),
-                                    SizedBox(width: 10),
-                                    Icon(Icons.arrow_forward,
+                                    const SizedBox(width: 10),
+                                    const Icon(Icons.arrow_forward,
                                         color: redCA0, size: 16),
                                   ],
                                 ),
@@ -484,7 +503,7 @@ class TravelDetailsSmallBox extends StatelessWidget {
               color: isEmpty ? Colors.red : black2E2),
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 7, vertical: 7),
+          padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
           child: isEmpty
               ? [
                   SizedBox(
@@ -492,8 +511,8 @@ class TravelDetailsSmallBox extends StatelessWidget {
                       height: 20,
                       child: Text(
                         type,
-                        style: TextStyle(
-                            color: const Color.fromARGB(255, 194, 44, 33),
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 194, 44, 33),
                             fontSize: 17),
                       ))
                 ].toRow(mainAxisAlignment: MainAxisAlignment.start)
@@ -507,7 +526,7 @@ class TravelDetailsSmallBox extends StatelessWidget {
                           color: black2E2,
                           fontSize: cityName.isEmpty ? 16 : 18,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         CommonTextWidget.PoppinsMedium(
@@ -527,15 +546,14 @@ class TravelDetailsSmallBox extends StatelessWidget {
                             color: black2E2,
                             fontSize: 16,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           SizedBox(
                               width: 90,
                               child: Text(cityName,
-                                  style: TextStyle(
-                                      color: const Color.fromARGB(
-                                          255, 174, 165, 165),
+                                  style: const TextStyle(
+                                      color: Color.fromARGB(255, 174, 165, 165),
                                       fontSize: 11,
                                       overflow: TextOverflow.ellipsis)))
                         ],
@@ -575,12 +593,11 @@ class TravelDetailsSmallerBox extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             [
-              SizedBox(
+              const SizedBox(
                   child: Text(
                 "Date",
                 style: TextStyle(
-                    color: const Color.fromARGB(255, 194, 44, 33),
-                    fontSize: 18),
+                    color: Color.fromARGB(255, 194, 44, 33), fontSize: 18),
               ))
             ].toRow(mainAxisAlignment: MainAxisAlignment.start)
           ],
