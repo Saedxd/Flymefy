@@ -30,12 +30,12 @@ class FlightLogoAndName extends StatelessWidget {
                 width: 30,
               ),
               SizedBox(width: 8),
-              CommonTextWidget.PoppinsMedium(
-                text: cubit.state.flights.flights[parentindex].journeys[0]
-                    .segments[childIndex].airline,
-                color: black2E2,
-                fontSize: 12,
-              ),
+              // CommonTextWidget.PoppinsMedium(
+              //   text: cubit.state.flights.flights[parentindex].journeys[0]
+              //       .segments[childIndex].airline,
+              //   color: black2E2,
+              //   fontSize: 12,
+              // ),
             ],
           );
         });

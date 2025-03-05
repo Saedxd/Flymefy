@@ -1,9 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flymefy/core/app_export.dart';
-import 'package:flymefy/core/routes/routes.dart';
+import 'package:flymefy/features/Home/domain/entity/city_airports.dart';
 import 'package:flymefy/features/Home/logic/flight_book/flight_book_cubit.dart';
 import 'package:flymefy/Constants/colors.dart';
 import 'package:flymefy/Constants/images.dart';
@@ -97,152 +96,7 @@ class MultiCityScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: state.multiCity.cities.length,
-                          itemBuilder: (context, index) {
-                            print(state.multiCity.cities[index].from.city);
-                            final cityEntry = state.multiCity.cities[index];
-
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 24),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TravelDetailsSmallBox(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, Routes.flightFromScreen,
-                                          arguments: {
-                                            'cubit': cubit,
-                                            'type': "MultiCity",
-                                            'index': index,
-                                            'onIataClicked':
-                                                (FlightDetails selectedFlight) {
-                                              context
-                                                  .read<FlightBookCubit>()
-                                                  .updateCityEntryFrom(
-                                                      index, selectedFlight);
-                                            }
-                                          });
-                                    },
-                                    cityName: cityEntry.from.city,
-                                    iataName: cityEntry.from.iataCode,
-                                    type: 'FROM',
-                                    chosenDate: '',
-                                    isEmpty: cityEntry.from.city.isEmpty,
-                                  ),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  TravelDetailsSmallBox(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, Routes.flightToScreen,
-                                          arguments: {
-                                            'cubit': cubit,
-                                            'type': "MultiCity",
-                                            'index': index,
-                                            'onIataClicked':
-                                                (FlightDetails selectedFlight) {
-                                              context
-                                                  .read<FlightBookCubit>()
-                                                  .updateCityEntryTo(
-                                                      index, selectedFlight);
-                                            }
-                                          });
-                                    },
-                                    cityName: cityEntry.to.city,
-                                    iataName: cityEntry.to.iataCode,
-                                    type: 'TO',
-                                    chosenDate: '',
-                                    isEmpty: cityEntry.to.city.isEmpty,
-                                  ),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  cityEntry.date.isEmpty
-                                      ? TravelDetailsSmallerBox(
-                                          onTap: () {
-                                            Navigator.pushNamed(context,
-                                                Routes.multiCityCalender,
-                                                arguments: {
-                                                  'cubit': cubit,
-                                                  'index': index
-                                                });
-                                          },
-                                          isEmpty: cityEntry.date.isEmpty,
-                                        )
-                                      : TravelDetailsSmallBox(
-                                          onTap: () {
-                                            Navigator.pushNamed(context,
-                                                Routes.multiCityCalender,
-                                                arguments: {
-                                                  'cubit': cubit,
-                                                  'index': index
-                                                });
-                                          },
-                                          cityName: cityEntry.date.toString(),
-                                          iataName: '',
-                                          type: 'DATE',
-                                          chosenDate: cityEntry.date,
-                                          isEmpty: cityEntry.date.isEmpty,
-                                        ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  cityEntry.date.isEmpty
-                                      ? const Icon(
-                                          Icons.close,
-                                          size: 25,
-                                          color: Colors.black,
-                                        ).toButton(() {
-                                          context
-                                              .read<FlightBookCubit>()
-                                              .removeCityEntry(index);
-                                        })
-                                      : const SizedBox()
-                                ],
-                              ),
-                            ).paddingOnly(bottom: 10);
-                          },
-                        ),
-                        const SizedBox(height: 15),
-                        DottedBorder(
-                          borderType: BorderType.RRect, // Rounded Rectangle
-                          radius: const Radius.circular(6), // Border radius
-                          dashPattern: const [
-                            5,
-                            4
-                          ], // Dotted pattern (length of dash, space)
-                          color: const Color.fromARGB(
-                              255, 242, 82, 71), // Border color
-                          strokeWidth: 1.5, // Border width
-                          child: Container(
-                            padding: const EdgeInsets.all(16),
-                            width: context.width,
-                            height: 70,
-                            child: Center(
-                              child: Text(
-                                  state.multiCity.cities.length < 2
-                                      ? "+ ADD CITY"
-                                      : "- Clear Selection",
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 246, 16, 0),
-                                      fontSize: 18)),
-                            ),
-                          ),
-                        ).toButton(() {
-                          if (state.multiCity.cities.length < 2) {
-                            context.read<FlightBookCubit>().addCityEntry();
-                          } else {
-                            context.read<FlightBookCubit>().clearCityEntries();
-                          }
-                        }).paddingSymmetric(horizontal: 24),
-
+                        MultiCityFlightEntries(cubit: cubit),
                         const SizedBox(height: 15),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -459,34 +313,193 @@ class MultiCityScreen extends StatelessWidget {
   }
 }
 
-class TravelDetailsSmallBox extends StatelessWidget {
-  const TravelDetailsSmallBox({
-    Key? key,
-    this.onTap,
-    required this.cityName,
-    required this.iataName,
+class MultiCityFlightEntries extends StatelessWidget {
+  final FlightBookCubit cubit;
+
+  const MultiCityFlightEntries({super.key, required this.cubit});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider.value(
+      value: cubit,
+      child: BlocBuilder<FlightBookCubit, FlightBookState>(
+        builder: (context, state) {
+          return Column(
+            children: [
+              _buildCityEntriesList(state),
+              const SizedBox(height: 15),
+              _buildAddRemoveButton(state),
+              const SizedBox(height: 15),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildCityEntriesList(FlightBookState state) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: state.multiCity.cities.length,
+      itemBuilder: (context, index) {
+        final entry = state.multiCity.cities[index];
+        return _CityEntryRow(
+          cubit: cubit,
+          index: index,
+          entry: entry,
+        );
+      },
+    );
+  }
+
+  Widget _buildAddRemoveButton(FlightBookState state) {
+    return _AddRemoveButton(
+      cubit: cubit,
+      showAdd: state.multiCity.cities.length < 2,
+    );
+  }
+}
+
+class _CityEntryRow extends StatelessWidget {
+  final FlightBookCubit cubit;
+  final int index;
+  final CityEntry entry;
+
+  const _CityEntryRow({
+    required this.cubit,
+    required this.index,
+    required this.entry,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _CitySelectorBox(
+            cubit: cubit,
+            index: index,
+            type: TravelEntryType.fromCity,
+            entry: entry.from,
+          ),
+          const SizedBox(width: 15),
+          _CitySelectorBox(
+            cubit: cubit,
+            index: index,
+            type: TravelEntryType.toCity,
+            entry: entry.to,
+          ),
+          const SizedBox(width: 15),
+          _DateSelectorBox(
+            cubit: cubit,
+            index: index,
+            date: entry.date,
+          ),
+          if (entry.date.isEmpty) ...[
+            const SizedBox(width: 5),
+            _RemoveButton(cubit: cubit, index: index),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _CitySelectorBox extends StatelessWidget {
+  final FlightBookCubit cubit;
+  final int index;
+  final TravelEntryType type;
+  final CityAirport entry;
+
+  const _CitySelectorBox({
+    required this.cubit,
+    required this.index,
     required this.type,
-    required this.chosenDate,
-    required this.isEmpty,
-  }) : super(key: key);
-  final VoidCallback? onTap;
-  final String cityName;
-  final String iataName;
-  final String type;
-  final String chosenDate;
+    required this.entry,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider.value(
+      value: cubit,
+      child: _CityDateEntryBox(
+        isEmpty: entry.countryName.isEmpty,
+        label: type.name,
+        content: entry.countryName.isEmpty ? null : entry.iata,
+        subtitle: entry.countryName,
+        onTap: () => _handleCitySelection(context),
+      ),
+    );
+  }
+
+  void _handleCitySelection(BuildContext context) {
+    final route = type == TravelEntryType.fromCity
+        ? Routes.flightFromScreen
+        : Routes.flightToScreen;
+
+    Navigator.pushNamed(context, route, arguments: {
+      'cubit': cubit,
+      'index': index,
+      'onSelect': (CityAirport selected) => type == TravelEntryType.fromCity
+          ? cubit.updateCityEntryFrom(index, selected)
+          : cubit.updateCityEntryTo(index, selected),
+    });
+  }
+}
+
+class _DateSelectorBox extends StatelessWidget {
+  final FlightBookCubit cubit;
+  final int index;
+  final String date;
+
+  const _DateSelectorBox({
+    required this.cubit,
+    required this.index,
+    required this.date,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider.value(
+      value: cubit,
+      child: date.isEmpty
+          ? _DatePlaceholderBox(cubit: cubit, index: index)
+          : _CityDateEntryBox(
+              isEmpty: false,
+              label: 'DATE',
+              content: cubit.formatDateDDMMM(DateTime.parse(date)),
+              subtitle: cubit.formatDateEEyyyy(DateTime.parse(date)),
+              onTap: () => _handleDateSelection(context),
+            ),
+    );
+  }
+
+  void _handleDateSelection(BuildContext context) {
+    Navigator.pushNamed(
+      context,
+      Routes.multiCityCalender,
+      arguments: {'cubit': cubit, 'index': index},
+    );
+  }
+}
+
+class _CityDateEntryBox extends StatelessWidget {
   final bool isEmpty;
+  final String label;
+  final String? content;
+  final String? subtitle;
+  final VoidCallback? onTap;
 
-  String formatDatePart1(DateTime date) {
-    // Format for "22 Sep"
-    final DateFormat formatterPart1 = DateFormat('dd MMM');
-    return formatterPart1.format(date);
-  }
-
-  String formatDatePart2(DateTime date) {
-    // Format for "Thursday, 2022"
-    final DateFormat formatterPart2 = DateFormat('EE, yyyy');
-    return formatterPart2.format(date);
-  }
+  const _CityDateEntryBox({
+    required this.isEmpty,
+    required this.label,
+    this.content,
+    this.subtitle,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -499,110 +512,177 @@ class TravelDetailsSmallBox extends StatelessWidget {
           color: isEmpty ? const Color(0xfff5c6cb) : grey9B9.withOpacity(0.15),
           borderRadius: BorderRadius.circular(5),
           border: Border.all(
-              width: isEmpty ? 1.5 : 0.1,
-              color: isEmpty ? Colors.red : black2E2),
+            width: isEmpty ? 1.5 : 0.1,
+            color: isEmpty ? Colors.red : black2E2,
+          ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
-          child: isEmpty
-              ? [
-                  SizedBox(
-                      width: 90,
-                      height: 20,
-                      child: Text(
-                        type,
-                        style: const TextStyle(
-                            color: Color.fromARGB(255, 194, 44, 33),
-                            fontSize: 17),
-                      ))
-                ].toRow(mainAxisAlignment: MainAxisAlignment.start)
-              : type == "DATE"
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CommonTextWidget.PoppinsSemiBold(
-                          text: formatDatePart1(DateTime.parse(chosenDate)),
-                          color: black2E2,
-                          fontSize: cityName.isEmpty ? 16 : 18,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        CommonTextWidget.PoppinsMedium(
-                          text: formatDatePart2(DateTime.parse(chosenDate)),
-                          color: grey888,
-                          fontSize: 11,
-                        ),
-                      ],
-                    )
-                  : Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CommonTextWidget.PoppinsMedium(
-                            text: iataName,
-                            color: black2E2,
-                            fontSize: 16,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          SizedBox(
-                              width: 90,
-                              child: Text(cityName,
-                                  style: const TextStyle(
-                                      color: Color.fromARGB(255, 174, 165, 165),
-                                      fontSize: 11,
-                                      overflow: TextOverflow.ellipsis)))
-                        ],
-                      ),
-                    ),
+        padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
+        child: _buildContent(),
+      ),
+    );
+  }
+
+  Widget _buildContent() {
+    if (isEmpty) {
+      return Text(
+        label,
+        style: const TextStyle(
+          color: Color.fromARGB(255, 194, 44, 33),
+          fontSize: 17,
         ),
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CommonTextWidget.PoppinsMedium(
+          text: content ?? '',
+          color: black2E2,
+          fontSize: 16,
+        ),
+        if (subtitle != null) ...[
+          const SizedBox(height: 5),
+          SizedBox(
+            width: 90,
+            child: Text(
+              subtitle!,
+              style: const TextStyle(
+                color: Color.fromARGB(255, 174, 165, 165),
+                fontSize: 11,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class _DatePlaceholderBox extends StatelessWidget {
+  final FlightBookCubit cubit;
+  final int index;
+
+  const _DatePlaceholderBox({
+    required this.cubit,
+    required this.index,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider.value(
+      value: cubit,
+      child: InkWell(
+        onTap: () => _handleDateSelection(context),
+        child: Container(
+          width: 67,
+          height: 60,
+          decoration: BoxDecoration(
+            color: const Color(0xfff5c6cb),
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(width: 1.5, color: Colors.red),
+          ),
+          child: const Center(
+            child: Text(
+              "Date",
+              style: TextStyle(
+                color: Color.fromARGB(255, 194, 44, 33),
+                fontSize: 18,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _handleDateSelection(BuildContext context) {
+    Navigator.pushNamed(
+      context,
+      Routes.multiCityCalender,
+      arguments: {'cubit': cubit, 'index': index},
+    );
+  }
+}
+
+class _RemoveButton extends StatelessWidget {
+  final FlightBookCubit cubit;
+  final int index;
+
+  const _RemoveButton({
+    required this.cubit,
+    required this.index,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider.value(
+      value: cubit,
+      child: IconButton(
+        icon: const Icon(Icons.close, size: 25, color: Colors.black),
+        onPressed: () => cubit.removeCityEntry(index),
       ),
     );
   }
 }
 
-class TravelDetailsSmallerBox extends StatelessWidget {
-  const TravelDetailsSmallerBox({
-    Key? key,
-    this.onTap,
-    required this.isEmpty,
-  }) : super(key: key);
-  final VoidCallback? onTap;
+class _AddRemoveButton extends StatelessWidget {
+  final FlightBookCubit cubit;
+  final bool showAdd;
 
-  final bool isEmpty;
+  const _AddRemoveButton({
+    required this.cubit,
+    required this.showAdd,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        width: 67,
-        height: 60,
-        decoration: BoxDecoration(
-          color: isEmpty ? const Color(0xfff5c6cb) : grey9B9.withOpacity(0.15),
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(
-              width: isEmpty ? 1.5 : 0.1,
-              color: isEmpty ? Colors.red : black2E2),
+    return BlocProvider.value(
+      value: cubit,
+      child: DottedBorder(
+        borderType: BorderType.RRect,
+        radius: const Radius.circular(6),
+        dashPattern: const [5, 4],
+        color: const Color(0xFFF25247),
+        strokeWidth: 1.5,
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: 70,
+          padding: const EdgeInsets.all(16),
+          child: Center(
+            child: Text(
+              showAdd ? "+ ADD CITY" : "- Clear Selection",
+              style: const TextStyle(color: Color(0xFFF61000), fontSize: 18),
+            ),
+          ),
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            [
-              const SizedBox(
-                  child: Text(
-                "Date",
-                style: TextStyle(
-                    color: Color.fromARGB(255, 194, 44, 33), fontSize: 18),
-              ))
-            ].toRow(mainAxisAlignment: MainAxisAlignment.start)
-          ],
-        ).marginSymmetric(horizontal: 10),
-      ),
+      ).toButton(
+          () => showAdd ? cubit.addCityEntry() : cubit.clearCityEntries()),
     );
   }
+}
+
+enum TravelEntryType { fromCity, toCity, date }
+
+extension on TravelEntryType {
+  String get displayName {
+    switch (this) {
+      case TravelEntryType.fromCity:
+        return 'FROM';
+      case TravelEntryType.toCity:
+        return 'TO';
+      case TravelEntryType.date:
+        return 'DATE';
+    }
+  }
+}
+
+class DateFormatter {
+  static String formatDDMMM(DateTime? date) =>
+      date != null ? DateFormat('dd MMM').format(date) : '';
+
+  static String formatEEyyyy(DateTime? date) =>
+      date != null ? DateFormat('EEE yyyy').format(date) : '';
 }

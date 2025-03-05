@@ -59,3 +59,18 @@ class SearchAirLegs {
     };
   }
 }
+
+
+class GetCitysAirportsRequest {
+  const GetCitysAirportsRequest({
+    this.query = '',
+  });
+
+  final String query;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'query': query,
+    };
+  }
+}

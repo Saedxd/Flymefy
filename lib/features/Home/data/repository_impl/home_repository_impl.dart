@@ -12,6 +12,7 @@ import 'package:flymefy/core/mapper/general_mapper.dart';
 import 'package:flymefy/core/network/api.dart';
 import 'package:flymefy/core/resources_manager/constant.dart';
 import 'package:flymefy/features/Home/data/requests/request.dart';
+import 'package:flymefy/features/Home/domain/entity/city_airports.dart';
 import 'package:flymefy/features/Home/domain/entity/flight_search.dart';
 import 'package:flymefy/features/Home/domain/repository/home_repository.dart';
 import 'package:flymefy/features/general/data/repostory_impl/repository_impl.dart';
@@ -38,6 +39,10 @@ class HomeRepositoryImpl implements HomeRepository {
     try {
       response =
           await _clientApi.postApi(AppConstants.apiGetFlightsFromSearch, data: {
+        "authentication": {
+          "PartnerID": "ptMaOsL5orqIFtAzI/KXGiXcHTk=",
+          "PantnerKEY": "OWMyMjlhYjY3ZDg3ZDk1ZGU4ZGR1M2JjNmRiZmE3ZDY="
+        },
         "search": flightSearchRequest.toJson(),
       }, headers: {
         "X-Requested-With": "XMLHttpRequest",
@@ -60,4 +65,46 @@ class HomeRepositoryImpl implements HomeRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, CityAirportsList>> getCitysAirportsList(
+      GetCitysAirportsRequest GetCitysAirportsRequest) async {
+    Response? response;
+    try {
+      response = await _clientApi.getApi(
+        AppConstants.apiGetCitysAirportsApi,
+        queryParameters: GetCitysAirportsRequest.toJson(),
+      );
+
+      if (response.isOperationSucceededApi()) {
+        return Right(response.toCitysAirportsData());
+      } else {
+        return Left(ApiException.handleApiError(response.data).failure);
+      }
+    } catch (error) {
+      print("error : ${error.toString()}");
+      return Left(
+        ExceptionHandling.handleError(
+          error,
+          data: response != null ? response.data : '',
+        ).failure,
+      );
+    }
+  }
 }
+//https://api.flymefy.com/search/airports?query=ist
+// {
+//     "airports": [
+//         {
+//             "id": 2167,
+//             "name": "istanbul ataturk airport",
+//             "iata": "ist",
+//             "state_name": "istanbul",
+//             "state_code": "ist",
+//             "country_name": "turkey",
+//             "country_code": "tr",
+//             "created_at": "2025-02-25T22:25:57.000000Z",
+//             "updated_at": "2025-02-26T07:32:16.000000Z"
+//         },
+//     ]
+// }

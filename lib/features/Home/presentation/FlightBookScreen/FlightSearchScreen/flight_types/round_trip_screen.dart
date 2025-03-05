@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flymefy/core/app_export.dart';
 import 'package:flymefy/core/routes/routes.dart';
+import 'package:flymefy/features/Home/domain/entity/city_airports.dart';
 import 'package:flymefy/features/Home/logic/flight_book/flight_book_cubit.dart';
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/flight_types/one_way_screen.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -267,90 +268,122 @@ class RoundTripScreen extends StatelessWidget {
 }
 
 class TravelBoxesRoundTrips extends StatelessWidget {
-  const TravelBoxesRoundTrips({Key? key, required this.cubit})
-      : super(key: key);
+  const TravelBoxesRoundTrips({super.key, required this.cubit});
   final FlightBookCubit cubit;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FlightBookCubit, FlightBookState>(
-        bloc: cubit,
-        builder: (context, state) {
-          return Column(children: [
-            TravelDetailsBox(
+      bloc: cubit,
+      builder: (context, state) {
+        return Column(
+          children: [
+            _buildCityBox(
+              context: context,
+              cubit: cubit,
+              type: TravelDetailsType.from,
               image: fromFlightImage,
-              type: "FROM",
-              onTap: () {
-                Navigator.pushNamed(context, Routes.flightFromScreen,
-                    arguments: {
-                      'cubit': cubit,
-                      'type': "FROMRoundTrip",
-                      'onIataClicked': (FlightDetails selectedFlight) {
-                        context
-                            .read<FlightBookCubit>()
-                            .selectFromCityTypeRoundTrip(selectedFlight);
-                      }
-                    });
-              },
-              cityName: state.roundTrip.flightDetailsFrom.city,
-              iataName: state.roundTrip.flightDetailsFrom.iataCode,
-              airportName: state.roundTrip.flightDetailsFrom.airportName,
-              chosenDate: "",
-            ).marginSymmetric(horizontal: 24),
-            SizedBox(
-              height: 10,
+              cityName: state.roundTrip.flightDetailsFrom.countryCode,
+              iataCode: state.roundTrip.flightDetailsFrom.iata,
+              airportName: state.roundTrip.flightDetailsFrom.name,
+              onSelect: (selected) =>
+                  cubit.selectFromCityTypeRoundTrip(selected),
             ),
-            TravelDetailsBox(
+            const SizedBox(height: 10),
+            _buildCityBox(
+              context: context,
+              cubit: cubit,
+              type: TravelDetailsType.to,
               image: toFlightImage,
-              type: "TO",
-              onTap: () {
-                Navigator.pushNamed(context, Routes.flightToScreen, arguments: {
-                  'cubit': cubit,
-                  'type': "TORoundTrip",
-                  'onIataClicked': (FlightDetails selectedFlight) {
-                    context
-                        .read<FlightBookCubit>()
-                        .selectToCityTypeRoundTrip(selectedFlight);
-                  }
-                });
-              },
-              cityName: state.roundTrip.flightDetailsTo.city,
-              iataName: state.roundTrip.flightDetailsTo.iataCode,
-              airportName: state.roundTrip.flightDetailsTo.airportName,
-              chosenDate: "",
-            ).marginSymmetric(horizontal: 24),
-            SizedBox(
-              height: 10,
+              cityName: state.roundTrip.flightDetailsTo.countryName,
+              iataCode: state.roundTrip.flightDetailsTo.iata,
+              airportName: state.roundTrip.flightDetailsTo.name,
+              onSelect: (selected) => cubit.selectToCityTypeRoundTrip(selected),
             ),
-            TravelDetailsBox(
-              image: calendarPlus,
-              type: "DEPARTURE DATE",
-              onTap: () {
-                Navigator.pushNamed(context, Routes.roundTripCalender,
-                    arguments: {'cubit': cubit, 'type': "DEPARTURE"});
-              },
-              cityName: '',
-              iataName: '',
-              airportName: '',
-              chosenDate: state.roundTrip.departureDate,
-            ).marginSymmetric(horizontal: 24),
-            SizedBox(
-              height: 10,
+            const SizedBox(height: 10),
+            _buildDatePicker(
+              context: context,
+              cubit: cubit,
+              type: TravelDetailsType.departureDate,
+              date: state.roundTrip.departureDate,
+              routeType: "DEPARTURE",
             ),
-            TravelDetailsBox(
-              image: calendarPlus,
-              type: "ARRIVAL DATE",
-              onTap: () {
-                Navigator.pushNamed(context, Routes.roundTripCalender,
-                    arguments: {'cubit': cubit, 'type': "ARRIVAL"});
-              },
-              cityName: '',
-              iataName: '',
-              airportName: '',
-              chosenDate: state.roundTrip.arrivalDate,
-            ).marginSymmetric(horizontal: 24),
-            SizedBox(height: 15),
-          ]);
-        });
+            const SizedBox(height: 10),
+            _buildDatePicker(
+              cubit: cubit,
+              context: context,
+              type: TravelDetailsType.arrivalDate,
+              date: state.roundTrip.arrivalDate,
+              routeType: "ARRIVAL",
+            ),
+            const SizedBox(height: 15),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildCityBox({
+    required BuildContext context,
+    required TravelDetailsType type,
+    required String image,
+    required String cityName,
+    required String iataCode,
+    required String airportName,
+    required Function(CityAirport) onSelect,
+    required FlightBookCubit cubit,
+  }) {
+    return TravelDetailsBox(
+      type: type,
+      image: image,
+      cityName: cityName,
+      iataCode: iataCode,
+      airportName: airportName,
+      cubit: cubit,
+      onTap: () => _navigateToCitySelection(
+        context,
+        type: type,
+        onSelect: onSelect,
+      ),
+    ).marginSymmetric(horizontal: 24);
+  }
+
+  void _navigateToCitySelection(
+    BuildContext context, {
+    required TravelDetailsType type,
+    required Function(CityAirport) onSelect,
+  }) {
+    Navigator.pushNamed(
+      context,
+      type == TravelDetailsType.from
+          ? Routes.flightFromScreen
+          : Routes.flightToScreen,
+      arguments: {
+        'cubit': cubit,
+        'type': "${type.displayName}RoundTrip",
+        'onIataClicked': (CityAirport selected) => onSelect(selected),
+      },
+    );
+  }
+
+  Widget _buildDatePicker({
+    required BuildContext context,
+    required TravelDetailsType type,
+    required String? date,
+    required String routeType,
+    required FlightBookCubit cubit,
+  }) {
+    return TravelDetailsBox.datePicker(
+      chosenDate: date != null ? DateTime.tryParse(date) : null,
+      cubit: cubit,
+      onTap: () => Navigator.pushNamed(
+        context,
+        Routes.roundTripCalender,
+        arguments: {
+          'cubit': cubit,
+          'type': routeType,
+        },
+      ),
+    ).marginSymmetric(horizontal: 24);
   }
 }

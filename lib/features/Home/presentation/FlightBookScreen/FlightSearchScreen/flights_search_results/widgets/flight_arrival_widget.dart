@@ -26,11 +26,11 @@ class FlightArrivalWidget extends StatelessWidget {
           color: black2E2,
           fontSize: 14,
         ),
-        CommonTextWidget.PoppinsMedium(
-          text: segment.arrival,
-          color: black2E2,
-          fontSize: 10,
-        ),
+        // CommonTextWidget.PoppinsMedium(
+        //   text: segment.arrival,
+        //   color: black2E2,
+        //   fontSize: 10,
+        // ),
       ],
     );
   }

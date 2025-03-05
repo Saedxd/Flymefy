@@ -61,7 +61,7 @@ class _CalenderScreenState extends State<RoundTripCalenderScreen> {
               ),
               title: CommonTextWidget.PoppinsSemiBold(
                 text:
-                    "${widget.cubit.state.oneWayData.flightDetailsFrom.city} To ${widget.cubit.state.oneWayData.flightDetailsTo.city}",
+                    "${widget.cubit.state.oneWayData.flightDetailsFrom.countryName} To ${widget.cubit.state.oneWayData.flightDetailsTo.countryName}",
                 color: white,
                 fontSize: 15,
               ),

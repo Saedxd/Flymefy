@@ -161,13 +161,13 @@ class _FlightBookScreenState extends State<FlightBookScreen>
                                               CommonTextWidget.PoppinsRegular(
                                             text: state.currentSelectedType ==
                                                     FlightType.oneWay
-                                                ? "${state.oneWayData.flightDetailsFrom.city.split(' ').first} to ${state.oneWayData.flightDetailsTo.city.split(' ').first}"
+                                                ? "${state.oneWayData.flightDetailsFrom.countryName.split(' ').first} to ${state.oneWayData.flightDetailsTo.countryName.split(' ').first}"
                                                 : state.currentSelectedType ==
                                                         FlightType.roundTrip
-                                                    ? "${state.roundTrip.flightDetailsFrom.city.split(' ').first} to ${state.roundTrip.flightDetailsTo.city.split(' ').first}"
+                                                    ? "${state.roundTrip.flightDetailsFrom.countryName.split(' ').first} to ${state.roundTrip.flightDetailsTo.countryName.split(' ').first}"
                                                     : state.currentSelectedType ==
                                                             FlightType.multiCity
-                                                        ? "${state.multiCity.cities[0].from.city.split(' ').first} to ${state.multiCity.cities[0].to.city.split(' ').first}"
+                                                        ? "${state.multiCity.cities[0].from.countryName.split(' ').first} to ${state.multiCity.cities[0].to.countryName.split(' ').first}"
                                                         : "",
                                             color: black2E2,
                                             fontSize: 15,

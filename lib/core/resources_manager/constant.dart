@@ -225,6 +225,7 @@ final class AppConstants {
   static const String createChat = '';
 
   static const String apiGetFlightsFromSearch = '/shopping';
+  static const String apiGetCitysAirportsApi = '/search/airports';
 }
 
 class LocationSettingConstant {

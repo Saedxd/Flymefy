@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flymefy/features/Home/domain/entity/city_airports.dart';
 import 'package:flymefy/features/Home/domain/entity/flight_search.dart';
 
 import 'package:flymefy/features/auth/domain/entity/forget_password.dart';
@@ -29,6 +30,13 @@ extension PrivacyTermsListEx on Response {
       return const DynamicResponse();
     }
     return DynamicResponse.fromMap(data as Map<String, dynamic>);
+  }
+
+    CityAirportsList toCitysAirportsData() {
+    if (data == null) {
+      return const CityAirportsList();
+    }
+    return CityAirportsList.fromJson(data);
   }
 
 }

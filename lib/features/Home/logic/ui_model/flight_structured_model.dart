@@ -368,52 +368,53 @@ class Flight extends Equatable {
         (miniRule) => miniRule.penaltyType == 2 && miniRule.isPermited == 1));
   }
 
-String getCancellationFeeDynamic(String passengerType, int index) {
+  String getCancellationFeeDynamic(String passengerType, int index) {
+    if (!isCancellationAllowedDynamic) {
+      return "Cancellation not allowed";
+    }
 
-  if (!isCancellationAllowedDynamic) {
-    return "Cancellation not allowed";
+    final cancellationRules = miniRuleMap[passengerType]
+        ?.where(
+          (miniRule) => miniRule.penaltyType == 0 && miniRule.isPermited == 1,
+        )
+        .toList();
+
+    if (cancellationRules == null || cancellationRules.isEmpty) {
+      return "No cancellation rules found for $passengerType.";
+    }
+
+    if (index < 0 || index >= cancellationRules.length) {
+      return "Invalid index provided.";
+    }
+
+    final cancellationRule = cancellationRules[index];
+
+    return "Cancellation fee starting ₹ ${cancellationRule.amount ?? 'N/A'}";
   }
 
-  final cancellationRules = miniRuleMap[passengerType]?.where(
-    (miniRule) => miniRule.penaltyType == 0 && miniRule.isPermited == 1,
-  ).toList();
+  String getDateChangeFeeDynamic(String passengerType, int index) {
+    if (!isDateChangeAllowedDynamic) {
+      return "Date change not allowed";
+    }
 
-  if (cancellationRules == null || cancellationRules.isEmpty) {
-    return "No cancellation rules found for $passengerType.";
+    final dateChangeRules = miniRuleMap[passengerType]
+        ?.where(
+          (miniRule) => miniRule.penaltyType == 2 && miniRule.isPermited == 1,
+        )
+        .toList();
+
+    if (dateChangeRules == null || dateChangeRules.isEmpty) {
+      return "No date change rules found for $passengerType.";
+    }
+
+    if (index < 0 || index >= dateChangeRules.length) {
+      return "Invalid index provided.";
+    }
+
+    final dateChangeRule = dateChangeRules[index];
+
+    return "Date Change fee starting ₹ ${dateChangeRule.amount ?? 'N/A'}";
   }
-
-  if (index < 0 || index >= cancellationRules.length) {
-    return "Invalid index provided.";
-  }
-
-  final cancellationRule = cancellationRules[index];
-
-  return "Cancellation fee starting ₹ ${cancellationRule.amount ?? 'N/A'}";
-}
-
-String getDateChangeFeeDynamic(String passengerType, int index) {
-
-  if (!isDateChangeAllowedDynamic) {
-    return "Date change not allowed";
-  }
-
-  final dateChangeRules = miniRuleMap[passengerType]?.where(
-    (miniRule) => miniRule.penaltyType == 2 && miniRule.isPermited == 1,
-  ).toList();
-
-  if (dateChangeRules == null || dateChangeRules.isEmpty) {
-    return "No date change rules found for $passengerType.";
-  }
-
-  if (index < 0 || index >= dateChangeRules.length) {
-    return "Invalid index provided.";
-  }
-
-  final dateChangeRule = dateChangeRules[index];
-
-  return "Date Change fee starting ₹ ${dateChangeRule.amount ?? 'N/A'}";
-}
-
 
   double get totalPrice {
     return (double.parse(adtFare) + double.parse(adtTax)) * adults +
@@ -623,7 +624,7 @@ class JourneyUi extends Equatable {
       flightId: map['flightId'] ?? '',
       journeyTime: map['journeyTime'] ?? 0,
       transferCount: map['transferCount'] ?? 0,
-      lastTktTime: map['lastTktTime'],
+      lastTktTime: map['lastTktTime']?.toString() ?? '',
       segments: (map['segments'] as Map<String, dynamic>?)
               ?.map((segmentKey, segmentData) {
                 return MapEntry(

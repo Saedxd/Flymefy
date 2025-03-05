@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flymefy/features/Home/domain/entity/city_airports.dart';
 import 'package:flymefy/features/Home/domain/entity/flight_search.dart';
 import 'package:flymefy/features/auth/domain/entity/forget_password.dart';
 import 'package:flymefy/features/auth/domain/entity/register.dart';
@@ -12,6 +13,8 @@ import '../../data/requests/request.dart';
 abstract interface class HomeRepository {
   Future<Either<Failure, DynamicResponse>> getFlightsFromSearch(
    FlightSearchRequest flightSearchRequest);
+      Future<Either<Failure, CityAirportsList>> getCitysAirportsList(
+      GetCitysAirportsRequest GetCitysAirportsRequest);
   // Future<Either<Failure, UserAppInfo>> getUserData();
 
   // Future<Either<Failure, RegisterData>> register(

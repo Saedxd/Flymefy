@@ -21,9 +21,16 @@ void flightsSearchRegistery() {
         () => GetFlightsFromSearch(repository: instance()));
   }
 
+  if (!GetIt.I.isRegistered<GetCitiesAirportsUseCase>()) {
+    instance.registerFactory<GetCitiesAirportsUseCase>(
+        () => GetCitiesAirportsUseCase(repository: instance()));
+  }
+
   if (!GetIt.I.isRegistered<FlightBookCubit>()) {
-    instance.registerFactory<FlightBookCubit>(
-        () => FlightBookCubit(getFlightsFromSearch: instance()));
+    instance.registerFactory<FlightBookCubit>(() => FlightBookCubit(
+          getFlightsFromSearch: instance(),
+          getCitysAirports: instance(),
+        ));
   }
 }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flymefy/Screens/NavigationSCreen/navigation_screen.dart';
 import 'package:flymefy/core/app_export.dart';
 import 'package:flymefy/core/di/home_factory.dart';
+import 'package:flymefy/features/Home/domain/entity/city_airports.dart';
 import 'package:flymefy/features/Home/logic/flight_book/flight_book_cubit.dart';
 import 'package:flymefy/features/Home/presentation/AirportCabsScreens/airport_cabs_screen.dart';
 import 'package:flymefy/features/Home/presentation/AirportCabsScreens/cab_search_screen.dart';
@@ -342,11 +343,9 @@ class AppRouter {
           settings: settings,
         );
 
-             case Routes.priceAlertScreen:
-       
+      case Routes.priceAlertScreen:
         return MaterialPageRoute(
-          builder: (_) => PriceAlertScreen(
-          ),
+          builder: (_) => PriceAlertScreen(),
           settings: settings,
         );
 //
@@ -640,7 +639,7 @@ class AppRouter {
       case Routes.flightFromScreen:
         final args = settings.arguments as Map<String, dynamic>;
         final cubit = args['cubit'] as FlightBookCubit;
-        final onIataClicked = args['onIataClicked'] as Function(FlightDetails);
+        final onIataClicked = args['onIataClicked'] as Function(CityAirport);
         final type = args['type'] as String;
         final index = args['index'] ?? 0;
         return MaterialPageRoute(
@@ -656,7 +655,7 @@ class AppRouter {
       case Routes.flightToScreen:
         final args = settings.arguments as Map<String, dynamic>;
         final cubit = args['cubit'] as FlightBookCubit;
-        final onIataClicked = args['onIataClicked'] as Function(FlightDetails);
+        final onIataClicked = args['onIataClicked'] as Function(CityAirport);
         final type = args['type'] as String;
         final index = args['index'] ?? 0;
         return MaterialPageRoute(

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flymefy/core/app_export.dart';
 import 'package:flymefy/core/routes/routes.dart';
+import 'package:flymefy/features/Home/domain/entity/city_airports.dart';
+import 'package:flymefy/features/Home/domain/entity/flight_search.dart';
 import 'package:flymefy/features/Home/logic/flight_book/flight_book_cubit.dart';
 import 'package:flymefy/Constants/colors.dart';
 import 'package:flymefy/Constants/images.dart';
@@ -54,7 +56,7 @@ class OneWayScreen extends StatelessWidget {
                           cubit: cubit,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: Container(
                             width: context.width,
                             decoration: BoxDecoration(
@@ -63,12 +65,12 @@ class OneWayScreen extends StatelessWidget {
                               border: Border.all(width: 1, color: greyE2E),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 15, vertical: 7),
                               child: Row(
                                 children: [
                                   SvgPicture.asset(user),
-                                  SizedBox(width: 15),
+                                  const SizedBox(width: 15),
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -110,9 +112,9 @@ class OneWayScreen extends StatelessWidget {
                             },
                           );
                         }),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: CommonTextWidget.PoppinsMedium(
                             text: "SPECIAL FARES (OPTIONAL)",
                             color: grey888,
@@ -128,10 +130,10 @@ class OneWayScreen extends StatelessWidget {
                               itemCount: Lists.flightSearchList2.length,
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
-                              padding: EdgeInsets.only(
+                              padding: const EdgeInsets.only(
                                   top: 13, bottom: 13, left: 24, right: 12),
                               itemBuilder: (context, index) => Padding(
-                                padding: EdgeInsets.only(right: 12),
+                                padding: const EdgeInsets.only(right: 12),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
@@ -141,8 +143,8 @@ class OneWayScreen extends StatelessWidget {
                                   ),
                                   child: Center(
                                     child: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 20),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
                                       child: CommonTextWidget.PoppinsMedium(
                                         text: Lists.flightSearchList2[index],
                                         color: grey5F5,
@@ -155,9 +157,9 @@ class OneWayScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 25),
+                        const SizedBox(height: 25),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: CommonButtonWidget(
                             buttonColor: redCA0,
                             onTap: () {
@@ -168,9 +170,9 @@ class OneWayScreen extends StatelessWidget {
                             text: "SEARCH FLIGHTS",
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -186,15 +188,15 @@ class OneWayScreen extends StatelessWidget {
                                     color: redCA0,
                                     fontSize: 14,
                                   ),
-                                  SizedBox(width: 8),
-                                  Icon(Icons.arrow_forward_ios,
+                                  const SizedBox(width: 8),
+                                  const Icon(Icons.arrow_forward_ios,
                                       color: redCA0, size: 18),
                                 ],
                               ),
                             ],
                           ),
                         ),
-                        Divider(color: greyDED, thickness: 1),
+                        const Divider(color: greyDED, thickness: 1),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: InkWell(
@@ -211,7 +213,7 @@ class OneWayScreen extends StatelessWidget {
                                 width: context.width,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    image: DecorationImage(
+                                    image: const DecorationImage(
                                         image: AssetImage(flightSearchImage),
                                         fit: BoxFit.fill,
                                         filterQuality: FilterQuality.high)),
@@ -227,12 +229,12 @@ class OneWayScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Container(
                           width: context.width,
                           color: redF9E,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 24, vertical: 15),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -250,8 +252,8 @@ class OneWayScreen extends StatelessWidget {
                                       color: redCA0,
                                       fontSize: 14,
                                     ),
-                                    SizedBox(width: 10),
-                                    Icon(Icons.arrow_forward,
+                                    const SizedBox(width: 10),
+                                    const Icon(Icons.arrow_forward,
                                         color: redCA0, size: 16),
                                   ],
                                 ),
@@ -268,34 +270,64 @@ class OneWayScreen extends StatelessWidget {
 }
 
 class TravelDetailsBox extends StatelessWidget {
-  const TravelDetailsBox({
-    Key? key,
-    this.onTap,
-    required this.image,
-    required this.cityName,
-    required this.iataName,
-    required this.type,
-    required this.airportName,
-    required this.chosenDate,
-  }) : super(key: key);
+  final TravelDetailsType type;
   final VoidCallback? onTap;
   final String image;
   final String cityName;
-  final String iataName;
-  final String type;
+  final String iataCode;
   final String airportName;
-  final String chosenDate;
+  final DateTime? chosenDate;
+  final FlightBookCubit cubit;
 
-  String formatDatePart1(DateTime date) {
-    // Format for "22 Sep"
-    final DateFormat formatterPart1 = DateFormat('dd MMM');
-    return formatterPart1.format(date);
+  const TravelDetailsBox({
+    Key? key,
+    required this.type,
+    this.onTap,
+    required this.image,
+    required this.cityName,
+    required this.iataCode,
+    required this.airportName,
+    this.chosenDate,
+    required this.cubit,
+  }) : super(key: key);
+
+  factory TravelDetailsBox.datePicker({
+    required VoidCallback onTap,
+    required DateTime? chosenDate,
+    required FlightBookCubit cubit,
+  }) {
+    return TravelDetailsBox(
+      type: TravelDetailsType.departureDate,
+      image: calendarPlus,
+      onTap: onTap,
+      cityName: '',
+      iataCode: '',
+      airportName: '',
+      chosenDate: chosenDate,
+      cubit: cubit,
+    );
   }
 
-  String formatDatePart2(DateTime date) {
-    // Format for "Thursday, 2022"
-    final DateFormat formatterPart2 = DateFormat('EEEE, yyyy');
-    return formatterPart2.format(date);
+  String get _mainTitle {
+    if (type.isdepartureDateDatePicker) {
+      return chosenDate != null
+          ? cubit.formatDateDDMMM(chosenDate!)
+          : "Choose Date";
+    }
+    return cityName.isNotEmpty ? cityName : "Choose City";
+  }
+
+  String? get _subtitle {
+    if (type.isdepartureDateDatePicker) {
+      return chosenDate != null ? cubit.formatDateEEyyyy(chosenDate!) : null;
+    }
+    return iataCode;
+  }
+
+  Color get _titleColor {
+    if (type.isdepartureDateDatePicker)
+      return chosenDate != null ? black2E2 : redCA0;
+    return cityName.isNotEmpty ? black2E2 : redCA0;
   }
 
   @override
@@ -309,78 +341,69 @@ class TravelDetailsBox extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           border: Border.all(width: 1, color: greyE2E),
         ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                image,
-              ),
-              SizedBox(width: 15),
-              Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CommonTextWidget.PoppinsMedium(
-                      text: type,
-                      color: grey888,
-                      fontSize: 14,
-                    ),
-                    Row(
-                      children: [
-                        CommonTextWidget.PoppinsSemiBold(
-                          text: cityName.isEmpty
-                              ? (type == "DEPARTURE DATE" ||
-                                      type == "ARRIVAL DATE"
-                                  ? (chosenDate.isEmpty
-                                      ? "Choose Date"
-                                      : formatDatePart1(
-                                          DateTime.parse(chosenDate)))
-                                  : (cityName.isEmpty
-                                      ? "Choose City"
-                                      : cityName))
-                              : (type == "DEPARTURE DATE" ||
-                                      type == "ARRIVAL DATE"
-                                  ? (chosenDate.isEmpty
-                                      ? "Choose Date"
-                                      : formatDatePart1(
-                                          DateTime.parse(chosenDate)))
-                                  : cityName),
-                          color: (cityName.isNotEmpty || chosenDate.isNotEmpty)
-                              ? black2E2
-                              : redCA0,
-                          fontSize: cityName.isEmpty ? 16 : 18,
-                        ),
-                        chosenDate.isNotEmpty
-                            ? SizedBox(
-                                width: 5,
-                              )
-                            : SizedBox(),
-                        CommonTextWidget.PoppinsMedium(
-                          text: chosenDate.isEmpty
-                              ? iataName
-                              : formatDatePart2(DateTime.parse(chosenDate)),
-                          color: grey888,
-                          fontSize: 12,
-                        ),
-                      ],
-                    ),
-                    CommonTextWidget.PoppinsRegular(
-                      text: airportName,
-                      color: grey888,
-                      fontSize: 12,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset(image),
+            const SizedBox(width: 15),
+            _buildContentSection(),
+          ],
         ),
       ),
     );
   }
+
+  Widget _buildContentSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CommonTextWidget.PoppinsMedium(
+          text: type.displayName,
+          color: grey888,
+          fontSize: 14,
+        ),
+        Row(
+          children: [
+            CommonTextWidget.PoppinsSemiBold(
+              text: _mainTitle,
+              color: _titleColor,
+              fontSize: cityName.isEmpty ? 16 : 18,
+            ),
+            if (_subtitle != null) ...[
+              const SizedBox(width: 5),
+              CommonTextWidget.PoppinsMedium(
+                text: _subtitle!,
+                color: grey888,
+                fontSize: 12,
+              ),
+            ]
+          ],
+        ),
+        if (!type.isdepartureDateDatePicker) ...[
+          CommonTextWidget.PoppinsRegular(
+            text: airportName,
+            color: grey888,
+            fontSize: 12,
+          ),
+        ]
+      ],
+    );
+  }
+}
+
+enum TravelDetailsType {
+  from('FROM'),
+  to('TO'),
+  departureDate('DEPARTURE DATE'),
+  arrivalDate('ARRIVAL DATE');
+
+  final String displayName;
+  const TravelDetailsType(this.displayName);
+
+  bool get isdepartureDateDatePicker => this == TravelDetailsType.departureDate;
+  bool get isarrivalDateDatePicker => this == TravelDetailsType.arrivalDate;
 }
 
 class TravelBoxes extends StatelessWidget {
@@ -397,66 +420,42 @@ class TravelBoxes extends StatelessWidget {
         bloc: cubit,
         builder: (context, state) {
           return Column(children: [
+            // Usage
             TravelDetailsBox(
+              type: TravelDetailsType.from,
               image: fromFlightImage,
-              type: "FROM",
-              onTap: () {
-                Navigator.pushNamed(context, Routes.flightFromScreen,
-                    arguments: {
-                      'cubit': cubit,
-                      'type': "FROMOneWay",
-                      'onIataClicked': (FlightDetails selectedFlight) {
-                        context
-                            .read<FlightBookCubit>()
-                            .selectFromCityTypeOneWay(selectedFlight);
-                      }
-                    });
-              },
-              cityName: state.oneWayData.flightDetailsFrom.city,
-              iataName: state.oneWayData.flightDetailsFrom.iataCode,
-              airportName: state.oneWayData.flightDetailsFrom.airportName,
-              chosenDate: "",
+              onTap: () => cubit.navigateToSelection(context, "FROMOneWay"),
+              cityName: state.oneWayData.flightDetailsFrom.countryName,
+              iataCode: state.oneWayData.flightDetailsFrom.iata,
+              airportName: state.oneWayData.flightDetailsFrom.name,
+              cubit: cubit,
             ).marginSymmetric(horizontal: 24),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TravelDetailsBox(
+              type: TravelDetailsType.to,
               image: toFlightImage,
-              type: "TO",
-              onTap: () {
-                Navigator.pushNamed(context, Routes.flightToScreen, arguments: {
-                  'cubit': cubit,
-                  'type': "TOOneWay",
-                  'onIataClicked': (FlightDetails selectedFlight) {
-                    context
-                        .read<FlightBookCubit>()
-                        .selectToCityTypeOneWay(selectedFlight);
-                  }
-                });
-              },
-              cityName: state.oneWayData.flightDetailsTo.city,
-              iataName: state.oneWayData.flightDetailsTo.iataCode,
-              airportName: state.oneWayData.flightDetailsTo.airportName,
-              chosenDate: "",
+              onTap: () => cubit.navigateToSelection(context, "TOOneWay"),
+              cityName: state.oneWayData.flightDetailsTo.countryName,
+              iataCode: state.oneWayData.flightDetailsTo.iata,
+              airportName: state.oneWayData.flightDetailsTo.name,
+              cubit: cubit,
             ).marginSymmetric(horizontal: 24),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            TravelDetailsBox(
-              image: calendarPlus,
-              type: "DEPARTURE DATE",
-              onTap: () {
-                Navigator.pushNamed(context, Routes.oneWaycalenderScreen,
-                    arguments: {
-                      'cubit': cubit,
-                    });
-              },
-              cityName: '',
-              iataName: '',
-              airportName: '',
-              chosenDate: state.oneWayData.dateWhen,
+            TravelDetailsBox.datePicker(
+              onTap: () => Navigator.pushNamed(
+                  context, Routes.oneWaycalenderScreen,
+                  arguments: {'cubit': cubit}),
+              chosenDate: state.oneWayData.dateWhen.isNotEmpty
+                  ? DateTime.parse(state.oneWayData.dateWhen)
+                  : null,
+              cubit: cubit,
             ).marginSymmetric(horizontal: 24),
-            SizedBox(height: 15),
+
+            const SizedBox(height: 15),
           ]);
         });
   }

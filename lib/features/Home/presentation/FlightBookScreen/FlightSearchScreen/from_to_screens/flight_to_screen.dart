@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flymefy/core/app_export.dart';
+import 'package:flymefy/features/Home/domain/entity/city_airports.dart';
 import 'package:flymefy/features/Home/logic/flight_book/flight_book_cubit.dart';
 import 'package:flymefy/features/Home/presentation/FlightBookScreen/FlightSearchScreen/from_to_screens/flight_from_screen.dart';
 import 'package:flymefy/Constants/colors.dart';
@@ -20,7 +21,7 @@ class FlightsTo extends StatelessWidget {
       required this.index})
       : super(key: key);
   final FlightBookCubit cubit;
-  final Function(FlightDetails) onIataClicked;
+  final Function(CityAirport) onIataClicked;
   final String type;
   final int index;
 
@@ -46,7 +47,7 @@ class FlightToScreen extends StatefulWidget {
       required this.index})
       : super(key: key);
   final FlightBookCubit cubit;
-  final Function(FlightDetails) onIataClicked;
+  final Function(CityAirport) onIataClicked;
   final String type;
   final int index;
 
@@ -55,24 +56,31 @@ class FlightToScreen extends StatefulWidget {
 }
 
 class _FlightToScreenState extends State<FlightToScreen> {
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget.cubit.GetCitysAirportsList("IST");
+  }
 
   String getCityName({required String type, required bool isFrom, int? index}) {
     if (type == "TORoundTrip") {
       return isFrom
-          ? widget.cubit.state.roundTrip.flightDetailsFrom.city.isNotEmpty
-              ? widget.cubit.state.roundTrip.flightDetailsFrom.city
+          ? widget.cubit.state.roundTrip.flightDetailsFrom.countryName
+                  .isNotEmpty
+              ? widget.cubit.state.roundTrip.flightDetailsFrom.countryName
               : "Enter any City/Airport Name"
-          : widget.cubit.state.roundTrip.flightDetailsTo.city.isNotEmpty
-              ? widget.cubit.state.roundTrip.flightDetailsTo.city
+          : widget.cubit.state.roundTrip.flightDetailsTo.countryName.isNotEmpty
+              ? widget.cubit.state.roundTrip.flightDetailsTo.countryName
               : "Enter any City/Airport Name";
     } else if (type == "TOOneWay") {
       return isFrom
-          ? widget.cubit.state.oneWayData.flightDetailsFrom.city.isNotEmpty
-              ? widget.cubit.state.oneWayData.flightDetailsFrom.city
+          ? widget.cubit.state.oneWayData.flightDetailsFrom.countryName
+                  .isNotEmpty
+              ? widget.cubit.state.oneWayData.flightDetailsFrom.countryName
               : "Enter any City/Airport Name"
-          : widget.cubit.state.oneWayData.flightDetailsTo.city.isNotEmpty
-              ? widget.cubit.state.oneWayData.flightDetailsTo.city
+          : widget.cubit.state.oneWayData.flightDetailsTo.countryName.isNotEmpty
+              ? widget.cubit.state.oneWayData.flightDetailsTo.countryName
               : "Enter any City/Airport Name";
     } else if (type == "MultiCity") {
       // Ensure index is provided and valid
@@ -84,11 +92,11 @@ class _FlightToScreenState extends State<FlightToScreen> {
 
       final cityEntry = widget.cubit.state.multiCity.cities[index];
       return isFrom
-          ? cityEntry.from.city.isNotEmpty
-              ? cityEntry.from.city
+          ? cityEntry.from.countryName.isNotEmpty
+              ? cityEntry.from.countryName
               : "Enter any City/Airport Name"
-          : cityEntry.to.city.isNotEmpty
-              ? cityEntry.to.city
+          : cityEntry.to.countryName.isNotEmpty
+              ? cityEntry.to.countryName
               : "Enter any City/Airport Name";
     }
 
@@ -214,27 +222,32 @@ class _FlightToScreenState extends State<FlightToScreen> {
                               behavior: MyBehavior(),
                               child: ListView.builder(
                                 padding: EdgeInsets.zero,
-                                itemCount: state.toList.length,
+                                itemCount:
+                                    state.cityAirportsList.cityAirports.length,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) => ListTile(
                                   contentPadding: EdgeInsets.zero,
                                   title: CommonTextWidget.PoppinsRegular(
-                                    text: state.toList[index].city,
+                                    text: state.cityAirportsList
+                                        .cityAirports[index].countryName,
                                     color: black2E2,
                                     fontSize: 16,
                                   ),
                                   subtitle: CommonTextWidget.PoppinsRegular(
-                                    text: state.toList[index].airportName,
+                                    text: state.cityAirportsList
+                                        .cityAirports[index].name,
                                     color: grey717,
                                     fontSize: 12,
                                   ),
                                   trailing: CommonTextWidget.PoppinsMedium(
-                                    text: state.toList[index].iataCode,
+                                    text: state.cityAirportsList
+                                        .cityAirports[index].iata,
                                     color: grey717,
                                     fontSize: 16,
                                   ),
                                 ).toButton(() {
-                                  widget.onIataClicked(state.toList[index]);
+                                  widget.onIataClicked(state
+                                      .cityAirportsList.cityAirports[index]);
                                   Navigator.pop(context);
                                 }),
                               ),

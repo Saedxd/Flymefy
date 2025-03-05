@@ -33,8 +33,6 @@ class FlightSearchModel extends Equatable {
   final Map<String, List<Baggage>> baggageMap;
   final Map<String, List<MiniRule>> miniRuleMap;
   final String? afterSaleRule;
-// "infFare": 36.96,
-//         "infTax": 9.48,
 
   final int adults;
   final int children;
@@ -50,13 +48,6 @@ class FlightSearchModel extends Equatable {
 
   final String qCharge;
   final String tktFee;
-  // "adtFare": 68.07,
-  //       "adtTax": 8.71,
-  //       "chdFare": 0,
-  //       "chdTax": 0,
-  //       "qCharge": 0,
-  //       "tktFee": 0,
-  //       "platformServiceFee": 0,
 
   const FlightSearchModel({
     this.solutionKey = '',
@@ -270,7 +261,7 @@ class Journey extends Equatable {
       flightId: map['flightId'] ?? '',
       journeyTime: map['journeyTime'] ?? 0,
       transferCount: map['transferCount'] ?? 0,
-      lastTktTime: map['lastTktTime'],
+      lastTktTime: map['lastTktTime']?.toString() ?? '',
       segments: (map['segments'] as Map<String, dynamic>?)
               ?.map((segmentKey, segmentData) {
             return MapEntry(
@@ -426,14 +417,16 @@ class Baggage extends Equatable {
 
 class Segment extends Equatable {
   final String segmentId;
-  final String airline;
   final String flightNum;
-  final String equipment;
   final String cabinClass;
   final String bookingCode;
   final int availabilityCount;
-  final String departure;
-  final String arrival;
+
+  final Departure? departure;
+  final Arrival? arrival;
+  final Airline? airline;
+  final Equipment? equipment;
+
   final String? departureTerminal;
   final String? arrivalTerminal;
   final int departureDate;
@@ -452,14 +445,10 @@ class Segment extends Equatable {
 
   const Segment({
     this.segmentId = '',
-    this.airline = '',
     this.flightNum = '',
-    this.equipment = '',
     this.cabinClass = '',
     this.bookingCode = '',
     this.availabilityCount = 0,
-    this.departure = '',
-    this.arrival = '',
     this.departureTerminal,
     this.arrivalTerminal,
     this.departureDate = 0,
@@ -475,18 +464,18 @@ class Segment extends Equatable {
     this.strDepartureTime = '',
     this.strArrivalDate = '',
     this.strArrivalTime = '',
+    this.departure = const Departure(),
+    this.arrival = const Arrival(),
+    this.airline = const Airline(),
+    this.equipment = const Equipment(),
   });
 
   Segment copyWith({
     String? segmentId,
-    String? airline,
     String? flightNum,
-    String? equipment,
     String? cabinClass,
     String? bookingCode,
     int? availabilityCount,
-    String? departure,
-    String? arrival,
     String? departureTerminal,
     String? arrivalTerminal,
     int? departureDate,
@@ -502,17 +491,17 @@ class Segment extends Equatable {
     String? strDepartureTime,
     String? strArrivalDate,
     String? strArrivalTime,
+    Departure? departure,
+    Arrival? arrival,
+    Airline? airline,
+    Equipment? equipment,
   }) {
     return Segment(
       segmentId: segmentId ?? this.segmentId,
-      airline: airline ?? this.airline,
       flightNum: flightNum ?? this.flightNum,
-      equipment: equipment ?? this.equipment,
       cabinClass: cabinClass ?? this.cabinClass,
       bookingCode: bookingCode ?? this.bookingCode,
       availabilityCount: availabilityCount ?? this.availabilityCount,
-      departure: departure ?? this.departure,
-      arrival: arrival ?? this.arrival,
       departureTerminal: departureTerminal ?? this.departureTerminal,
       arrivalTerminal: arrivalTerminal ?? this.arrivalTerminal,
       departureDate: departureDate ?? this.departureDate,
@@ -528,20 +517,20 @@ class Segment extends Equatable {
       strDepartureTime: strDepartureTime ?? this.strDepartureTime,
       strArrivalDate: strArrivalDate ?? this.strArrivalDate,
       strArrivalTime: strArrivalTime ?? this.strArrivalTime,
+      departure: departure ?? this.departure,
+      arrival: arrival ?? this.arrival,
+      airline: airline ?? this.airline,
+      equipment: equipment ?? this.equipment,
     );
   }
 
   factory Segment.fromMap(Map<String, dynamic> map) {
     return Segment(
       segmentId: map['segmentId']?.toString() ?? '',
-      airline: map['airline']?.toString() ?? '',
       flightNum: map['flightNum']?.toString() ?? '',
-      equipment: map['equipment']?.toString() ?? '',
       cabinClass: map['cabinClass']?.toString() ?? '',
       bookingCode: map['bookingCode']?.toString() ?? '',
       availabilityCount: map['availabilityCount'] ?? 0,
-      departure: map['departure']?.toString() ?? '',
-      arrival: map['arrival']?.toString() ?? '',
       departureTerminal: map['departureTerminal'],
       arrivalTerminal: map['arrivalTerminal'],
       departureDate: map['departureDate'] ?? 0,
@@ -557,6 +546,18 @@ class Segment extends Equatable {
       strDepartureTime: map['strDepartureTime']?.toString() ?? '',
       strArrivalDate: map['strArrivalDate']?.toString() ?? '',
       strArrivalTime: map['strArrivalTime']?.toString() ?? '',
+      departure: map['departure'] is Map<String, dynamic>
+          ? Departure.fromMap(map['departure'] as Map<String, dynamic>)
+          : Departure.fromMap({}),
+      arrival: map['arrival'] is Map<String, dynamic>
+          ? Arrival.fromMap(map['arrival'] as Map<String, dynamic>)
+          : Arrival.fromMap({}),
+      airline: map['airline'] is Map<String, dynamic>
+          ? Airline.fromMap(map['airline'] as Map<String, dynamic>)
+          : Airline.fromMap({}),
+      equipment: map['equipment'] is Map<String, dynamic>
+          ? Equipment.fromMap(map['equipment'] as Map<String, dynamic>)
+          : Equipment.fromMap({}),
     );
   }
 
@@ -586,5 +587,284 @@ class Segment extends Equatable {
         strDepartureTime,
         strArrivalDate,
         strArrivalTime,
+        departure,
+        arrival,
+        airline,
+        equipment,
+      ];
+}
+//       "airline": {
+//                                 "id": 744,
+//                                 "name": "valuair",
+//                                 "iata": "vf",
+//                                 "image": "https://images.kiwi.com/airlines/64/VF.png",
+//                                 "created_at": "2025-03-03T21:54:00.000000Z",
+//                                 "updated_at": "2025-03-03T21:54:00.000000Z"
+//                             },
+//                             "flightNum": "531",
+//                             "equipment": {
+//                                 "id": 54,
+//                                 "name": "boeing 737",
+//                                 "iata": "737",
+//                                 "created_at": "2025-03-03T21:56:56.000000Z",
+//                                 "updated_at": "2025-03-03T21:56:56.000000Z"
+//                             },
+//                             "cabinClass": "ECONOMY",
+//                             "bookingCode": "O",
+//                             "availabilityCount": 4,
+//                             "departure": {
+//                                 "id": 2510,
+//                                 "name": "esenboga airport",
+//                                 "iata": "esb",
+//                                 "state_name": "ankara",
+//                                 "state_code": "ank",
+//                                 "country_name": "turkey",
+//                                 "country_code": "tr",
+//                                 "created_at": "2025-02-25T22:26:03.000000Z",
+//                                 "updated_at": "2025-02-25T22:26:03.000000Z"
+//                             },
+//                             "arrival": {
+//                                 "id": 3591,
+//                                 "name": "stansted airport",
+//                                 "iata": "stn",
+//                                 "state_name": "n/a",
+//                                 "state_code": null,
+//                                 "country_name": "united kingdom",
+//                                 "country_code": "gb",
+//                                 "created_at": "2025-02-25T22:28:03.000000Z",
+//                                 "updated_at": "2025-02-25T22:28:03.000000Z"
+//                             },
+
+class Departure extends Equatable {
+  final String id;
+  final String name;
+  final String iata;
+  final String stateName;
+  final String stateCode;
+  final String countryName;
+  final String countryCode;
+
+  const Departure({
+    this.id = '',
+    this.name = '',
+    this.iata = '',
+    this.stateName = '',
+    this.stateCode = '',
+    this.countryName = '',
+    this.countryCode = '',
+  });
+
+  Departure copyWith({
+    String? id,
+    String? name,
+    String? iata,
+    String? stateName,
+    String? stateCode,
+    String? countryName,
+    String? countryCode,
+  }) {
+    return Departure(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      iata: iata ?? this.iata,
+      stateName: stateName ?? this.stateName,
+      stateCode: stateCode ?? this.stateCode,
+      countryName: countryName ?? this.countryName,
+      countryCode: countryCode ?? this.countryCode,
+    );
+  }
+
+  factory Departure.fromMap(Map<String, dynamic> map) {
+    return Departure(
+      id: map['id']?.toString() ?? '',
+      name: map['name']?.toString() ?? '',
+      iata: map['iata']?.toString() ?? '',
+      stateName: map['stateName']?.toString() ?? '',
+      stateCode: map['stateCode']?.toString() ?? '',
+      countryName: map['countryName']?.toString() ?? '',
+      countryCode: map['countryCode']?.toString() ?? '',
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        iata,
+        stateName,
+        stateCode,
+        countryName,
+        countryCode,
+      ];
+}
+
+class Arrival extends Equatable {
+  final String id;
+  final String name;
+  final String iata;
+  final String stateName;
+  final String stateCode;
+  final String countryName;
+  final String countryCode;
+
+  const Arrival({
+    this.id = '',
+    this.name = '',
+    this.iata = '',
+    this.stateName = '',
+    this.stateCode = '',
+    this.countryName = '',
+    this.countryCode = '',
+  });
+
+  Arrival copyWith({
+    String? id,
+    String? name,
+    String? iata,
+    String? stateName,
+    String? stateCode,
+    String? countryName,
+    String? countryCode,
+  }) {
+    return Arrival(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      iata: iata ?? this.iata,
+      stateName: stateName ?? this.stateName,
+      stateCode: stateCode ?? this.stateCode,
+      countryName: countryName ?? this.countryName,
+      countryCode: countryCode ?? this.countryCode,
+    );
+  }
+
+  factory Arrival.fromMap(Map<String, dynamic> map) {
+    return Arrival(
+      id: map['id']?.toString() ?? '',
+      name: map['name']?.toString() ?? '',
+      iata: map['iata']?.toString() ?? '',
+      stateName: map['stateName']?.toString() ?? '',
+      stateCode: map['stateCode']?.toString() ?? '',
+      countryName: map['countryName']?.toString() ?? '',
+      countryCode: map['countryCode']?.toString() ?? '',
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        iata,
+        stateName,
+        stateCode,
+        countryName,
+        countryCode,
+      ];
+}
+
+class Airline extends Equatable {
+  final int id;
+  final String name;
+  final String iata;
+  final String image;
+  final String createdAt;
+  final String updatedAt;
+
+  const Airline({
+    this.id = 0,
+    this.name = '',
+    this.iata = '',
+    this.image = '',
+    this.createdAt = '',
+    this.updatedAt = '',
+  });
+
+  Airline copyWith({
+    int? id,
+    String? name,
+    String? iata,
+    String? image,
+    String? createdAt,
+    String? updatedAt,
+  }) {
+    return Airline(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      iata: iata ?? this.iata,
+      image: image ?? this.image,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  factory Airline.fromMap(Map<String, dynamic> map) {
+    return Airline(
+      id: map['id'] ?? 0,
+      name: map['name']?.toString() ?? '',
+      iata: map['iata']?.toString() ?? '',
+      image: map['image']?.toString() ?? '',
+      createdAt: map['createdAt']?.toString() ?? '',
+      updatedAt: map['updatedAt']?.toString() ?? '',
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        iata,
+        image,
+        createdAt,
+        updatedAt,
+      ];
+}
+
+class Equipment extends Equatable {
+  final int id;
+  final String name;
+  final String iata;
+  final String createdAt;
+  final String updatedAt;
+
+  const Equipment({
+    this.id = 0,
+    this.name = '',
+    this.iata = '',
+    this.createdAt = '',
+    this.updatedAt = '',
+  });
+
+  Equipment copyWith({
+    int? id,
+    String? name,
+    String? iata,
+    String? createdAt,
+    String? updatedAt,
+  }) {
+    return Equipment(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      iata: iata ?? this.iata,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  factory Equipment.fromMap(Map<String, dynamic> map) {
+    return Equipment(
+      id: map['id'] ?? 0,
+      name: map['name']?.toString() ?? '',
+      iata: map['iata']?.toString() ?? '',
+      createdAt: map['createdAt']?.toString() ?? '',
+      updatedAt: map['updatedAt']?.toString() ?? '',
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        iata,
+        createdAt,
+        updatedAt,
       ];
 }

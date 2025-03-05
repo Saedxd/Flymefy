@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flymefy/features/Home/data/requests/request.dart';
+import 'package:flymefy/features/Home/domain/entity/city_airports.dart';
 import 'package:flymefy/features/Home/domain/entity/flight_search.dart';
 import 'package:flymefy/features/Home/domain/usecase/flight_book_usecase.dart';
 import 'package:flymefy/core/error/failure.dart';
@@ -14,10 +16,13 @@ part 'flight_book_state.dart';
 
 class FlightBookCubit extends Cubit<FlightBookState> {
   final GetFlightsFromSearch _getFlightsFromSearch;
+  final GetCitiesAirportsUseCase _getCitysAirports;
 
   FlightBookCubit({
     required GetFlightsFromSearch getFlightsFromSearch,
+    required GetCitiesAirportsUseCase getCitysAirports,
   })  : _getFlightsFromSearch = getFlightsFromSearch,
+        _getCitysAirports = getCitysAirports,
         super(FlightBookState());
 
   void makeDefaultState() {
@@ -137,6 +142,329 @@ class FlightBookCubit extends Cubit<FlightBookState> {
     });
   }
 
+
+
+
+  String formatDateDDMMM(DateTime date) {
+    // Format for "22 Sep"
+    final DateFormat formatterPart1 = DateFormat('dd MMM');
+    return formatterPart1.format(date);
+  } 
+  
+
+
+  String formatDateEEyyyy(DateTime date) {
+    // Format for "Thursday, 2022"
+    final DateFormat formatterPart2 = DateFormat('EE, yyyy');
+    return formatterPart2.format(date);
+  }
+
+
+  String convertMinutesToHours(int minutes) {
+    int hours = minutes ~/ 60; // Integer division to get hours
+    return '${hours}h';
+  }
+
+  String convertMinutesToRemainingMinutes(int minutes) {
+    int remainingMinutes = minutes % 60; // Remainder gives minutes
+    return '${remainingMinutes}m';
+  }
+
+  void toggleOpenTicket(int index) {
+    final updatedOpenedTickets = List<bool>.from(state.openedTickets);
+    updatedOpenedTickets[index] = !updatedOpenedTickets[index];
+    emit(state.copyWith(openedTickets: updatedOpenedTickets));
+  }
+
+  String formatDate(String dateTimeString) {
+    DateTime dateTime = DateTime.parse(dateTimeString);
+    return DateFormat('yyyy-MM-dd').format(dateTime);
+  }
+
+  void assignDataToTheRequest(FlightType flightType) async {
+    emit(state.copyWith(
+        flightSearchRequest: FlightSearchRequest(
+      adults: flightType == FlightType.oneWay
+          ? state.oneWayData.adults
+          : flightType == FlightType.roundTrip
+              ? state.roundTrip.adults
+              : flightType == FlightType.multiCity
+                  ? state.multiCity.adults
+                  : 0,
+      children: flightType == FlightType.oneWay
+          ? state.oneWayData.children
+          : flightType == FlightType.roundTrip
+              ? state.roundTrip.children
+              : flightType == FlightType.multiCity
+                  ? state.multiCity.children
+                  : 0,
+      infants: flightType == FlightType.oneWay
+          ? state.oneWayData.infants
+          : flightType == FlightType.roundTrip
+              ? state.roundTrip.infants
+              : flightType == FlightType.multiCity
+                  ? state.multiCity.infants
+                  : 0,
+      nonstop: 0,
+      airline: '',
+      solutions: 0,
+      searchAirLegs: [
+        SearchAirLegs(
+          cabinClass: flightType == FlightType.oneWay
+              ? state.oneWayData.classType
+              : flightType == FlightType.roundTrip
+                  ? state.roundTrip.classType
+                  : flightType == FlightType.multiCity
+                      ? state.multiCity.classType
+                      : '',
+          departureDate:
+              //"2025-03-10",
+              formatDate(flightType == FlightType.oneWay
+                  ? state.oneWayData.dateWhen
+                  : flightType == FlightType.roundTrip
+                      ? state.roundTrip.departureDate
+                      : flightType == FlightType.multiCity
+                          ? state.multiCity!.cities[0].date
+                          : ''),
+          origin:
+              //"LON",
+
+              flightType == FlightType.oneWay
+                  ? state.oneWayData.flightDetailsFrom.iata
+                  : flightType == FlightType.roundTrip
+                      ? state.roundTrip.flightDetailsFrom.iata
+                      : flightType == FlightType.multiCity
+                          ? state.multiCity!.cities[0].from.iata
+                          : '',
+          destination:
+              //"CAI",
+
+              flightType == FlightType.oneWay
+                  ? state.oneWayData.flightDetailsTo.iata
+                  : flightType == FlightType.roundTrip
+                      ? state.roundTrip.flightDetailsTo.iata
+                      : flightType == FlightType.multiCity
+                          ? state.multiCity!.cities[0].to.iata
+                          : '',
+          airline: '',
+        ),
+        if (flightType != FlightType.oneWay)
+          SearchAirLegs(
+            cabinClass: 'Economy',
+            departureDate: formatDate(flightType == FlightType.roundTrip
+                ? state.roundTrip.arrivalDate
+                : flightType == FlightType.multiCity
+                    ? state.multiCity.cities[1].date
+                    : ""),
+            origin: flightType == FlightType.roundTrip
+                ? state.roundTrip.flightDetailsTo.iata
+                : flightType == FlightType.multiCity
+                    ? state.multiCity.cities[1].from.iata
+                    : '',
+            destination: flightType == FlightType.roundTrip
+                ? state.roundTrip.flightDetailsFrom.iata
+                : flightType == FlightType.multiCity
+                    ? state.multiCity.cities[1].to.iata
+                    : '',
+            airline: '',
+          )
+      ],
+    )));
+
+    getFlights(flightType);
+  }
+
+  // Update Focused Day
+  void updateFocusedDay(DateTime focusedDay) {
+    emit(state.copyWith(focusedDay: focusedDay));
+  }
+
+  // Calendar Format Update
+  void updateCalendarFormat(CalendarFormat format) {
+    emit(state.copyWith(calendarFormat: format));
+  }
+
+  // Date Selection Updates
+  void updateOneWaySelectedDay(DateTime selectedDay) {
+    emit(state.copyWith(
+        oneWayData:
+            state.oneWayData.copyWith(dateWhen: selectedDay.toString())));
+  }
+
+  void updateRoundTripdepartureDate(DateTime selectedDay) {
+    emit(state.copyWith(
+        roundTrip:
+            state.roundTrip.copyWith(departureDate: selectedDay.toString())));
+  }
+
+  void updateRoundTripArrivalDate(DateTime selectedDay) {
+    emit(state.copyWith(
+        roundTrip:
+            state.roundTrip.copyWith(arrivalDate: selectedDay.toString())));
+  }
+
+  // Selecting cities for Round Trip and One Way (existing methods)
+  void selectToCityTypeRoundTrip(CityAirport selectedFlight) async {
+    emit(state.copyWith(
+        roundTrip: state.roundTrip.copyWith(flightDetailsTo: selectedFlight)));
+  }
+
+  void selectFromCityTypeRoundTrip(CityAirport selectedFlight) async {
+    emit(state.copyWith(
+        roundTrip:
+            state.roundTrip.copyWith(flightDetailsFrom: selectedFlight)));
+  }
+
+  void selectToCityTypeOneWay(CityAirport selectedFlight) async {
+    emit(state.copyWith(
+        oneWayData:
+            state.oneWayData.copyWith(flightDetailsTo: selectedFlight)));
+  }
+
+  void selectFromCityTypeOneWay(CityAirport selectedFlight) async {
+    emit(state.copyWith(
+        oneWayData:
+            state.oneWayData.copyWith(flightDetailsFrom: selectedFlight)));
+  }
+
+  void addCityEntry() {
+    print("Adding city entry");
+    final updatedCities = List<CityEntry>.from(state.multiCity.cities);
+    print("Before adding, cities count: ${updatedCities.length}");
+
+    updatedCities.add(CityEntry(
+      from: CityAirport(), // Default first city
+      to: CityAirport(),
+      date: "", // Default tomorrow
+    ));
+
+    // Debug the length after adding a city
+    print("After adding, cities count: ${updatedCities.length}");
+
+    emit(state.copyWith(
+      multiCity: state.multiCity.copyWith(cities: updatedCities),
+    ));
+    print("After adding, cities count: ${state.multiCity.cities.length}");
+
+    print("Emitting new state");
+  }
+
+  void removeCityEntry(int index) {
+    final updatedCities = List<CityEntry>.from(state.multiCity.cities);
+    if (updatedCities.length > 1) {
+      updatedCities.removeAt(index);
+      emit(state.copyWith(
+          multiCity: state.multiCity.copyWith(cities: updatedCities)));
+    }
+  }
+
+  void clearCityEntries() {
+    emit(state.copyWith(
+        multiCity: state.multiCity.copyWith(cities: [
+      CityEntry(
+        from: CityAirport(),
+        to: CityAirport(),
+        date: "", // Default tomorrow
+      )
+    ])));
+  }
+
+  void updateCityEntryFrom(int index, CityAirport newFrom) {
+    final updatedCities = List<CityEntry>.from(state.multiCity.cities);
+    if (index >= 0 && index < updatedCities.length) {
+      updatedCities[index] = updatedCities[index].copyWith(from: newFrom);
+      emit(state.copyWith(
+          multiCity: state.multiCity.copyWith(cities: updatedCities)));
+    }
+  }
+
+  void updateCityEntryTo(int index, CityAirport newTo) {
+    final updatedCities = List<CityEntry>.from(state.multiCity.cities);
+    if (index >= 0 && index < updatedCities.length) {
+      updatedCities[index] = updatedCities[index].copyWith(to: newTo);
+      emit(state.copyWith(
+          multiCity: state.multiCity.copyWith(cities: updatedCities)));
+    }
+  }
+
+  void updateCityEntryDate(int index, String newDate) {
+    final updatedCities = List<CityEntry>.from(state.multiCity.cities);
+    if (index >= 0 && index < updatedCities.length) {
+      updatedCities[index] = updatedCities[index].copyWith(date: newDate);
+      emit(state.copyWith(
+          multiCity: state.multiCity.copyWith(cities: updatedCities)));
+    }
+  }
+
+  void updateMultiCitySelectedDay(DateTime selectedDay, int index) {
+    final updatedCities = List<CityEntry>.from(state.multiCity.cities);
+
+    if (index >= 0 && index < updatedCities.length) {
+      updatedCities[index] =
+          updatedCities[index].copyWith(date: selectedDay.toString());
+
+      emit(state.copyWith(
+          multiCity: state.multiCity.copyWith(cities: updatedCities)));
+    }
+  }
+
+  void onTravelersAdultsChanged(int value) {
+    state.currentSelectedType == FlightType.oneWay
+        ? emit(state.copyWith(
+            oneWayData: state.oneWayData.copyWith(adults: value)))
+        : state.currentSelectedType == FlightType.roundTrip
+            ? emit(state.copyWith(
+                roundTrip: state.roundTrip.copyWith(adults: value)))
+            : state.currentSelectedType == FlightType.multiCity
+                ? emit(state.copyWith(
+                    multiCity: state.multiCity.copyWith(adults: value)))
+                : emit(state.copyWith());
+  }
+
+  void onTravelersChildrenChanged(int value) {
+    state.currentSelectedType == FlightType.oneWay
+        ? emit(state.copyWith(
+            oneWayData: state.oneWayData.copyWith(children: value)))
+        : state.currentSelectedType == FlightType.roundTrip
+            ? emit(state.copyWith(
+                roundTrip: state.roundTrip.copyWith(children: value)))
+            : state.currentSelectedType == FlightType.multiCity
+                ? emit(state.copyWith(
+                    multiCity: state.multiCity.copyWith(children: value)))
+                : emit(state.copyWith());
+  }
+
+  void onTravelersInfantsChanged(int value) {
+    state.currentSelectedType == FlightType.oneWay
+        ? emit(state.copyWith(
+            oneWayData: state.oneWayData.copyWith(infants: value)))
+        : state.currentSelectedType == FlightType.roundTrip
+            ? emit(state.copyWith(
+                roundTrip: state.roundTrip.copyWith(infants: value)))
+            : state.currentSelectedType == FlightType.multiCity
+                ? emit(state.copyWith(
+                    multiCity: state.multiCity.copyWith(infants: value)))
+                : emit(state.copyWith());
+  }
+
+  void onCabinClassChanged(String cabinClass) {
+    state.currentSelectedType == FlightType.oneWay
+        ? emit(state.copyWith(
+            oneWayData: state.oneWayData.copyWith(classType: cabinClass)))
+        : state.currentSelectedType == FlightType.roundTrip
+            ? emit(state.copyWith(
+                roundTrip: state.roundTrip.copyWith(classType: cabinClass)))
+            : state.currentSelectedType == FlightType.multiCity
+                ? emit(state.copyWith(
+                    multiCity: state.multiCity.copyWith(classType: cabinClass)))
+                : emit(state.copyWith());
+  }
+
+  void changeCurrentSelectedType(FlightType flightType) {
+    emit(state.copyWith(currentSelectedType: flightType));
+  }
+
+  
   void printFlightDetails(List<Flight> flights) {
     for (var flight in flights) {
       print("Flight:");
@@ -244,321 +572,35 @@ class FlightBookCubit extends Cubit<FlightBookState> {
       print("No flights data available.");
     }
   }
+  
+ void GetCitysAirportsList(String query)async{
+    emit(state.copyWith(flowStateApp: FlowStateApp.loading));
+    final result = await _getCitysAirports(GetCitysAirportsRequest(query: query));
+    result.fold((failure) {
+      print("failed to get flights ${failure.message}");
+      emit(state.copyWith(flowStateApp: FlowStateApp.error, failure: failure));
+    }, (citysAirportsData) {
+          emit(state.copyWith(
+            flowStateApp: FlowStateApp.success,
+            cityAirportsList: citysAirportsData
+          ));
+    });
+ }
 
-  String formatDateDDMMM(DateTime date) {
-    // Format for "22 Sep"
-    final DateFormat formatterPart1 = DateFormat('dd MMM');
-    return formatterPart1.format(date);
-  }
-
-  String convertMinutesToHours(int minutes) {
-    int hours = minutes ~/ 60; // Integer division to get hours
-    return '${hours}h';
-  }
-
-  String convertMinutesToRemainingMinutes(int minutes) {
-    int remainingMinutes = minutes % 60; // Remainder gives minutes
-    return '${remainingMinutes}m';
-  }
-
-  void toggleOpenTicket(int index) {
-    final updatedOpenedTickets = List<bool>.from(state.openedTickets);
-    updatedOpenedTickets[index] = !updatedOpenedTickets[index];
-    emit(state.copyWith(openedTickets: updatedOpenedTickets));
-  }
-
-  String formatDate(String dateTimeString) {
-    DateTime dateTime = DateTime.parse(dateTimeString);
-    return DateFormat('yyyy-MM-dd').format(dateTime);
-  }
-
-  void assignDataToTheRequest(FlightType flightType) async {
-    emit(state.copyWith(
-        flightSearchRequest: FlightSearchRequest(
-      adults: flightType == FlightType.oneWay
-          ? state.oneWayData.adults
-          : flightType == FlightType.roundTrip
-              ? state.roundTrip.adults
-              : flightType == FlightType.multiCity
-                  ? state.multiCity.adults
-                  : 0,
-      children: flightType == FlightType.oneWay
-          ? state.oneWayData.children
-          : flightType == FlightType.roundTrip
-              ? state.roundTrip.children
-              : flightType == FlightType.multiCity
-                  ? state.multiCity.children
-                  : 0,
-      infants: flightType == FlightType.oneWay
-          ? state.oneWayData.infants
-          : flightType == FlightType.roundTrip
-              ? state.roundTrip.infants
-              : flightType == FlightType.multiCity
-                  ? state.multiCity.infants
-                  : 0,
-      nonstop: 0,
-      airline: '',
-      solutions: 0,
-      searchAirLegs: [
-        SearchAirLegs(
-          cabinClass: flightType == FlightType.oneWay
-              ? state.oneWayData.classType
-              : flightType == FlightType.roundTrip
-                  ? state.roundTrip.classType
-                  : flightType == FlightType.multiCity
-                      ? state.multiCity.classType
-                      : '',
-          departureDate:
-              //"2025-03-10",
-              formatDate(flightType == FlightType.oneWay
-                  ? state.oneWayData.dateWhen
-                  : flightType == FlightType.roundTrip
-                      ? state.roundTrip.departureDate
-                      : flightType == FlightType.multiCity
-                          ? state.multiCity!.cities[0].date
-                          : ''),
-          origin:
-              //"LON",
-
-              flightType == FlightType.oneWay
-                  ? state.oneWayData.flightDetailsFrom.iataCode
-                  : flightType == FlightType.roundTrip
-                      ? state.roundTrip.flightDetailsFrom.iataCode
-                      : flightType == FlightType.multiCity
-                          ? state.multiCity!.cities[0].from.iataCode
-                          : '',
-          destination:
-              //"CAI",
-
-              flightType == FlightType.oneWay
-                  ? state.oneWayData.flightDetailsTo.iataCode
-                  : flightType == FlightType.roundTrip
-                      ? state.roundTrip.flightDetailsTo.iataCode
-                      : flightType == FlightType.multiCity
-                          ? state.multiCity!.cities[0].to.iataCode
-                          : '',
-          airline: '',
-        ),
-        // SearchAirLegs(
-        //   cabinClass: 'Economy',
-        //   departureDate: "2025-03-15",
-        //   origin: "CAI",
-        //   destination: "LON",
-        //   airline: '',
-        // ),
-        if (flightType != FlightType.oneWay)
-          SearchAirLegs(
-            cabinClass: 'Economy',
-            departureDate: formatDate(flightType == FlightType.roundTrip
-                ? state.roundTrip.arrivalDate
-                : flightType == FlightType.multiCity
-                    ? state.multiCity.cities[1].date
-                    : ""),
-            origin: flightType == FlightType.roundTrip
-                ? state.roundTrip.flightDetailsTo.iataCode
-                : flightType == FlightType.multiCity
-                    ? state.multiCity.cities[1].from.iataCode
-                    : '',
-            destination: flightType == FlightType.roundTrip
-                ? state.roundTrip.flightDetailsFrom.iataCode
-                : flightType == FlightType.multiCity
-                    ? state.multiCity.cities[1].to.iataCode
-                    : '',
-            airline: '',
-          )
-      ],
-    )));
-
-    getFlights(flightType);
-  }
-
-  // Update Focused Day
-  void updateFocusedDay(DateTime focusedDay) {
-    emit(state.copyWith(focusedDay: focusedDay));
-  }
-
-  // Calendar Format Update
-  void updateCalendarFormat(CalendarFormat format) {
-    emit(state.copyWith(calendarFormat: format));
-  }
-
-  // Date Selection Updates
-  void updateOneWaySelectedDay(DateTime selectedDay) {
-    emit(state.copyWith(
-        oneWayData:
-            state.oneWayData.copyWith(dateWhen: selectedDay.toString())));
-  }
-
-  void updateRoundTripdepartureDate(DateTime selectedDay) {
-    emit(state.copyWith(
-        roundTrip:
-            state.roundTrip.copyWith(departureDate: selectedDay.toString())));
-  }
-
-  void updateRoundTripArrivalDate(DateTime selectedDay) {
-    emit(state.copyWith(
-        roundTrip:
-            state.roundTrip.copyWith(arrivalDate: selectedDay.toString())));
-  }
-
-  // Selecting cities for Round Trip and One Way (existing methods)
-  void selectToCityTypeRoundTrip(FlightDetails selectedFlight) async {
-    emit(state.copyWith(
-        roundTrip: state.roundTrip.copyWith(flightDetailsTo: selectedFlight)));
-  }
-
-  void selectFromCityTypeRoundTrip(FlightDetails selectedFlight) async {
-    emit(state.copyWith(
-        roundTrip:
-            state.roundTrip.copyWith(flightDetailsFrom: selectedFlight)));
-  }
-
-  void selectToCityTypeOneWay(FlightDetails selectedFlight) async {
-    emit(state.copyWith(
-        oneWayData:
-            state.oneWayData.copyWith(flightDetailsTo: selectedFlight)));
-  }
-
-  void selectFromCityTypeOneWay(FlightDetails selectedFlight) async {
-    emit(state.copyWith(
-        oneWayData:
-            state.oneWayData.copyWith(flightDetailsFrom: selectedFlight)));
-  }
-
-  void addCityEntry() {
-    print("Adding city entry");
-    final updatedCities = List<CityEntry>.from(state.multiCity.cities);
-    print("Before adding, cities count: ${updatedCities.length}");
-
-    updatedCities.add(CityEntry(
-      from: FlightDetails(), // Default first city
-      to: FlightDetails(),
-      date: "", // Default tomorrow
-    ));
-
-    // Debug the length after adding a city
-    print("After adding, cities count: ${updatedCities.length}");
-
-    emit(state.copyWith(
-      multiCity: state.multiCity.copyWith(cities: updatedCities),
-    ));
-    print("After adding, cities count: ${state.multiCity.cities.length}");
-
-    print("Emitting new state");
-  }
-
-  void removeCityEntry(int index) {
-    final updatedCities = List<CityEntry>.from(state.multiCity.cities);
-    if (updatedCities.length > 1) {
-      updatedCities.removeAt(index);
-      emit(state.copyWith(
-          multiCity: state.multiCity.copyWith(cities: updatedCities)));
+ void navigateToSelection(BuildContext context, String type) {
+  Navigator.pushNamed(context, 
+    type.contains("FROM") ? Routes.flightFromScreen : Routes.flightToScreen,
+    arguments: {
+      'cubit': context.read<FlightBookCubit>(),
+      'type': type,
+      'onIataClicked': (CityAirport selectedFlight) {
+        final cubit = context.read<FlightBookCubit>();
+        type.contains("FROM") 
+          ? cubit.selectFromCityTypeOneWay(selectedFlight)
+          : cubit.selectToCityTypeOneWay(selectedFlight);
+      }
     }
-  }
+  );
+}
 
-  void clearCityEntries() {
-    emit(state.copyWith(
-        multiCity: state.multiCity.copyWith(cities: [
-      CityEntry(
-        from: FlightDetails(),
-        to: FlightDetails(),
-        date: "", // Default tomorrow
-      )
-    ])));
-  }
-
-  void updateCityEntryFrom(int index, FlightDetails newFrom) {
-    final updatedCities = List<CityEntry>.from(state.multiCity.cities);
-    if (index >= 0 && index < updatedCities.length) {
-      updatedCities[index] = updatedCities[index].copyWith(from: newFrom);
-      emit(state.copyWith(
-          multiCity: state.multiCity.copyWith(cities: updatedCities)));
-    }
-  }
-
-  void updateCityEntryTo(int index, FlightDetails newTo) {
-    final updatedCities = List<CityEntry>.from(state.multiCity.cities);
-    if (index >= 0 && index < updatedCities.length) {
-      updatedCities[index] = updatedCities[index].copyWith(to: newTo);
-      emit(state.copyWith(
-          multiCity: state.multiCity.copyWith(cities: updatedCities)));
-    }
-  }
-
-  void updateCityEntryDate(int index, String newDate) {
-    final updatedCities = List<CityEntry>.from(state.multiCity.cities);
-    if (index >= 0 && index < updatedCities.length) {
-      updatedCities[index] = updatedCities[index].copyWith(date: newDate);
-      emit(state.copyWith(
-          multiCity: state.multiCity.copyWith(cities: updatedCities)));
-    }
-  }
-
-  void updateMultiCitySelectedDay(DateTime selectedDay, int index) {
-    final updatedCities = List<CityEntry>.from(state.multiCity.cities);
-
-    if (index >= 0 && index < updatedCities.length) {
-      updatedCities[index] =
-          updatedCities[index].copyWith(date: selectedDay.toString());
-
-      emit(state.copyWith(
-          multiCity: state.multiCity.copyWith(cities: updatedCities)));
-    }
-  }
-
-  void onTravelersAdultsChanged(int value) {
-    state.currentSelectedType == FlightType.oneWay
-        ? emit(state.copyWith(
-            oneWayData: state.oneWayData.copyWith(adults: value)))
-        : state.currentSelectedType == FlightType.roundTrip
-            ? emit(state.copyWith(
-                roundTrip: state.roundTrip.copyWith(adults: value)))
-            : state.currentSelectedType == FlightType.multiCity
-                ? emit(state.copyWith(
-                    multiCity: state.multiCity.copyWith(adults: value)))
-                : emit(state.copyWith());
-  }
-
-  void onTravelersChildrenChanged(int value) {
-    state.currentSelectedType == FlightType.oneWay
-        ? emit(state.copyWith(
-            oneWayData: state.oneWayData.copyWith(children: value)))
-        : state.currentSelectedType == FlightType.roundTrip
-            ? emit(state.copyWith(
-                roundTrip: state.roundTrip.copyWith(children: value)))
-            : state.currentSelectedType == FlightType.multiCity
-                ? emit(state.copyWith(
-                    multiCity: state.multiCity.copyWith(children: value)))
-                : emit(state.copyWith());
-  }
-
-  void onTravelersInfantsChanged(int value) {
-    state.currentSelectedType == FlightType.oneWay
-        ? emit(state.copyWith(
-            oneWayData: state.oneWayData.copyWith(infants: value)))
-        : state.currentSelectedType == FlightType.roundTrip
-            ? emit(state.copyWith(
-                roundTrip: state.roundTrip.copyWith(infants: value)))
-            : state.currentSelectedType == FlightType.multiCity
-                ? emit(state.copyWith(
-                    multiCity: state.multiCity.copyWith(infants: value)))
-                : emit(state.copyWith());
-  }
-
-  void onCabinClassChanged(String cabinClass) {
-    state.currentSelectedType == FlightType.oneWay
-        ? emit(state.copyWith(
-            oneWayData: state.oneWayData.copyWith(classType: cabinClass)))
-        : state.currentSelectedType == FlightType.roundTrip
-            ? emit(state.copyWith(
-                roundTrip: state.roundTrip.copyWith(classType: cabinClass)))
-            : state.currentSelectedType == FlightType.multiCity
-                ? emit(state.copyWith(
-                    multiCity: state.multiCity.copyWith(classType: cabinClass)))
-                : emit(state.copyWith());
-  }
-
-  void changeCurrentSelectedType(FlightType flightType) {
-    emit(state.copyWith(currentSelectedType: flightType));
-  }
 }
